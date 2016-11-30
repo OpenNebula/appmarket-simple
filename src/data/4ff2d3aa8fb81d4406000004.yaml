@@ -1,0 +1,24 @@
+---
+name: ttylinux - VMware
+version: '1.1'
+publisher: OpenNebula Systems
+short_description: ttylinux is a small linux distribution that is perfect
+  to test your installation.
+tags:
+- linux
+- ttylinux
+- '4.8'
+- '4.10'
+format: vmdk
+opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"NETWORK\": \"YES\",\r\n
+  \       \"SSH_PUBLIC_KEY\": \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\":
+  \"0.1\",\r\n    \"GRAPHICS\": {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n
+  \       \"TYPE\": \"vnc\"\r\n    },\r\n    \"MEMORY\": \"128\",\r\n    \"LOGO\":
+  \"images/logos/linux.png\"\r\n}"
+files:
+- type: OS
+  location: http://opennebula-marketplace.s3.amazonaws.com/ttylinux.vmdk.tar.bz2
+  size: 107374080
+  md5: c689070d1dcf84e54e28c6b22e91405e
+  checksum:
+    md5: c689070d1dcf84e54e28c6b22e91405e

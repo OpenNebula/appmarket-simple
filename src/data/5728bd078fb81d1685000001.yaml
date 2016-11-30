@@ -1,0 +1,15 @@
+---
+name: Devuan
+version: 1.0 Beta
+publisher: OpenNebula.org
+short_description: Devuan GNU+Linux is a fork of Debian without systemd.
+tags:
+- devuan
+format: qcow2
+creation_time: 1462287623
+files:
+- type: OS
+  dev_prefix: vd
+  driver: qcow2
+  location: https://files.devuan.org/devuan_jessie_beta/devuan_jessie_1.0.0-beta_amd64_opennebula.qcow2
+  size: 8388608

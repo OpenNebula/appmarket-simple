@@ -1,0 +1,10 @@
+%html
+  %body
+    %h1 Marketplace Appliances
+    %table
+      - appliances.each do |app|
+        %tr
+          %td <a href="/appliance/#{app['_id']['$oid']}/">#{app['_id']['$oid']}</a>
+          %td= app['name']
+          %td= app['publisher']
+          %td= app['hypervisor']

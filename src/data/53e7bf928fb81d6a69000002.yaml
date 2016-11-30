@@ -1,0 +1,26 @@
+---
+name: CentOS 7.2 - KVM
+version: 5.0.2
+publisher: OpenNebula Systems
+short_description: "CentOS 7.2 image for KVM hosts under OpenNebula\r\n"
+tags:
+- centos
+- '4.8'
+- '4.10'
+- '4.12'
+- '4.14'
+- '5.0'
+format: qcow2
+creation_time: 1407696786
+opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"NETWORK\": \"YES\",\r\n
+  \       \"SSH_PUBLIC_KEY\": \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\":
+  \"1\",\r\n    \"GRAPHICS\": {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n
+  \       \"TYPE\": \"vnc\"\r\n    },\r\n    \"MEMORY\": \"768\",\r\n    \"OS\":
+  {\r\n        \"ARCH\": \"x86_64\"\r\n    },\r\n    \"LOGO\": \"images/logos/centos.png\"\r\n}"
+files:
+- type: OS
+  dev_prefix: vd
+  driver: qcow2
+  location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/centos7-5.0.2.qcow2c
+  size: 8589934592
+  md5: 32ac8c927bd218cc1f0e6ab10f3a3d5c

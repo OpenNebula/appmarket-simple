@@ -1,0 +1,17 @@
+---
+name: Hadoop 1.2 Master
+version: '1.0'
+publisher: OpenNebula Systems
+short_description: Ubuntu 12.04 based image with preinstalled Hadoop 1.2
+  to be used as Master
+tags:
+- hadoop
+- ubuntu
+format: qcow2
+files:
+- type: OS
+  location: https://s3.amazonaws.com/opennebula-hadoop/HadoopMaster.qcow2.bz2
+  size: 1348430832
+  md5: f37a61f2b704ac48123987b8d16c6be3
+  checksum:
+    md5: f37a61f2b704ac48123987b8d16c6be3

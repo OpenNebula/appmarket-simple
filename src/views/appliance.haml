@@ -1,0 +1,32 @@
+%html
+  %body
+    %h1 Marketplace Appliance
+    %h2 #{appliance['name']}, ver. #{appliance['version']}
+    %hr
+      <a href="download/0">Download</a>
+    %hr
+    %table
+      %tr
+        %th  Name
+        %td= appliance['name']
+      %tr
+        %th  Version
+        %td= appliance['version']
+      %tr
+        %th  Publisher
+        %td= appliance['publisher']
+      %tr
+        %th  Fomat
+        %td= appliance['format']
+      %tr
+        %th  Description
+        %td= appliance['short_description']
+      %tr
+        %th  Tags
+        %td= appliance['tags'].join(', ')
+      %tr
+        %th  Created
+        %td= appliance['creation_time']
+
+    %h3 ON template
+    %pre= appliance['opennebula_template']

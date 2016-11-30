@@ -1,0 +1,27 @@
+---
+name: ttylinux virtio
+version: '1.0'
+publisher: OpenNebula.org
+short_description: TTYLinux is a very small Linux distribution that  is
+  mainly used for testing purposes.
+tags:
+- ttylinux
+- virtio
+- kvm
+- '4.8'
+- '4.10'
+format: qcow2
+creation_time: 1398787750
+opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"NETWORK\": \"YES\",\r\n
+  \       \"SSH_PUBLIC_KEY\": \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\":
+  \"0.1\",\r\n    \"GRAPHICS\": {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n
+  \       \"TYPE\": \"vnc\"\r\n    },\r\n    \"MEMORY\": \"128\",\r\n    \"LOGO\":
+  \"images/logos/linux.png\",\r\n    \"NIC_DEFAULT\": {\r\n        \"MODEL\":
+  \"virtio\"\r\n    }\r\n}"
+files:
+- type: OS
+  dev_prefix: vd
+  driver: qcow2
+  location: http://opennebula-marketplace.s3.amazonaws.com/ttyvd-context.qcow2
+  size: 24933376
+  md5: b8ccdc63fb9d72ed12547fb1499c8b73

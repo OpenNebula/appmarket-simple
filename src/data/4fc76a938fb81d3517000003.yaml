@@ -1,0 +1,25 @@
+---
+name: ttylinux - kvm
+version: '1.0'
+publisher: OpenNebula.org
+short_description: "This is a very small image that works with OpenNebula.
+  It's already contextualized. The purpose of this image is to test OpenNebula
+  deployments, without wasting network bandwith thanks to the tiny footprint
+  of this image\r\n(40MB)."
+tags:
+- linux
+- ttylinux
+- '4.8'
+- '4.10'
+format: raw
+opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"NETWORK\": \"YES\",\r\n
+  \       \"SSH_PUBLIC_KEY\": \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\":
+  \"0.1\",\r\n    \"GRAPHICS\": {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n
+  \       \"TYPE\": \"vnc\"\r\n    },\r\n    \"MEMORY\": \"128\",\r\n    \"LOGO\":
+  \"images/logos/linux.png\"\r\n}"
+files:
+- location: http://opennebula-marketplace.s3.amazonaws.com/ttylinux.img
+  size: 41943040
+  md5: 04c7d00e88fa66d9aaa34d9cf8ad6aaa
+  checksum:
+    md5: 04c7d00e88fa66d9aaa34d9cf8ad6aaa

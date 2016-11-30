@@ -1,0 +1,21 @@
+---
+name: Ubuntu 14.04 - VMware
+version: '1.0'
+publisher: OpenNebula Systems
+short_description: "Ubuntu 14.04 image for VMware hosts under OpenNebula\r\n"
+tags:
+- ubuntu
+- '4.8'
+- '4.10'
+format: vmdk
+creation_time: 1407698818
+opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"NETWORK\": \"YES\",\r\n
+  \       \"SSH_PUBLIC_KEY\": \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\":
+  \"1\",\r\n    \"GRAPHICS\": {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n
+  \       \"TYPE\": \"vnc\"\r\n    },\r\n    \"MEMORY\": \"768\",\r\n    \"OS\":
+  {\r\n        \"ARCH\": \"x86_64\"\r\n    },\r\n    \"LOGO\": \"images/logos/ubuntu.png\"\r\n}"
+files:
+- type: OS
+  location: http://opennebula-marketplace.s3.amazonaws.com/Ubuntu-14.04.tar.gz
+  size: 10737418240
+  md5: c7743d10c991331e06374941f78e1487
