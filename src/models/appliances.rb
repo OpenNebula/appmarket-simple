@@ -1,4 +1,5 @@
 require 'yaml'
+require 'json'
 
 class Appliances
     def initialize(dir)
@@ -77,12 +78,32 @@ class Appliances
     end
 
     private
+    def up_keys(h)
+        new = {}
+        h.each { |key, value|
+            kn = key.to_s.upcase
+            if value.is_a? Hash
+                new[kn] = up_keys(value)
+            else
+                new[kn] = value
+            end
+        }
+        new
+    end
+
+    private
     def tidy_appliance(app)
         app.select! { |k, v|
             %w(name version publisher format short_description
                 tags creation_time opennebula_template
                 files).include?(k)
         }
+
+        # serialize ON template as JSON
+        one_tmpl = app['opennebula_template']
+        unless one_tmpl.nil?
+            app['opennebula_template'] = JSON.generate(up_keys(one_tmpl))
+        end 
 
         if app.has_key?('files') 
             app['files'].each { |file|

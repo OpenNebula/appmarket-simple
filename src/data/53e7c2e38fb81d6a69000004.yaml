@@ -9,11 +9,18 @@ tags:
 - '4.10'
 format: qcow2
 creation_time: 1407697635
-opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"NETWORK\": \"YES\",\r\n
-  \       \"SSH_PUBLIC_KEY\": \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\":
-  \"1\",\r\n    \"GRAPHICS\": {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n
-  \       \"TYPE\": \"vnc\"\r\n    },\r\n    \"MEMORY\": \"768\",\r\n    \"OS\":
-  {\r\n        \"ARCH\": \"x86_64\"\r\n    },\r\n    \"LOGO\": \"images/logos/debian.png\"\r\n}"
+opennebula_template:
+  context:
+    network: 'YES'
+    ssh_public_key: $USER[SSH_PUBLIC_KEY]
+  cpu: '1'
+  graphics:
+    listen: 0.0.0.0
+    type: vnc
+  memory: '768'
+  os:
+    arch: x86_64
+  logo: images/logos/debian.png
 files:
 - type: OS
   driver: qcow2

@@ -10,13 +10,20 @@ tags:
 - xen
 format: raw
 creation_time: 1407851126
-opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"DEV_PREFIX\":
-  \"xvd\",\r\n        \"NETWORK\": \"YES\",\r\n        \"SSH_PUBLIC_KEY\":
-  \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\": \"1\",\r\n    \"GRAPHICS\":
-  {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n        \"TYPE\": \"vnc\"\r\n
-  \   },\r\n    \"MEMORY\": \"768\",\r\n    \"OS\": {\r\n        \"BOOTLOADER\":
-  \"pygrub\",\r\n        \"ARCH\": \"x86_64\"\r\n    },\r\n    \"LOGO\":
-  \"images/logos/centos.png\"\r\n}"
+opennebula_template:
+  context:
+    dev_prefix: xvd
+    network: 'YES'
+    ssh_public_key: $USER[SSH_PUBLIC_KEY]
+  cpu: '1'
+  graphics:
+    listen: 0.0.0.0
+    type: vnc
+  memory: '768'
+  os:
+    bootloader: pygrub
+    arch: x86_64
+  logo: images/logos/centos.png
 files:
 - type: OS
   dev_prefix: xvd

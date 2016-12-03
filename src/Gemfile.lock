@@ -5,6 +5,7 @@ GEM
     diff-lcs (1.2.5)
     haml (4.0.7)
       tilt
+    json (2.0.2)
     multi_json (1.12.1)
     rack (1.6.5)
     rack-protection (1.5.3)
@@ -42,6 +43,7 @@ PLATFORMS
 
 DEPENDENCIES
   haml
+  json
   rack
   rack-test
   rspec
@@ -49,4 +51,4 @@ DEPENDENCIES
   sinatra-contrib
 
 BUNDLED WITH
-   1.11.2
+   1.13.6

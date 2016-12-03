@@ -9,7 +9,19 @@ tags:
 - alpine
 format: qcow2
 creation_time: 1457608289
-opennebula_template: '{"cpu":"1.0","memory":"128","vcpu":"1","context":{"network":"yes","ssh_public_key":"$USER[SSH_PUBLIC_KEY]"},"graphics":{"listen":"0.0.0.0","type":"vnc"},"nic_default":{"model":"virtio"},"vrouter":"yes"}'
+opennebula_template:
+  cpu: '1.0'
+  memory: '128'
+  vcpu: '1'
+  context:
+    network: 'yes'
+    ssh_public_key: $USER[SSH_PUBLIC_KEY]
+  graphics:
+    listen: 0.0.0.0
+    type: vnc
+  nic_default:
+    model: virtio
+  vrouter: 'yes'
 files:
 - type: OS
   dev_prefix: vd

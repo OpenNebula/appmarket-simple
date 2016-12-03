@@ -7,6 +7,21 @@ require 'yaml'
 require 'tempfile'
 require 'fileutils'
 
+def down_keys(h)
+    new = {}
+    h.each { |key, value|
+        kn = key.to_s.downcase
+        if value.is_a? Hash
+            new[kn] = down_keys(value)
+        else
+            new[kn] = value
+        end
+    }
+    new
+end
+
+######
+
 ONE_MARKET_URL = 'http://marketplace.opennebula.systems/appliance'
 
 appliances = Hash.new()
@@ -51,6 +66,11 @@ mkt_apps.each { |mkt_app|
     # core appliance metadata
     id = mkt_app['_id']['$oid']
 
+    one_tmpl = mkt_app['opennebula_template']
+    unless one_tmpl.nil?
+        one_tmpl = down_keys(JSON.parse(one_tmpl))
+    end
+
     app = {
         'name'                  => mkt_app['name'],
         'version'               => mkt_app['version'],
@@ -59,7 +79,7 @@ mkt_apps.each { |mkt_app|
         'tags'                  => mkt_app['tags'].collect(&:strip),
         'format'                => mkt_app['format'],
         'creation_time'         => mkt_app['creation_time'],
-        'opennebula_template'   => mkt_app['opennebula_template'],
+        'opennebula_template'   => one_tmpl,
         'files'                 => [],
     }
 

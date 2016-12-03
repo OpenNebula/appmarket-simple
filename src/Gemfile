@@ -4,6 +4,7 @@ gem 'rack'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'haml'
+gem 'json'
 
 group :test do
   gem "rspec"

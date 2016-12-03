@@ -12,12 +12,18 @@ tags:
 - '4.10'
 format: qcow2
 creation_time: 1398787750
-opennebula_template: "{\r\n    \"CONTEXT\": {\r\n        \"NETWORK\": \"YES\",\r\n
-  \       \"SSH_PUBLIC_KEY\": \"$USER[SSH_PUBLIC_KEY]\"\r\n    },\r\n    \"CPU\":
-  \"0.1\",\r\n    \"GRAPHICS\": {\r\n        \"LISTEN\": \"0.0.0.0\",\r\n
-  \       \"TYPE\": \"vnc\"\r\n    },\r\n    \"MEMORY\": \"128\",\r\n    \"LOGO\":
-  \"images/logos/linux.png\",\r\n    \"NIC_DEFAULT\": {\r\n        \"MODEL\":
-  \"virtio\"\r\n    }\r\n}"
+opennebula_template:
+  context:
+    network: 'YES'
+    ssh_public_key: $USER[SSH_PUBLIC_KEY]
+  cpu: '0.1'
+  graphics:
+    listen: 0.0.0.0
+    type: vnc
+  memory: '128'
+  logo: images/logos/linux.png
+  nic_default:
+    model: virtio
 files:
 - type: OS
   dev_prefix: vd
