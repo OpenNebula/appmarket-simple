@@ -1,0 +1,29 @@
+---
+name: CentOS 5.11 - KVM
+version: '1.1'
+publisher: UGent
+short_description: CentOS 5.11 image for KVM hosts under OpenNebula.
+tags:
+- centos
+- hpc
+format: qcow2
+creation_time: 1432735674
+opennebula_template:
+  context:
+    network: 'YES'
+    ssh_public_key: $USER[SSH_PUBLIC_KEY]
+  cpu: '1'
+  graphics:
+    listen: 0.0.0.0
+    type: vnc
+  memory: '768'
+  os:
+    arch: x86_64
+  logo: images/logos/centos.png
+files:
+- type: OS
+  dev_prefix: vd
+  driver: qcow2
+  location: http://varosim.myftp.org/images/centos5.qcow2.gz
+  size: 619320064
+  md5: 7fec57a804532ee80afd2d11e0465856

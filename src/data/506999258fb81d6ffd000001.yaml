@@ -1,0 +1,21 @@
+---
+name: Carina Environment Manager
+version: '1.0'
+publisher: Research In Motion
+short_description: System to automatically deploy, scale and manage the
+  availability of multi-VM application clusters according to policies such
+  as time of day, load-based, service priority, failure events, or custom
+  metrics.
+tags:
+- auto-scale
+- availability
+- cluster deployment
+format: qcow2
+files:
+- type: OS
+  location: https://dl.dropbox.com/u/33391393/carina_1.qcow2.gz
+  size: 1238892544
+  md5: '47c606e55ff4d8ef88702f8fa7eb37a7 '
+  checksum:
+    md5: '47c606e55ff4d8ef88702f8fa7eb37a7 '
+    sha1: b23c2f1222a3d636f58fb9fa28b4c7f33ff5bdb9

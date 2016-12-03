@@ -1,0 +1,40 @@
+---
+name: Debian Wheezy Galaxy NGS
+version: '1.0'
+publisher: IRISA
+short_description: Galaxy server with NGS tools configured with a SGE cluster
+tags:
+- debian
+- galaxy
+- xgrid
+- ngs
+format: raw
+creation_time: 1442908372
+opennebula_template:
+  context:
+    hostname: VM-$VMID
+    network: 'YES'
+    sge: master
+    xgridec2: ''
+    ssh_public_key: $USER[SSH_PUBLIC_KEY]
+    username: $UID
+    xgrid_pwd: $XGRID_PWD
+  cpu: '2'
+  description: Debian wheezy xgrid
+  graphics:
+    listen: 0.0.0.0
+    type: vnc
+  logo: images/logos/debian.png
+  memory: '2048'
+  os:
+    arch: x86_64
+    boot: hd
+  user_inputs:
+    xgrid_pwd: M|password|Create your Xgrid password
+files:
+- type: OS
+  dev_prefix: vd
+  driver: raw
+  location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-amd64-2015-09-18-galaxy_NGS-06_14.raw.gz
+  size: 1520696227
+  md5: bd44c797f6fa27051e707a267ae37df5

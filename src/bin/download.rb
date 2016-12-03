@@ -61,8 +61,6 @@ end
 ###
 
 mkt_apps.each { |mkt_app|
-    next unless mkt_app['publisher'] =~ /OpenNebula|Admin/i;
-
     # core appliance metadata
     id = mkt_app['_id']['$oid']
 

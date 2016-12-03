@@ -1,0 +1,37 @@
+---
+name: Debian Wheezy Proteomics
+version: '1.0'
+publisher: IRISA
+short_description: Image with proteomics tools and Galaxy
+tags:
+- debian
+- proteomics
+- galaxy
+format: raw
+creation_time: 1442910980
+opennebula_template:
+  context:
+    hostname: VM-$VMID
+    network: 'YES'
+    ssh_public_key: $USER[SSH_PUBLIC_KEY]
+    username: $UID
+    xgrid_pwd: $XGRID_PWD
+  cpu: '2'
+  description: Debian wheezy xgrid
+  graphics:
+    listen: 0.0.0.0
+    type: vnc
+  logo: images/logos/debian.png
+  memory: '2048'
+  os:
+    arch: x86_64
+    boot: hd
+  user_inputs:
+    xgrid_pwd: M|password|Create your Xgrid password
+files:
+- type: OS
+  dev_prefix: vd
+  driver: raw
+  location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-amd64-2015-09-18-proteomics.raw.gz
+  size: 6173647348
+  md5: 81316881eb201bc06347b6a1401167f6
