@@ -2,10 +2,10 @@
 name: Vyatta Core 6.5R1 KVM HDD
 version: '1.0'
 publisher: ArtemIT
-short_description: 'WARNING: The Vyatta Open Source builds were discontinued
-  after Vyatta was acquired by Brocade and this image is two years old.
-  Use it at your own risk, Please check VyOS if you''re looking for a Vyatta
-  fork. This image was created a long time ago using Vyatta Core''s Virtualization
+description: 'WARNING: The Vyatta Open Source builds were discontinued after
+  Vyatta was acquired by Brocade and this image is two years old. Use it
+  at your own risk, Please check VyOS if you''re looking for a Vyatta fork.
+  This image was created a long time ago using Vyatta Core''s Virtualization
   ISO so you could deploy this virtual router and firewall.'
 tags:
 - router
@@ -16,4 +16,5 @@ files:
 - type: OS
   location: http://artemit.com.es/one/vyatta_core_65r1_kvm_32bits_macto
   size: 2200000000
-  md5: 903b7438a50a67d374ef8868dfbaac76
+  checksum:
+    md5: 903b7438a50a67d374ef8868dfbaac76

@@ -2,7 +2,7 @@
 name: Debian 8.4 - KVM
 version: 5.0.1-2
 publisher: Admin
-short_description: Debian 8.4 image for KVM hosts under OpenNebula
+description: Debian 8.4 image for KVM hosts under OpenNebula
 tags:
 - debian
 - '4.8'
@@ -30,4 +30,5 @@ files:
   driver: qcow2
   location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/debian8-5.0.1-fix.qcow2c
   size: 2147483648
-  md5: a661b9101d0e7427a9495967292f7285
+  checksum:
+    md5: a661b9101d0e7427a9495967292f7285

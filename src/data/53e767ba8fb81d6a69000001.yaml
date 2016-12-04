@@ -2,7 +2,7 @@
 name: CentOS 6.5 - KVM
 version: '0.1'
 publisher: OpenNebula Systems
-short_description: CentOS 6.5
+description: CentOS 6.5
 tags:
 - centos
 - '4.8'
@@ -26,4 +26,5 @@ files:
   driver: qcow2
   location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.qcow2.gz
   size: 10737418240
-  md5: 9d937b8fe70c403330c9284538f07cfc
+  checksum:
+    md5: 9d937b8fe70c403330c9284538f07cfc

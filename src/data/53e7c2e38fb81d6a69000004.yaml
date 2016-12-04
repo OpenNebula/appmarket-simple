@@ -2,7 +2,7 @@
 name: Debian 7 - KVM
 version: '1.0'
 publisher: OpenNebula Systems
-short_description: "Debian 7 image for KVM hosts under OpenNebula\r\n"
+description: "Debian 7 image for KVM hosts under OpenNebula\r\n"
 tags:
 - debian
 - '4.8'
@@ -26,4 +26,5 @@ files:
   driver: qcow2
   location: http://opennebula-marketplace.s3.amazonaws.com/Debian-7.qcow2.gz
   size: 10737418240
-  md5: add6046e8ea88c6d06d6e7c3da6d59b4
+  checksum:
+    md5: add6046e8ea88c6d06d6e7c3da6d59b4

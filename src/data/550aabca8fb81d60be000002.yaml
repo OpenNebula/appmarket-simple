@@ -2,7 +2,7 @@
 name: Arch Linux
 version: '2015-03-01'
 publisher: ungleich GmbH
-short_description: Arch Linux amd64
+description: Arch Linux amd64
 tags:
 - arch linux
 format: qcow2
@@ -25,4 +25,5 @@ files:
   driver: qcow2
   location: http://www.ungleich.ch/archlinux-2015-03-19.qcow2.bz2
   size: 578293312
-  md5: 4b70c8f54ef0b21ce6eb64bbc01074e6
+  checksum:
+    md5: 4b70c8f54ef0b21ce6eb64bbc01074e6

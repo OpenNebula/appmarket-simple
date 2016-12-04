@@ -2,7 +2,7 @@
 name: Blank Template - vdc
 version: '1.0'
 publisher: VDC-Store
-short_description: This is an empty instance, size 10G for use with VDC-Store
+description: This is an empty instance, size 10G for use with VDC-Store
   Only!
 tags:
 - vdc
@@ -11,7 +11,6 @@ files:
 - type: OS
   location: http://linux.co.uk/vms/Empty10G.bz2
   size: 194
-  md5: d0169a3e91fcc4cd3c65569db6890d75
   checksum:
     md5: d0169a3e91fcc4cd3c65569db6890d75
     sha1: 655ef2596fb09ac23f0dd97ca8ce242954f77381

@@ -2,7 +2,7 @@
 name: Ubuntu 16.04 - KVM
 version: 5.0.2
 publisher: OpenNebula Systems
-short_description: Ubuntu 16.04 image for KVM hosts under OpenNebula
+description: Ubuntu 16.04 image for KVM hosts under OpenNebula
 tags:
 - ubuntu
 - '4.8'
@@ -30,4 +30,5 @@ files:
   driver: qcow2
   location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/ubuntu1604-5.0.2.qcow2c
   size: 2361393152
-  md5: f9d6a7f47c8cf0f0a679fa43ce32ad71
+  checksum:
+    md5: f9d6a7f47c8cf0f0a679fa43ce32ad71

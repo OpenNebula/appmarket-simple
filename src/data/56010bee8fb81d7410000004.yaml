@@ -2,7 +2,7 @@
 name: Debian Wheezy Bio Imaging
 version: '1.0'
 publisher: IRISA
-short_description: Contains bio imaging tools with a MATE deskop
+description: Contains bio imaging tools with a MATE deskop
 tags:
 - debian
 - mate
@@ -37,4 +37,5 @@ files:
   driver: raw
   location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-amd64-2015-09-18-imaging.raw.gz
   size: 2173965824
-  md5: 69a47f5e4934a00e442ca0e47ba95714
+  checksum:
+    md5: 69a47f5e4934a00e442ca0e47ba95714

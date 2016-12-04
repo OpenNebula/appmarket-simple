@@ -2,7 +2,7 @@
 name: Debian Wheezy NGS
 version: '1.0'
 publisher: IRISA
-short_description: BioInformatics NGS tools.
+description: BioInformatics NGS tools.
 tags:
 - debian
 - ngs
@@ -34,4 +34,5 @@ files:
   driver: raw
   location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-amd64-2015-09-18-NGS.raw.gz
   size: 2327877253
-  md5: 6730d8f8b1ac64321341695cd5a9fbb3
+  checksum:
+    md5: 6730d8f8b1ac64321341695cd5a9fbb3

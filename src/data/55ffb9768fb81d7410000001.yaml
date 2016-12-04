@@ -2,7 +2,7 @@
 name: Debian Wheezy XGrid
 version: '1.0'
 publisher: IRISA
-short_description: Debian SGE/Hadoop cluster deployment
+description: Debian SGE/Hadoop cluster deployment
 tags:
 - sge
 - hadoop
@@ -35,4 +35,5 @@ files:
   driver: raw
   location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-xgrid-amd64-150918-wheezy.raw.gz
   size: 590417908
-  md5: 1e90bb4361b541106cccce5b0425b9f8
+  checksum:
+    md5: 1e90bb4361b541106cccce5b0425b9f8

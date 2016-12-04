@@ -73,7 +73,7 @@ mkt_apps.each { |mkt_app|
         'name'                  => mkt_app['name'],
         'version'               => mkt_app['version'],
         'publisher'             => mkt_app['publisher'],
-        'short_description'     => mkt_app['short_description'],
+        'description'           => mkt_app['short_description'],
         'tags'                  => mkt_app['tags'].collect(&:strip),
         'format'                => mkt_app['format'],
         'creation_time'         => mkt_app['creation_time'],
@@ -91,9 +91,18 @@ mkt_apps.each { |mkt_app|
             'driver'        => mkt_file['driver'],
             'location'      => nil,
             'size'          => mkt_file['size'].to_i,
-            'md5'           => mkt_file['md5'],
-            'checksum'      => mkt_file['checksum'], #??
         }
+
+        if mkt_file['checksum'].is_a? Hash
+            file['checksum'] = mkt_file['checksum']
+        else
+            file['checksum'] = {}
+        end
+
+        # set MD5
+        if !file['checksum'].key?('md5') and mkt_file['md5']
+            file['checksum']['md5'] = mkt_file['md5']
+        end
 
         # get image URL
         uri = URI.parse('%s/%s/download/%i' % [ONE_MARKET_URL, id, mkt_idx])

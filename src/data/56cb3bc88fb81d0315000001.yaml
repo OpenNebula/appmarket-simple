@@ -2,8 +2,8 @@
 name: Ubuntu for Docker Machine
 version: 0.6.0
 publisher: OpenNebula.org
-short_description: Ubuntu 14.04 LTS with preinstalled packages in order
-  to work with Docker Machine
+description: Ubuntu 14.04 LTS with preinstalled packages in order to work
+  with Docker Machine
 tags:
 - docker
 - ubuntu
@@ -15,4 +15,5 @@ files:
   driver: qcow2
   location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/docker_machine_ubuntu-14.04.qcow2c
   size: 10737418240
-  md5: 3493d7cbaa20143b2ee3ffc3ece73077
+  checksum:
+    md5: 3493d7cbaa20143b2ee3ffc3ece73077

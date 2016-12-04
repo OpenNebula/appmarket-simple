@@ -2,7 +2,7 @@
 name: CentOS 6.5 - Xen
 version: '1.0'
 publisher: OpenNebula Systems
-short_description: CentOS 6.5 image for Xen hosts under OpenNebula
+description: CentOS 6.5 image for Xen hosts under OpenNebula
 tags:
 - centos
 - '4.8'
@@ -29,4 +29,5 @@ files:
   dev_prefix: xvd
   location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.raw.gz
   size: 10737418240
-  md5: 8b8726f63c710c049866d160a9a4852d
+  checksum:
+    md5: 8b8726f63c710c049866d160a9a4852d

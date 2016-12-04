@@ -2,12 +2,12 @@
 name: VyOS 1.1.5 Helium 64 bits
 version: 1.1.5-1
 publisher: ArtemIT
-short_description: "This image has been created using VyOS 1.1.5 ISO for
-  64 bits so you can deploy a virtual router and firewall. \r\n\r\nVyOS
-  is a community fork of Vyatta, a Linux-based network operating system
-  that provides software-based network routing, firewall, and VPN functionality.\r\n\r\nThis
-  image provides a VyOS virtual router/firewall only for KVM. When booting
-  select the first option (KVM)."
+description: "This image has been created using VyOS 1.1.5 ISO for 64 bits
+  so you can deploy a virtual router and firewall. \r\n\r\nVyOS is a community
+  fork of Vyatta, a Linux-based network operating system that provides software-based
+  network routing, firewall, and VPN functionality.\r\n\r\nThis image provides
+  a VyOS virtual router/firewall only for KVM. When booting select the first
+  option (KVM)."
 tags: []
 format: raw
 creation_time: 1430328100
@@ -15,4 +15,5 @@ files:
 - type: OS
   location: http://artemit.com.es/one/vyos-1.1.5-amd64.gz
   size: 263000000
-  md5: aba8765298ffcf8784f8a6d2b267eb79
+  checksum:
+    md5: aba8765298ffcf8784f8a6d2b267eb79

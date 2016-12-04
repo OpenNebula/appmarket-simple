@@ -2,8 +2,8 @@
 name: ttylinux - kvm
 version: '1.0'
 publisher: OpenNebula.org
-short_description: "This is a very small image that works with OpenNebula.
-  It's already contextualized. The purpose of this image is to test OpenNebula
+description: "This is a very small image that works with OpenNebula. It's
+  already contextualized. The purpose of this image is to test OpenNebula
   deployments, without wasting network bandwith thanks to the tiny footprint
   of this image\r\n(40MB)."
 tags:
@@ -25,6 +25,5 @@ opennebula_template:
 files:
 - location: http://opennebula-marketplace.s3.amazonaws.com/ttylinux.img
   size: 41943040
-  md5: 04c7d00e88fa66d9aaa34d9cf8ad6aaa
   checksum:
     md5: 04c7d00e88fa66d9aaa34d9cf8ad6aaa

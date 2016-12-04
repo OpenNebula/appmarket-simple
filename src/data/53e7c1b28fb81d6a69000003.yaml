@@ -2,7 +2,7 @@
 name: Ubuntu 14.04 - KVM
 version: 5.0.2
 publisher: OpenNebula Systems
-short_description: "Ubuntu 14.04 image for KVM hosts under OpenNebula\r\n"
+description: "Ubuntu 14.04 image for KVM hosts under OpenNebula\r\n"
 tags:
 - ubuntu
 - '4.8'
@@ -30,4 +30,5 @@ files:
   driver: qcow2
   location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/ubuntu1404-5.0.2.qcow2c
   size: 2361393152
-  md5: 3e022f788a74ae50ab4aaf7c7ee8202a
+  checksum:
+    md5: 3e022f788a74ae50ab4aaf7c7ee8202a

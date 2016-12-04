@@ -2,7 +2,7 @@
 name: DCI Bridge Direct Cloud Slave Appliance
 version: 3.6.2.1
 publisher: MTA SZTAKI LPDS
-short_description: '"Slave DCI Bridge image to use the solution of gUSE/WS-PGRADE
+description: '"Slave DCI Bridge image to use the solution of gUSE/WS-PGRADE
   for Direct Cloud Access.'
 tags:
 - debian
@@ -14,7 +14,6 @@ files:
 - type: OS
   location: https://s3.lpds.sztaki.hu/mp-images/dcibridge-localcloud/DCIBridge-local-cloud-fix.img
   size: 2256535552
-  md5: 210351333f9eea203574c082668b73ca
   checksum:
     md5: becfdd2790acde35e179fe54019acac0
     sha1: 6f830942d0efae9db503f9e7e7685fd5ef555fcf

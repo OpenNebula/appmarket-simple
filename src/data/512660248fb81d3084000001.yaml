@@ -2,7 +2,7 @@
 name: Vyatta Core 6.5R1 - kvm
 version: '1.0'
 publisher: MACTO
-short_description: This image provides a Vyatta Core 6.5R1 open source virtual
+description: This image provides a Vyatta Core 6.5R1 open source virtual
   router/firewall for KVM.
 tags:
 - vyatta
@@ -12,7 +12,6 @@ files:
 - type: OS
   location: http://sw.macto.es/open/vyatta_core_65r1_kvm_32bits_macto.gz
   size: 2200000000
-  md5: 414ba76cd14e141d4683d0f322a5d3de
   checksum:
     md5: 414ba76cd14e141d4683d0f322a5d3de
     sha1: e7fbd5d5d81d99fb257afe4cb5e8482f07d233e7

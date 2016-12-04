@@ -2,7 +2,7 @@
 name: Debian Wheezy Galaxy NGS
 version: '1.0'
 publisher: IRISA
-short_description: Galaxy server with NGS tools configured with a SGE cluster
+description: Galaxy server with NGS tools configured with a SGE cluster
 tags:
 - debian
 - galaxy
@@ -37,4 +37,5 @@ files:
   driver: raw
   location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-amd64-2015-09-18-galaxy_NGS-06_14.raw.gz
   size: 1520696227
-  md5: bd44c797f6fa27051e707a267ae37df5
+  checksum:
+    md5: bd44c797f6fa27051e707a267ae37df5

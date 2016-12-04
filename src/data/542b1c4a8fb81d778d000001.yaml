@@ -2,8 +2,8 @@
 name: VyOS 1.0.5 64 bits
 version: 1.0.5-1
 publisher: ArtemIT
-short_description: "VyOS (http://vyos.net/wiki/Main_Page) is a community
-  fork of Vyatta, a Linux-based network operating system that provides software-based
+description: "VyOS (http://vyos.net/wiki/Main_Page) is a community fork
+  of Vyatta, a Linux-based network operating system that provides software-based
   network routing, firewall, and VPN functionality.\r\n\r\nThis image provides
   a VyOS virtual router/firewall for KVM. "
 tags:
@@ -16,4 +16,5 @@ files:
 - type: OS
   location: http://artemit.com.es/one/098e7f2b3e712ce9c2c4269e8ff858db
   size: 2148000000
-  md5: bb7763500863830f12b6a6ef75e364b3
+  checksum:
+    md5: bb7763500863830f12b6a6ef75e364b3

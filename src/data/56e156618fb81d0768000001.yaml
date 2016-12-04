@@ -2,8 +2,8 @@
 name: alpine-vrouter (KVM)
 version: 1.0.5
 publisher: Admin
-short_description: Virtual router appliance to be used with OpenNebula 5.0.
-  Based on Alpine linux.
+description: Virtual router appliance to be used with OpenNebula 5.0. Based
+  on Alpine linux.
 tags:
 - vrouter
 - alpine
@@ -28,4 +28,5 @@ files:
   driver: qcow2
   location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/alpine-vrouter-5.0.2.qcow2c
   size: 268435456
-  md5: d6b4f0aeed3810b6a8e53687607abe0c
+  checksum:
+    md5: d6b4f0aeed3810b6a8e53687607abe0c

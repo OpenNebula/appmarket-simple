@@ -2,8 +2,8 @@
 name: ttylinux virtio
 version: '1.0'
 publisher: OpenNebula.org
-short_description: TTYLinux is a very small Linux distribution that  is
-  mainly used for testing purposes.
+description: TTYLinux is a very small Linux distribution that  is mainly
+  used for testing purposes.
 tags:
 - ttylinux
 - virtio
@@ -30,4 +30,5 @@ files:
   driver: qcow2
   location: http://opennebula-marketplace.s3.amazonaws.com/ttyvd-context.qcow2
   size: 24933376
-  md5: b8ccdc63fb9d72ed12547fb1499c8b73
+  checksum:
+    md5: b8ccdc63fb9d72ed12547fb1499c8b73
