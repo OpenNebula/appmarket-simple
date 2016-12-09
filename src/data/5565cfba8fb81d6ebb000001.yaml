@@ -20,11 +20,11 @@ opennebula_template:
   os:
     arch: x86_64
   logo: images/logos/centos.png
-files:
-- type: OS
+images:
+- location: http://varosim.myftp.org/images/centos5.qcow2.gz
+  type: OS
   dev_prefix: vd
   driver: qcow2
-  location: http://varosim.myftp.org/images/centos5.qcow2.gz
   size: 619320064
   checksum:
     md5: 7fec57a804532ee80afd2d11e0465856

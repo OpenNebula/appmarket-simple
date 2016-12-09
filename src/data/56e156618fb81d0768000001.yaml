@@ -22,11 +22,11 @@ opennebula_template:
   nic_default:
     model: virtio
   vrouter: 'yes'
-files:
-- type: OS
+images:
+- location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/alpine-vrouter-5.0.2.qcow2c
+  type: OS
   dev_prefix: vd
   driver: qcow2
-  location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/alpine-vrouter-5.0.2.qcow2c
   size: 268435456
   checksum:
     md5: d6b4f0aeed3810b6a8e53687607abe0c

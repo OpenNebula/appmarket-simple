@@ -24,10 +24,10 @@ opennebula_template:
     bootloader: pygrub
     arch: x86_64
   logo: images/logos/centos.png
-files:
-- type: OS
+images:
+- location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.raw.gz
+  type: OS
   dev_prefix: xvd
-  location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.raw.gz
   size: 10737418240
   checksum:
     md5: 8b8726f63c710c049866d160a9a4852d

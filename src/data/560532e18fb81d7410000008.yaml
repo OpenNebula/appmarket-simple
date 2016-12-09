@@ -10,9 +10,9 @@ tags:
 - sandbox
 format: vdi
 creation_time: 1443181281
-files:
-- type: OS
-  location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/opennebula-4.14.2-sandbox.vdi.gz
+images:
+- location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/opennebula-4.14.2-sandbox.vdi.gz
+  type: OS
   size: 2846925312
   checksum:
     md5: bd7bcb0736bd6affe76bdca4649729b1

@@ -11,9 +11,9 @@ description: The gUSE CloudBroker Wrapper image provides a virtual machine
 tags:
 - cloud broker cloudbroker guse portal
 format: raw
-files:
-- type: OS
-  location: https://s3.lpds.sztaki.hu/mp-images/cloudbroker/guse_cloudbroker.img
+images:
+- location: https://s3.lpds.sztaki.hu/mp-images/cloudbroker/guse_cloudbroker.img
+  type: OS
   size: 17179869184
   checksum:
     md5: e11166170d279a3877651cbca09d2926

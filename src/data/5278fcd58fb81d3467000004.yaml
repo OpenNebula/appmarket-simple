@@ -8,9 +8,9 @@ tags:
 - hadoop
 - ubuntu
 format: qcow2
-files:
-- type: OS
-  location: https://s3.amazonaws.com/opennebula-hadoop/HadoopMaster.qcow2.bz2
+images:
+- location: https://s3.amazonaws.com/opennebula-hadoop/HadoopMaster.qcow2.bz2
+  type: OS
   size: 1348430832
   checksum:
     md5: f37a61f2b704ac48123987b8d16c6be3

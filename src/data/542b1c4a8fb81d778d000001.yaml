@@ -5,16 +5,16 @@ publisher: ArtemIT
 description: "VyOS (http://vyos.net/wiki/Main_Page) is a community fork
   of Vyatta, a Linux-based network operating system that provides software-based
   network routing, firewall, and VPN functionality.\r\n\r\nThis image provides
-  a VyOS virtual router/firewall for KVM. "
+  a VyOS virtual router/firewall for KVM."
 tags:
 - vyos
 - router
 - vyatta
 format: raw
 creation_time: 1412111434
-files:
-- type: OS
-  location: http://artemit.com.es/one/098e7f2b3e712ce9c2c4269e8ff858db
+images:
+- location: http://artemit.com.es/one/098e7f2b3e712ce9c2c4269e8ff858db
+  type: OS
   size: 2148000000
   checksum:
     md5: bb7763500863830f12b6a6ef75e364b3

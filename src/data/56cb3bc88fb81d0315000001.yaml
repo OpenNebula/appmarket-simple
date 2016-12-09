@@ -9,11 +9,11 @@ tags:
 - ubuntu
 format: raw
 creation_time: 1456159688
-files:
-- type: OS
+images:
+- location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/docker_machine_ubuntu-14.04.qcow2c
+  type: OS
   dev_prefix: vd
   driver: qcow2
-  location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/docker_machine_ubuntu-14.04.qcow2c
   size: 10737418240
   checksum:
     md5: 3493d7cbaa20143b2ee3ffc3ece73077

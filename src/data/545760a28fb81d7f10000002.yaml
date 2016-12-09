@@ -10,9 +10,9 @@ tags:
 - sandbox
 format: qcow2
 creation_time: 1415012514
-files:
-- type: OS
-  location: http://appliances.c12g.com/OpenNebula-4.10-Sandbox/opennebula-4.10-sandbox.img.gz
+images:
+- location: http://appliances.c12g.com/OpenNebula-4.10-Sandbox/opennebula-4.10-sandbox.img.gz
+  type: OS
   size: 953986964
   checksum:
     md5: 548ae33171b87fe0066dc954f4ff6fc0

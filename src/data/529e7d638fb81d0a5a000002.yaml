@@ -7,9 +7,9 @@ tags:
 - peppermint
 - vdc
 format: raw
-files:
-- type: OS
-  location: http://linux.co.uk/vms/Peppermint4.bz2
+images:
+- location: http://linux.co.uk/vms/Peppermint4.bz2
+  type: OS
   size: 1233892348
   checksum:
     md5: 9d3f8d1b2c5266e2678d7d9053be2ab1

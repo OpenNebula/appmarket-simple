@@ -20,9 +20,9 @@ opennebula_template:
     type: vnc
   memory: '128'
   logo: images/logos/linux.png
-files:
-- type: OS
-  location: http://opennebula-marketplace.s3.amazonaws.com/ttylinux.vmdk.tar.bz2
+images:
+- location: http://opennebula-marketplace.s3.amazonaws.com/ttylinux.vmdk.tar.bz2
+  type: OS
   size: 107374080
   checksum:
     md5: c689070d1dcf84e54e28c6b22e91405e

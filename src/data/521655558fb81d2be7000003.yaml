@@ -9,9 +9,9 @@ tags:
 - kvm
 - one 4.2
 format: raw
-files:
-- type: OS
-  location: http://opennebula.demo-tic.org/debian-7.1-amd64-one.img.bz2
+images:
+- location: http://opennebula.demo-tic.org/debian-7.1-amd64-one.img.bz2
+  type: OS
   size: 5368709120
   checksum:
     md5: 708d274bc2ad410aa405785ddefd0a82

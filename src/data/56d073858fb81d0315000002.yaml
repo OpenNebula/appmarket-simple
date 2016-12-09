@@ -8,10 +8,10 @@ tags:
 - docker
 format: raw
 creation_time: 1456501637
-files:
-- type: OS
+images:
+- location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/boot2docker-1.12.1.iso
+  type: OS
   dev_prefix: vd
-  location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/boot2docker-1.12.1.iso
   size: 40894464
   checksum:
     md5: 368b9a74e8e95b6670c71b32dd344ff1

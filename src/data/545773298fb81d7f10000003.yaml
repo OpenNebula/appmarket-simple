@@ -10,9 +10,9 @@ tags:
 - sandbox
 format: vmdk
 creation_time: 1415017257
-files:
-- type: OS
-  location: http://appliances.c12g.com/OpenNebula-4.10-Sandbox/opennebula-4.10-sandbox-vmdk.tar.gz
+images:
+- location: http://appliances.c12g.com/OpenNebula-4.10-Sandbox/opennebula-4.10-sandbox-vmdk.tar.gz
+  type: OS
   size: 1204246828
   checksum:
     md5: 212d6a170edc9bbdfeffee9719b7fd60

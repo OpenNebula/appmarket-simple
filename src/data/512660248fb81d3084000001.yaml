@@ -8,9 +8,9 @@ tags:
 - vyatta
 - router
 format: raw
-files:
-- type: OS
-  location: http://sw.macto.es/open/vyatta_core_65r1_kvm_32bits_macto.gz
+images:
+- location: http://sw.macto.es/open/vyatta_core_65r1_kvm_32bits_macto.gz
+  type: OS
   size: 2200000000
   checksum:
     md5: 414ba76cd14e141d4683d0f322a5d3de

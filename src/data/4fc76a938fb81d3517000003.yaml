@@ -22,7 +22,7 @@ opennebula_template:
     type: vnc
   memory: '128'
   logo: images/logos/linux.png
-files:
+images:
 - location: http://opennebula-marketplace.s3.amazonaws.com/ttylinux.img
   size: 41943040
   checksum:

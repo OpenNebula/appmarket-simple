@@ -7,9 +7,9 @@ tags:
 - ubuntu
 - vdc
 format: raw
-files:
-- type: OS
-  location: http://linux.co.uk/vms/Ubuntu1310-v2.bz2
+images:
+- location: http://linux.co.uk/vms/Ubuntu1310-v2.bz2
+  type: OS
   size: 538640945
   checksum:
     md5: 8e2be456f8e96ce8be7bcb7c077157e7

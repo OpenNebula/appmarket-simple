@@ -2,7 +2,7 @@
 name: CentOS 6.5 - VMware
 version: '1.0'
 publisher: OpenNebula Systems
-description: "CentOS 6.5 image for VMware hosts under OpenNebula\r\n"
+description: CentOS 6.5 image for VMware hosts under OpenNebula
 tags:
 - centos
 - '4.8'
@@ -21,9 +21,9 @@ opennebula_template:
   os:
     arch: x86_64
   logo: images/logos/centos.png
-files:
-- type: OS
-  location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.tar.gz
+images:
+- location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.tar.gz
+  type: OS
   size: 10737418240
   checksum:
     md5: 0c323fd551bb79d82f854349c62f20ef

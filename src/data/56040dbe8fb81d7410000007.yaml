@@ -23,11 +23,11 @@ opennebula_template:
   os:
     arch: x86_64
   logo: images/logos/ubuntu.png
-files:
-- type: OS
+images:
+- location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/ubuntu-15.04.qcow2c
+  type: OS
   dev_prefix: vd
   driver: qcow2
-  location: https://s3-eu-west-1.amazonaws.com/opennebula-marketplace/ubuntu-15.04.qcow2c
   size: 10737418240
   checksum:
     md5: 45bd7a3d30b224d039f6139c9d1aea2c

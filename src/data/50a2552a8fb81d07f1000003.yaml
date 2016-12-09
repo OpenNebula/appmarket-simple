@@ -7,9 +7,9 @@ tags:
 - Scientific Linux
 - mysql
 format: raw
-files:
-- type: OS
-  location: http://www.guse.hu/storage/diskimages/guse-sl5-mp.img
+images:
+- location: http://www.guse.hu/storage/diskimages/guse-sl5-mp.img
+  type: OS
   size: 17179869184
   checksum:
     md5: 370ebbc66e324e8eaf514d99caf5e434

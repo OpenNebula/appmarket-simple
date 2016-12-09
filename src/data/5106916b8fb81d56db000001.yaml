@@ -7,9 +7,9 @@ description: WS-PGRADE/gUSE v3.5.2 image to deploy a WS-PGRADE/gUSE portal
 tags:
 - guse portal grid workflow debian
 format: raw
-files:
-- type: OS
-  location: http://www.guse.hu/storage/diskimages/guse-3.5.2-raw-kvm-v2.img
+images:
+- location: http://www.guse.hu/storage/diskimages/guse-3.5.2-raw-kvm-v2.img
+  type: OS
   size: 17179869184
   checksum:
     md5: da5b39b91839c0eda94d72bfbaf65539

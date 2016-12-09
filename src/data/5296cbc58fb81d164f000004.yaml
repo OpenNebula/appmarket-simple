@@ -7,9 +7,9 @@ description: This is an empty instance, size 10G for use with VDC-Store
 tags:
 - vdc
 format: raw
-files:
-- type: OS
-  location: http://linux.co.uk/vms/Empty10G.bz2
+images:
+- location: http://linux.co.uk/vms/Empty10G.bz2
+  type: OS
   size: 194
   checksum:
     md5: d0169a3e91fcc4cd3c65569db6890d75

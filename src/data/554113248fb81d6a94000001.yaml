@@ -11,9 +11,9 @@ description: "This image has been created using VyOS 1.1.5 ISO for 64 bits
 tags: []
 format: raw
 creation_time: 1430328100
-files:
-- type: OS
-  location: http://artemit.com.es/one/vyos-1.1.5-amd64.gz
+images:
+- location: http://artemit.com.es/one/vyos-1.1.5-amd64.gz
+  type: OS
   size: 263000000
   checksum:
     md5: aba8765298ffcf8784f8a6d2b267eb79

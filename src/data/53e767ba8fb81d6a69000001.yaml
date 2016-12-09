@@ -21,10 +21,10 @@ opennebula_template:
   os:
     arch: x86_64
   logo: images/logos/centos.png
-files:
-- type: OS
+images:
+- location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.qcow2.gz
+  type: OS
   driver: qcow2
-  location: http://opennebula-marketplace.s3.amazonaws.com/CentOS-6.5.qcow2.gz
   size: 10737418240
   checksum:
     md5: 9d937b8fe70c403330c9284538f07cfc

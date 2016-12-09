@@ -29,11 +29,11 @@ opennebula_template:
     boot: hd
   user_inputs:
     xgrid_pwd: M|password|Create your Xgrid password
-files:
-- type: OS
+images:
+- location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-xgrid-amd64-150918-wheezy.raw.gz
+  type: OS
   dev_prefix: vd
   driver: raw
-  location: http://genocloud.genouest.org/appliances/opennebula/debian/debian-wheezy-xgrid-amd64-150918-wheezy.raw.gz
   size: 590417908
   checksum:
     md5: 1e90bb4361b541106cccce5b0425b9f8

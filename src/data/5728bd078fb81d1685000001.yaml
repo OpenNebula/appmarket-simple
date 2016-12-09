@@ -7,10 +7,9 @@ tags:
 - devuan
 format: qcow2
 creation_time: 1462287623
-files:
-- type: OS
+images:
+- location: https://files.devuan.org/devuan_jessie_beta/devuan_jessie_1.0.0-beta_amd64_opennebula.qcow2
+  type: OS
   dev_prefix: vd
   driver: qcow2
-  location: https://files.devuan.org/devuan_jessie_beta/devuan_jessie_1.0.0-beta_amd64_opennebula.qcow2
   size: 8388608
-  checksum: {}

@@ -10,9 +10,9 @@ tags:
 - dci-bridge
 - worker
 format: raw
-files:
-- type: OS
-  location: https://s3.lpds.sztaki.hu/mp-images/dcibridge-localcloud/DCIBridge-local-cloud-fix.img
+images:
+- location: https://s3.lpds.sztaki.hu/mp-images/dcibridge-localcloud/DCIBridge-local-cloud-fix.img
+  type: OS
   size: 2256535552
   checksum:
     md5: becfdd2790acde35e179fe54019acac0

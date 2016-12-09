@@ -10,9 +10,9 @@ tags:
 - sandbox
 format: vdi
 creation_time: 1415012006
-files:
-- type: OS
-  location: http://appliances.c12g.com/OpenNebula-4.10-Sandbox/opennebula-4.10-sandbox.vdi.gz
+images:
+- location: http://appliances.c12g.com/OpenNebula-4.10-Sandbox/opennebula-4.10-sandbox.vdi.gz
+  type: OS
   size: 950590648
   checksum:
     md5: 59f628ce032365b72f33aa3556807083
