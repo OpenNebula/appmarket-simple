@@ -1,9 +1,12 @@
 require 'yaml'
 require 'json'
 require 'appliance/image'
+require 'securerandom'
 
 class Appliance
-    attr_reader :id
+    attr_reader :id, :name, :version, :publisher, :description
+    attr_reader :tags, :creation_time, :opennebula_template
+    attr_reader :images
 
     def initialize(file=nil)
         @id = nil
@@ -14,20 +17,102 @@ class Appliance
         @tags = nil
         @creation_time = nil
         @opennebula_template = nil
-        @files = []
+        @images = []
         self.read_yaml(file) if file
+    end
+
+    def id=(value)
+        @id = value
+    end
+
+    def name=(value)
+        @name = strip_or_nil(value)
+    end
+
+    def version=(value)
+        @version = strip_or_nil(value)
+    end
+
+    def publisher=(value)
+        @publisher = strip_or_nil(value)
+    end
+
+    def description=(value)
+        @description = strip_or_nil(value)
+    end
+
+    def tags=(value)
+        if value.nil?
+            @tags = value
+        else
+            # stripped non-empty tags
+            @tags = [value].join(',').split(',')
+                .collect(&:strip)
+                .delete_if(&:empty?)
+        end
+    end
+
+    def format=(value)
+        @format = strip_or_nil(value)
+    end
+
+    def creation_time_str
+        Time.at(@creation_time).utc.to_datetime if @creation_time
+    end
+
+    def creation_time=(value)
+        @creation_time = value.nil? ? value : value.to_i
+    end
+
+    def opennebula_template=(value)
+        if value.nil? or value.is_a? Hash
+            @opennebula_template = value
+        else
+            begin
+                @opennebula_template = JSON.parse(value)
+            rescue JSON::ParserError
+                raise "Invalid template format, JSON required"
+            end
+        end
+    end
+
+    ###
+
+    def from_options(options)
+        %w(name version publisher description tags format
+           creation_time opennebula_template).each { |opt|
+            if options.key?(opt.to_sym)
+                self.send("#{opt}=", options[opt.to_sym])
+            end
+        }
+
+        if options[:image_index] < self.images.size
+            img = self.images[ options[:image_index] ]
+        else
+            img = Appliance::Image.new()
+        end
+
+        img.from_options(options)
+        unless img.to_h.empty? or self.images.include?(img)
+            self.images << img
+        end
+
+#        img = Appliance::Image.new()
+#        img.from_options(options)
+#        self.images << img unless img.to_h.empty?
     end
 
     def from_h(data)
         %w(id name version publisher description tags format
         creation_time opennebula_template).each { |k|
-            self.instance_variable_set("@#{k}", data[k])
+            self.send("#{k}=", data[k])
+#            self.instance_variable_set("@#{k}", data[k])
         }
 
-        @files = []
-        if data["files"].is_a? Array
-            data["files"].each { |file|
-                @files << Appliance::Image.new(file)
+        @images = []
+        if data["images"].is_a? Array
+            data["images"].each { |file|
+                @images << Appliance::Image.new(file)
             }
         end
     end
@@ -38,6 +123,7 @@ class Appliance
         # legacy (ON marketplace) key names
         if legacy
             k_desc = 'short_description'
+            k_imgs = 'files'
 
             if @opennebula_template
                 template = JSON.generate(
@@ -46,6 +132,7 @@ class Appliance
             end
         else
             k_desc = 'description'
+            k_imgs = 'images'
 
             if @opennebula_template
                 template = tmpl_fixkeys(@opennebula_template, false)
@@ -72,11 +159,11 @@ class Appliance
             'opennebula_template' => template
         })
 
-        # app. files
-        if !@files.nil? and !@files.empty?
-            data["files"] = []
-            @files.each { |file|
-                data["files"] << file.to_h(legacy)
+        # app. images 
+        if !@images.nil? and !@images.empty?
+            data[k_imgs] = []
+            @images.each { |file|
+                data[k_imgs] << file.to_h(legacy)
             }
         end
 
@@ -105,15 +192,27 @@ class Appliance
         elsif !app.key?("id")
             @id = File.basename(name, '.yaml')
         end
+
+        if @id.nil?
+            raise "Unknown unique ID"
+        end
     end
 
-    def write_yaml(name)
-        begin
-            File.open(name, 'w') { |file|
-                file.write(self.to_h(true).to_yaml(:line_width => 70))
-            }   
-        rescue
-            File.unlink(name)
+    def write_yaml(name=nil)
+        yaml = self.to_h().to_yaml(:line_width => 70)
+
+        if name.nil?
+            puts yaml
+        else
+            tmpfile = Tempfile.new(File.basename("#{name}."), File.dirname(name))
+            begin
+                tmpfile.write(yaml)
+                tmpfile.close
+                File.rename(tmpfile.path, name)
+            rescue
+                tmpfile.close
+                tmpfile.unlink
+            end
         end
     end
 
@@ -134,6 +233,15 @@ class Appliance
             end
         }   
         new 
+    end
+
+    private
+    def strip_or_nil(value)
+        if value.nil?
+            value
+        else
+            value.strip
+        end
     end
 end
 

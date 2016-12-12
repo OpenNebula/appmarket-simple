@@ -1,0 +1,112 @@
+#!/usr/bin/env ruby
+
+$: << File.dirname(__FILE__) + "/../lib"
+
+require 'thor'
+require 'appliance'
+require 'appliance/image'
+
+class AppCli < Thor
+    def self.appliance_options(mandatory=false)
+        method_option :name,
+            :desc     => "Appliance name",
+            :required => mandatory
+
+        method_option :version,
+            :desc     => "Appliance version",
+            :required => mandatory
+
+        method_option :publisher,
+            :desc     => "Publisher name",
+            :required => mandatory
+            
+        method_option :description,
+            :desc     => "Description",
+            :required => mandatory
+
+        method_option :tags,
+            :desc     => "Description tags",
+            :type     => :array,
+            :required => mandatory
+
+        method_option :format,
+            :desc     => "Format",
+            :enum     => %w(raw qcow2 vmdk vdi),
+            :required => mandatory
+
+        method_option :creation_time,
+            :desc     => "Creation time (UNIX epoch time)",
+            :type     => :numeric,
+            :banner   => "TIME",
+            :default  => mandatory ? Time.now.to_i : nil
+
+        method_option :opennebula_template,
+            :desc     => "OpenNebula VM template",
+            :banner   => "JSON"
+
+        method_option :image_index,
+            :desc     => "Image index",
+            :type     => :numeric,
+            :default  => 0
+
+        method_option :image_type,
+            :desc     => "Image type",
+            :banner   => "TYPE",
+            :enum     => %w(OS DATA), #???
+            :required => mandatory
+
+        method_option :image_dev_prefix,
+            :desc     => "Image dev_prefix",
+            :banner   => "DEV_PREFIX"
+
+        method_option :image_driver,
+            :desc     => "Image driver",
+            :banner   => "DRIVER"
+
+        method_option :image_location,
+            :banner   => "URL",
+            :desc     => "Image location (URL)",
+            :required => mandatory
+
+        method_option :image_size,
+            :desc     => "Image size",
+            :banner   => "SIZE"
+
+        method_option :image_checksum_type,
+            :desc     => "Image checksum algorithm",
+            :enum     => %w(md5 sha256),
+            :banner   => "TYPE"
+
+        method_option :image_checksum,
+            :desc     => "Image checksum",
+            :banner   => "DIGEST"
+
+        method_option :image_refresh,
+            :desc    => "Automatic size/checksums",
+            :type    => :boolean
+    end
+end
+
+class App < AppCli
+    desc "create [FILE]", "Create appliance metadata"
+    method_option :id, :desc => "Appliance unique ID" #TODO?
+    appliance_options(true)
+    def create(file=nil)
+        app = Appliance.new()
+        app.from_options(options)
+        app.write_yaml(file)
+    end
+
+    desc "update [FILE]", "Update appliance metadata"
+    appliance_options
+    def update(file)
+        app = Appliance.new()
+        app.read_yaml(file)
+        app.from_options(options)
+        app.write_yaml(file)
+    end
+end
+
+App.start(ARGV)
+
+# vim: ai ts=4 sts=4 et sw=4 ft=ruby

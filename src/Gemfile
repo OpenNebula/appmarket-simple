@@ -5,10 +5,10 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'haml'
 gem 'json'
+gem "systemu"
 
 group :cli do
   gem "thor"
-  gem "systemu"
 end
 
 group :test do

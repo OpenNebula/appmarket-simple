@@ -53,3 +53,5 @@ get '/appliance/:id/download/?:file_id?' do
         end
     end
 end
+
+# vim: ai ts=4 sts=4 et sw=4 ft=ruby

@@ -5,6 +5,8 @@ require 'systemu'
 
 class Appliance
     class Image
+        attr_reader :type, :dev_prefix, :driver, :location, :size, :checksum
+
         def initialize(data=nil)
             @type = nil
             @dev_prefix = nil
@@ -15,18 +17,84 @@ class Appliance
             self.from_h(data) unless data.nil?
         end
 
+        def type=(value)
+            @type = strip_or_nil(value)
+        end
+
+        def dev_prefix=(value)
+            @dev_prefix = strip_or_nil(value)
+        end
+
+        def driver=(value)
+            @driver = strip_or_nil(value)
+        end
+
+        def location=(value)
+            @location = strip_or_nil(value)
+        end
+
+        def size=(value)
+            @size = value.nil? ? value : value.to_i
+        end
+
+        def checksum=(value)
+            if value.nil?
+                @checksum = value
+            elsif value.is_a? Hash
+                value.each_pair { |type, digest|
+                    self.set_checksum(type, digest)
+                }
+            else
+                raise "Checksum is not Hash"
+            end
+        end
+
+        def set_checksum(type, digest)
+            @checksum = {} if @checksum.nil?
+            if digest.nil? or digest.empty?
+                @checksum.delete(type)
+                @checksum = nil if @checksum.empty?
+            else
+                @checksum[type.downcase.strip] = digest.strip
+            end
+        end
+
+        ###
+
         def from_h(data)
             %w(type dev_prefix driver location size checksum).each { |k|
-                self.instance_variable_set("@#{k}", data[k])
+                self.send("#{k}=", data[k])
             }
         end
-        
+
+        def from_options(options)
+            %w(type dev_prefix driver location size).each { |opt|
+                opt_name = "image_#{opt.to_sym}".to_sym
+                self.send("#{opt}=", options[opt_name]) if options.key?(opt_name)
+            }
+
+            if options[:image_checksum]
+                if options[:image_checksum_type]
+                    self.set_checksum(
+                        options[:image_checksum_type],
+                        options[:image_checksum]
+                    )
+                else
+                    raise "Image checksum type needed"
+                end
+            end
+
+            if options[:image_refresh]
+                self.refresh
+            end
+        end
+
         def to_h(legacy=false)
             data = {
+                'location'      => @location,
                 'type'          => @type,
                 'dev_prefix'    => @dev_prefix,
                 'driver'        => @driver,
-                'location'      => @location,
                 'size'          => @size,
                 'checksum'      => @checksum
             }
@@ -63,22 +131,42 @@ class Appliance
             Tempfile.open("tmp") { |unpacked|
                 unpacked.close
 
-                type = exec("file #{file}")
-                if type =~ /gzip/
+                # decompress
+                type = exec("file --mime-type -b #{file}").strip
+                if type == 'application/x-gzip'
                     exec("gunzip -d <#{file} >#{unpacked.path}")
                     file = unpacked.path #TODO
-                elsif type =~ /bzip2/
+                elsif type == 'application/x-bzip2'
                     exec("bzip2 -d <#{file} >#{unpacked.path}")
                     file = unpacked.path #TODO
-                elsif type =~ /XZ compressed/
+                elsif type == 'application/x-xz'
                     exec("xz -d <#{file} >#{unpacked.path}")
                     file = unpacked.path #TODO
                 end
 
-                cmd = "qemu-img info --output=json #{file}"
-                size = JSON.parse(exec(cmd))['virtual-size']
-                # TODO: driver?
+                # unarchive
+                type = exec("file --mime-type -b #{file}").strip
+                Dir.mktmpdir { |unpacked_dir| 
+                    if type == "application/x-tar"
+                        exec("tar -xf #{file} -C #{unpacked_dir}")
+                    elsif type == "application/zip"
+                        exec("unzip -d #{unpacked_dir} #{file}")
+                    end
+
+                    Dir.glob("#{unpacked_dir}/**/*") { |unpacked_file|
+                        # get first file in archive
+                        if File.file?(unpacked_file)
+                            file = unpacked_file
+                            break
+                        end
+                    }
+
+                    cmd = "qemu-img info --output=json #{file}"
+                    size = JSON.parse(exec(cmd))['virtual-size']
+                    # TODO: driver?
+                }
             }
+
             size
         end
 
@@ -89,6 +177,15 @@ class Appliance
                 stdout
             else
                 raise stderr
+            end
+        end
+
+        private
+        def strip_or_nil(value)
+            if value.nil?
+                value
+            else
+                value.strip
             end
         end
     end

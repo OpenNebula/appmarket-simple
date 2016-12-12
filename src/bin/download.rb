@@ -1,11 +1,16 @@
 #!/usr/bin/env ruby
 
+$: << File.dirname(__FILE__) + "/../lib"
+
 require 'net/http'
 require 'uri'
 require 'json'
 require 'yaml'
 require 'tempfile'
 require 'fileutils'
+
+require 'appliance'
+require 'appliance/image'
 
 def down_keys(h)
     new = {}
@@ -29,6 +34,9 @@ appliances = Hash.new()
 # expect destination dir. as argument
 if (ARGV.size == 1)
     dir = ARGV[0]
+    if File.exists?(dir)
+        abort "#{dir} already exists"
+    end
 else
     abort <<EOF
 Usage: #{$0} <directory>
@@ -64,44 +72,36 @@ mkt_apps.each { |mkt_app|
     # core appliance metadata
     id = mkt_app['_id']['$oid']
 
-    one_tmpl = mkt_app['opennebula_template']
-    unless one_tmpl.nil?
-        one_tmpl = down_keys(JSON.parse(one_tmpl))
-    end
-
-    app = {
+    app = Appliance.new()
+    app.from_h({
         'name'                  => mkt_app['name'],
         'version'               => mkt_app['version'],
         'publisher'             => mkt_app['publisher'],
         'description'           => mkt_app['short_description'],
-        'tags'                  => mkt_app['tags'].collect(&:strip),
+        'tags'                  => mkt_app['tags'],
         'format'                => mkt_app['format'],
         'creation_time'         => mkt_app['creation_time'],
-        'opennebula_template'   => one_tmpl,
-        'files'                 => [],
-    }
-
-    app.delete_if { |k, v| v.nil? }
+        'opennebula_template'   => mkt_app['opennebula_template'],
+    })
 
     # appliance files
     mkt_app['files'].each_with_index { |mkt_file, mkt_idx|
-        file = {
+        image = Appliance::Image.new()
+        image.from_h({
             'type'          => mkt_file['type'],
             'dev_prefix'    => mkt_file['dev_prefix'],
             'driver'        => mkt_file['driver'],
             'location'      => nil,
             'size'          => mkt_file['size'].to_i,
-        }
+        })
 
         if mkt_file['checksum'].is_a? Hash
-            file['checksum'] = mkt_file['checksum']
-        else
-            file['checksum'] = {}
+            image.checksum = mkt_file['checksum']
         end
 
         # set MD5
-        if !file['checksum'].key?('md5') and mkt_file['md5']
-            file['checksum']['md5'] = mkt_file['md5']
+        if mkt_file['md5'] and (image.checksum.nil? or !image.checksum.key?('md5'))
+            image.set_checksum('md5', mkt_file['md5'])
         end
 
         # get image URL
@@ -109,30 +109,25 @@ mkt_apps.each { |mkt_app|
         req = Net::HTTP::Get.new(uri.request_uri)
         res = http.request(req)
         if (res.is_a? Net::HTTPFound)
-            file['location'] = res['Location']
+            image.location = res['Location']
         else
             abort "Image location not found for %s / %i" % [id, mkt_idx]
         end
 
-        file.delete_if { |k, v| v.nil? }
-        app['files'] << file
+        app.images << image
     }
 
     appliances[id] = app
 }
 
-### 
-
-tmp_dir = Dir.mktmpdir
+tmp_dir = Dir.mktmpdir(nil, File.dirname(dir))
 begin
-    appliances.each { |id, appliance|
-        File.open('%s/%s.yaml' % [tmp_dir, id], 'w') { |file|
-            file.write(appliance.to_yaml(:line_width => 70))
-        }
+    appliances.each { |id, app|
+        app.write_yaml("#{tmp_dir}/#{id}.yaml")
     }
 
     unless File.exists?(dir)
-        FileUtils.mv(tmp_dir, dir)
+        File.rename(tmp_dir, dir)
     else
         abort "#{dir} already exists"
     end
@@ -141,3 +136,5 @@ ensure
         FileUtils.remove_entry(tmp_dir) 
     end
 end
+
+# vim: ai ts=4 sts=4 et sw=4 ft=ruby

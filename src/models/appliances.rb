@@ -21,7 +21,7 @@ class Appliances
             app = Appliance.new(name)
             id = app.id
 
-            # chek for duplicate ID
+            # check for duplicate ID
             if new.has_key?(id)
                 raise "Duplicate appliance ID #{id}"
             end
