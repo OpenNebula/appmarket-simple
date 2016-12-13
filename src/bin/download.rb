@@ -32,34 +32,47 @@ ONE_MARKET_URL = 'http://marketplace.opennebula.systems/appliance'
 appliances = Hash.new()
 
 # expect destination dir. as argument
-if (ARGV.size == 1)
+if (ARGV.size > 0)
     dir = ARGV[0]
     if File.exists?(dir)
         abort "#{dir} already exists"
     end
+
+    appliances_file = ARGV[1]
 else
     abort <<EOF
-Usage: #{$0} <directory>
+Usage: #{$0} <directory> [<appliances.json>]
 
 Non-existing directory needs to be specified for the structure
 of YAML appliance metadata.
+
+A json file containing appliances can be specified instead of using
+appmarket API output.
 EOF
 end
 
-# fetch current appliances
-uri = URI.parse(ONE_MARKET_URL)
-http = Net::HTTP.new(uri.host, uri.port)
-req = Net::HTTP::Get.new(uri.request_uri)
-res = http.request(req)
+if appliances_file
+    begin
+        mkt_apps = JSON.parse(File.read(appliances_file))
+    rescue => e
+        abort "Failed reading appliances file: #{e.message}"
+    end
+else
+    # fetch current appliances
+    uri = URI.parse(ONE_MARKET_URL)
+    http = Net::HTTP.new(uri.host, uri.port)
+    req = Net::HTTP::Get.new(uri.request_uri)
+    res = http.request(req)
 
-unless res.is_a? Net::HTTPSuccess
-    abort "Error downloading appliances list"
-end
+    unless res.is_a? Net::HTTPSuccess
+        abort "Error downloading appliances list"
+    end
 
-begin
-    mkt_apps = JSON.parse(res.body)['appliances']
-rescue JSON::ParserError
-    abort "Failed to parse JSON"
+    begin
+        mkt_apps = JSON.parse(res.body)['appliances']
+    rescue JSON::ParserError
+        abort "Failed to parse JSON"
+    end
 end
 
 if !mkt_apps.is_a? Array || mkt_apps.empty?
@@ -77,11 +90,18 @@ mkt_apps.each { |mkt_app|
         'name'                  => mkt_app['name'],
         'version'               => mkt_app['version'],
         'publisher'             => mkt_app['publisher'],
-        'description'           => mkt_app['short_description'],
+        'short_description'     => mkt_app['short_description'],
+        'description'           => mkt_app['description'],
         'tags'                  => mkt_app['tags'],
         'format'                => mkt_app['format'],
         'creation_time'         => mkt_app['creation_time'],
         'opennebula_template'   => mkt_app['opennebula_template'],
+        'opennebula_version'    => mkt_app['opennebula_version'],
+        'os_id'                 => mkt_app['os-id'],
+        'os_release'            => mkt_app['os-release'],
+        'os_arch'               => mkt_app['os-arch'],
+        'hypervisor'            => mkt_app['hypervisor'],
+        'logo'                  => mkt_app['logo']
     })
 
     # appliance files
@@ -104,14 +124,18 @@ mkt_apps.each { |mkt_app|
             image.set_checksum('md5', mkt_file['md5'])
         end
 
-        # get image URL
-        uri = URI.parse('%s/%s/download/%i' % [ONE_MARKET_URL, id, mkt_idx])
-        req = Net::HTTP::Get.new(uri.request_uri)
-        res = http.request(req)
-        if (res.is_a? Net::HTTPFound)
-            image.location = res['Location']
+        if mkt_file['url']
+            image.location = mkt_file['url']
         else
-            abort "Image location not found for %s / %i" % [id, mkt_idx]
+            # get image URL
+            uri = URI.parse('%s/%s/download/%i' % [ONE_MARKET_URL, id, mkt_idx])
+            req = Net::HTTP::Get.new(uri.request_uri)
+            res = http.request(req)
+            if (res.is_a? Net::HTTPFound)
+                image.location = res['Location']
+            else
+                abort "Image location not found for %s / %i" % [id, mkt_idx]
+            end
         end
 
         app.images << image
