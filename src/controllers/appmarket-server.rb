@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/json'
 require 'haml'
 require 'models/appliances'
+require 'redcarpet'
 
 # appliances metadata
 APPMARKET_DIR = ENV['APPMARKET_DIR'] || 'data/'
@@ -60,6 +61,20 @@ get '/appliance/:id/?' do
     if app.nil?
         error 404
     else
+        render = Redcarpet::Render::HTML.new(
+            :filter_html => true,
+            :no_images => false,
+            :no_links => false,
+            :no_styles => true,
+            :safe_links_only => true,
+            :with_toc_data => true,
+            :hard_wrap => true,
+            :xhtml => true)
+
+        @markdown = Redcarpet::Markdown.new(render,
+            :autolink => true,
+            :space_after_headers => true)
+
         haml :appliance, :locals => {:app => app}
     end
 end

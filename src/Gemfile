@@ -5,13 +5,14 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'haml'
 gem 'json'
-gem "systemu"
+gem 'systemu'
+gem 'redcarpet'
 
 group :cli do
-  gem "thor"
+  gem 'thor'
 end
 
 group :test do
-  gem "rspec"
-  gem "rack-test"
+  gem 'rspec'
+  gem 'rack-test'
 end

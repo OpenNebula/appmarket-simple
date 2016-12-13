@@ -45,7 +45,7 @@
 
     .span7
       .row-fluid
-        &= app['description']
+        = @markdown.render(app['description'])
         %hr
         %h6
           %i.icon-tags
