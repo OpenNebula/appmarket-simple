@@ -147,7 +147,15 @@ mkt_apps.each { |mkt_app|
 tmp_dir = Dir.mktmpdir(nil, File.dirname(dir))
 begin
     appliances.each { |id, app|
-        app.write_yaml("#{tmp_dir}/#{id}.yaml")
+        if app.publisher
+            new_dir = "#{tmp_dir}/#{app.publisher}".tr(' ', '_')
+        else
+            new_dir = "#{tmp_dir}"
+        end
+
+        FileUtils.mkdir_p(new_dir)
+
+        app.write_yaml("#{new_dir}/#{id}.yaml")
     }
 
     unless File.exists?(dir)
@@ -157,7 +165,7 @@ begin
     end
 ensure
     if File.directory?(tmp_dir)
-        FileUtils.remove_entry(tmp_dir) 
+        FileUtils.remove_entry(tmp_dir)
     end
 end
 
