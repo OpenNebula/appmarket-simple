@@ -11,6 +11,26 @@ helpers do
     def h(text)
         Rack::Utils.escape_html(text)
     end
+
+    UNITS = %W(B KiB MiB GiB TiB).freeze
+
+    def humanize_size(number)
+      number = number.to_i
+
+      if number < 1024
+        exponent = 0
+
+      else
+        max_exp  = UNITS.size - 1
+
+        exponent = ( Math.log( number ) / Math.log( 1024 ) ).to_i # convert to base
+        exponent = max_exp if exponent > max_exp # we need this to avoid overflow for the highest unit
+
+        number  /= 1024 ** exponent
+      end
+
+      "#{number} #{UNITS[ exponent ]}"
+    end
 end
 
 get '/' do

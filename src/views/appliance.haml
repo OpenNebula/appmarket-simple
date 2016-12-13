@@ -97,7 +97,7 @@
                       %h6 Size
                     %dd
                       %h6
-                        %small= file['size']
+                        %small&= humanize_size(file['size'])
             - if app['opennebula_template']
               .tab-pane{'id' => "tabTemplate"}
                 .row-fluid
