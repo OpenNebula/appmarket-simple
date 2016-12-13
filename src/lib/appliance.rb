@@ -20,7 +20,6 @@ class Appliance
         @creation_time = nil
         @opennebula_template = nil
         @opennebula_version = nil
-        @creation_time = nil
         @os_id = nil
         @os_release = nil
         @os_arch = nil

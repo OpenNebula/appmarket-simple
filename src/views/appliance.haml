@@ -114,7 +114,7 @@
           %h6 Created
         %dd
           %h6
-            %small&= Time.at(app['creation_time']).utc
+            %small&= Time.at(app['creation_time'] || 0).utc
         %dt
           %h6 Version
         %dd

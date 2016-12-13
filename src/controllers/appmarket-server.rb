@@ -30,7 +30,7 @@ get '/appliance/?', :provides => :html do
     haml :index, :locals => { :appliances => apps }, :content_type => "text/html"
 end
 
-get '/appliance/?', :provides => :json do
+get '/appliance/?' do
     apps = appliances.get_all_list
     json :sEcho => 1, :appliances => apps
 end
