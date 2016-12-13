@@ -7,6 +7,12 @@ require 'models/appliances'
 APPMARKET_DIR = ENV['APPMARKET_DIR'] || 'data/'
 appliances = Appliances.new(APPMARKET_DIR)
 
+helpers do
+    def h(text)
+        Rack::Utils.escape_html(text)
+    end
+end
+
 get '/' do
     redirect '/appliance'
 end
@@ -21,10 +27,10 @@ get '/appliance/?', :provides => :html do
     pass if request.user_agent =~ /OpenNebula/i
 
     apps = appliances.get_all_list
-    haml :index, :locals => { :appliances => apps }
+    haml :index, :locals => { :appliances => apps }, :content_type => "text/html"
 end
 
-get '/appliance/?' do
+get '/appliance/?', :provides => :json do
     apps = appliances.get_all_list
     json :sEcho => 1, :appliances => apps
 end
