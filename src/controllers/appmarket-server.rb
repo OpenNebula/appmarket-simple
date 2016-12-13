@@ -40,7 +40,7 @@ get '/appliance/:id/?' do
     if app.nil?
         error 404
     else
-        haml :appliance, :locals => {:appliance => app}
+        haml :appliance, :locals => {:app => app}
     end
 end
 
