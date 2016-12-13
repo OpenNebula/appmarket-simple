@@ -6,7 +6,7 @@ require 'securerandom'
 class Appliance
     attr_reader :id, :name, :version, :publisher, :description
     attr_reader :tags, :creation_time, :opennebula_template
-    attr_reader :images, :opennebula_version
+    attr_reader :images, :opennebula_version, :creation_time
     attr_reader :os_id, :os_release, :os_arch, :format, :hypervisor
 
     def initialize(file=nil)
@@ -20,6 +20,7 @@ class Appliance
         @creation_time = nil
         @opennebula_template = nil
         @opennebula_version = nil
+        @creation_time = nil
         @os_id = nil
         @os_release = nil
         @os_arch = nil
