@@ -49,31 +49,15 @@
                   %dd
                     %h6
                       %small= app["publisher"]
-                  %dt
-                    %h6
-                      %i{:class => "icon-book"}
-                      Catalog
-                  %dd
-                    %h6
-                      %small= app["catalog"]
-                  %dt
-                    %h6
-                      %i{:class => "icon-download-alt"}
-                      Downloads
-                  %dd
-                    %h6
-                      %small= app["downloads"]
 
               %div{:class => "span6"}
                 %blockquote
-                  %small= app["short_description"]
+                  %small&= app["short_description"]
                 %blockquote
-                  %div{:class => "row-fluid"}
-                    %h6
-                      %i{:class => "icon-tags"}
-                      %small= app["tags"]
+                  %i{:class => "icon-tags"}
+                  &= app["tags"].join(', ')
 
-              %div{:classi => "span2"}
+              %div{:class => "span2"}
                 %dl
                   %dt
                     %h6
@@ -86,7 +70,7 @@
                       Arch
                   %dd
                     %h6
-                      %small= app['os-arch']
+                      %small= app["os_arch"]
                   %dt
                     %h6
                       Format
