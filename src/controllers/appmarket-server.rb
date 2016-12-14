@@ -16,21 +16,25 @@ helpers do
     UNITS = %W(B KiB MiB GiB TiB).freeze
 
     def humanize_size(number)
-      number = number.to_i
+        number = number.to_i
 
-      if number < 1024
-        exponent = 0
+        if number < 1024
+            exponent = 0
 
-      else
-        max_exp  = UNITS.size - 1
+        else
+            max_exp  = UNITS.size - 1
 
-        exponent = ( Math.log( number ) / Math.log( 1024 ) ).to_i # convert to base
-        exponent = max_exp if exponent > max_exp # we need this to avoid overflow for the highest unit
+            exponent = ( Math.log( number ) / Math.log( 1024 ) ).to_i # convert to base
+            exponent = max_exp if exponent > max_exp # we need this to avoid overflow for the highest unit
 
-        number  /= 1024 ** exponent
-      end
+            number  /= 1024 ** exponent
+        end
 
-      "#{number} #{UNITS[ exponent ]}"
+        "#{number} #{UNITS[ exponent ]}"
+    end
+
+    def logo(name)
+        "/logos/#{name}"
     end
 end
 

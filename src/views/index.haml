@@ -34,7 +34,7 @@
                 %ul{:class => "thumbnails span10"}
                   %li{:class => "span12"}
                     %a{:href => "/appliance/#{h app["_id"]["$oid"]}", :class => "thumbnail"}
-                      %img{:src => "#{h app["logo"]}", :alt => ""}
+                      %img{:src => logo(app["logo"]), :alt => ""}
                   %li
                     %a{:id => "more_info", :class => "btn btn-inverse btn-mini", :href => "/appliance/#{h app["_id"]["$oid"]}"}
                       %i{:class => "icon-info-sign icon-white"}
