@@ -2,10 +2,41 @@ require 'sinatra'
 require 'sinatra/json'
 require 'haml'
 require 'models/appliances'
+require 'redcarpet'
 
 # appliances metadata
 APPMARKET_DIR = ENV['APPMARKET_DIR'] || 'data/'
 appliances = Appliances.new(APPMARKET_DIR)
+
+helpers do
+    def h(text)
+        Rack::Utils.escape_html(text)
+    end
+
+    UNITS = %W(B KiB MiB GiB TiB).freeze
+
+    def humanize_size(number)
+        number = number.to_i
+
+        if number < 1024
+            exponent = 0
+
+        else
+            max_exp  = UNITS.size - 1
+
+            exponent = ( Math.log( number ) / Math.log( 1024 ) ).to_i # convert to base
+            exponent = max_exp if exponent > max_exp # we need this to avoid overflow for the highest unit
+
+            number  /= 1024 ** exponent
+        end
+
+        "#{number} #{UNITS[ exponent ]}"
+    end
+
+    def logo(name)
+        "/logos/#{name}"
+    end
+end
 
 get '/' do
     redirect '/appliance'
@@ -21,7 +52,7 @@ get '/appliance/?', :provides => :html do
     pass if request.user_agent =~ /OpenNebula/i
 
     apps = appliances.get_all_list
-    haml :index, :locals => { :appliances => apps }
+    haml :index, :locals => { :appliances => apps }, :content_type => "text/html"
 end
 
 get '/appliance/?' do
@@ -34,7 +65,21 @@ get '/appliance/:id/?' do
     if app.nil?
         error 404
     else
-        haml :appliance, :locals => {:appliance => app}
+        render = Redcarpet::Render::HTML.new(
+            :filter_html => true,
+            :no_images => false,
+            :no_links => false,
+            :no_styles => true,
+            :safe_links_only => true,
+            :with_toc_data => true,
+            :hard_wrap => true,
+            :xhtml => true)
+
+        @markdown = Redcarpet::Markdown.new(render,
+            :autolink => true,
+            :space_after_headers => true)
+
+        haml :appliance, :locals => {:app => app}
     end
 end
 

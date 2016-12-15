@@ -1,32 +1,153 @@
-%html
-  %body
-    %h1 Marketplace Appliance
-    %h2 #{appliance['name']}, ver. #{appliance['version']}
-    %hr
-      <a href="download/0">Download</a>
-    %hr
-    %table
-      %tr
-        %th  Name
-        %td= appliance['name']
-      %tr
-        %th  Version
-        %td= appliance['version']
-      %tr
-        %th  Publisher
-        %td= appliance['publisher']
-      %tr
-        %th  Fomat
-        %td= appliance['format']
-      %tr
-        %th  Description
-        %td= appliance['short_description']
-      %tr
-        %th  Tags
-        %td= appliance['tags'].join(', ')
-      %tr
-        %th  Created
-        %td= appliance['creation_time']
+// -------------------------------------------------------------------------- //
+// Copyright 2002-2016, OpenNebula Systems                                    //
+//                                                                            //
+// Licensed under the Apache License, Version 2.0 (the "License"); you may    //
+// not use this file except in compliance with the License. You may obtain    //
+// a copy of the License at                                                   //
+//                                                                            //
+// http://www.apache.org/licenses/LICENSE-2.0                                 //
+//                                                                            //
+// Unless required by applicable law or agreed to in writing, software        //
+// distributed under the License is distributed on an "AS IS" BASIS,          //
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   //
+// See the License for the specific language governing permissions and        //
+// limitations under the License.                                             //
+// -------------------------------------------------------------------------- //
 
-    %h3 ON template
-    %pre= appliance['opennebula_template']
+.navbar.navbar-static
+  .navbar-inner
+    .container
+      %a.brand{'href' => "/appliance"} Appliances
+
+.container-fluid
+  .row-fluid
+    .span8
+      .brand&= app['name']
+    .span4
+      %a.pull-right{'href' => "/appliance"}
+        %i.icon-search.icon-arrow-left
+        Click to go back
+  .row-fluid
+    .span2
+      %ul.thumbnails
+        .thumbnail
+          %img{'src'=> logo(app['logo'])}
+      %dl
+        %dt
+          %h6
+            %i.icon-user
+            Publisher
+        %dd
+          %h6
+            %small&= app['publisher']
+      %hr
+
+
+    .span7
+      .row-fluid
+        = @markdown.render(app['description'])
+        %hr
+        %h6
+          %i.icon-tags
+          %small&= app['tags'].join(', ')
+      -if app['files']
+        %br
+        .row-fluid
+          %ul.nav.nav-tabs
+            - app['files'].each_with_index do |file, index|
+              %li{'class' => ("active" if index==0)}
+                %a{'href' => "#tab#{index}", 'data-toggle' => 'tab'} File #{index}
+            - if app['opennebula_template']
+              %li
+                %a{'href' => "#tabTemplate", 'data-toggle' => 'tab'} Template
+          .tab-content
+            - app['files'].each_with_index do |file, index|
+              .tab-pane{'class' => ("active" if index==0), 'id' => "tab#{index}"}
+                .row-fluid
+                  .span6
+                    %a.btn.span8{'href' => "/appliance/#{app['_id']['$oid']}/download/#{index}"}
+                      %i.icon-download-alt
+                      Download
+                  .span6
+                    - if file['name']
+                      %dt
+                        %h6 Name
+                      %dd
+                        %h6
+                          %small&= file['name']
+                    - if file['md5']
+                      %dt
+                        %h6 Checksum MD5
+                      %dd
+                        %h6
+                          %small&= file['md5']
+                    - if file['sha1']
+                      %dt
+                        %h6 Checksum SHA1
+                      %dd
+                        %h6
+                          %small&= file['sha1']
+                    - if file['compression']
+                      %dt
+                        %h6 Compression
+                      %dd
+                        %h6
+                          %small&= file['compression']
+                    %dt
+                      %h6 Size
+                    %dd
+                      %h6
+                        %small&= humanize_size(file['size'])
+            - if app['opennebula_template']
+              .tab-pane{'id' => "tabTemplate"}
+                .row-fluid
+                  .span12
+                    &= app['opennebula_template']
+    .span3
+      %dl
+        %dt
+          %h6 Id
+        %dd
+          %h6
+            %small&= app['_id']['$oid']
+        %dt
+          %h6 Created
+        %dd
+          %h6
+            %small&= Time.at(app['creation_time'] || 0).utc
+        %dt
+          %h6 Version
+        %dd
+          %h6
+            %small&= app['version']
+        %dt
+          %h6 OpenNebula version
+        %dd
+          %h6
+            %small&= app['opennebula_version']
+        -if app['files']
+          %hr
+          %dt
+            %h6 Format
+          %dd
+            %h6
+              %small&= app['format']
+          - if app['os_id'] && app['os_release']
+            %dt
+              %h6 OS
+            %dd
+              %h6
+                %small&= app['os_id'] + ' ' + app['os_release']
+          %dt
+            %h6 Hypervisor
+          %dd
+            %h6
+              %small&= app['hypervisor']
+          %dt
+            %h6 Arch
+          %dd
+            %h6
+              %small&= app['os_arch']
+
+%hr
+

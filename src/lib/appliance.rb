@@ -6,7 +6,8 @@ require 'securerandom'
 class Appliance
     attr_reader :id, :name, :version, :publisher, :description
     attr_reader :tags, :creation_time, :opennebula_template
-    attr_reader :images
+    attr_reader :images, :opennebula_version, :creation_time
+    attr_reader :os_id, :os_release, :os_arch, :format, :hypervisor, :logo
 
     def initialize(file=nil)
         @id = nil
@@ -14,9 +15,17 @@ class Appliance
         @version = nil
         @publisher = nil
         @description = nil
+        @short_description = nil
         @tags = nil
         @creation_time = nil
         @opennebula_template = nil
+        @opennebula_version = nil
+        @os_id = nil
+        @os_release = nil
+        @os_arch = nil
+        @format = nil
+        @hypervisor = nil
+        @logo = nil
         @images = []
         self.read_yaml(file) if file
     end
@@ -39,6 +48,10 @@ class Appliance
 
     def description=(value)
         @description = strip_or_nil(value)
+    end
+
+    def short_description=(value)
+        @short_description = strip_or_nil(value)
     end
 
     def tags=(value)
@@ -76,11 +89,40 @@ class Appliance
         end
     end
 
+    def opennebula_version=(value)
+        @opennebula_version = strip_or_nil(value)
+    end
+
+    def os_id=(value)
+        @os_id = strip_or_nil(value)
+    end
+
+    def os_release=(value)
+        @os_release= strip_or_nil(value)
+    end
+
+    def os_arch=(value)
+        @os_arch = strip_or_nil(value)
+    end
+
+    def hypervisor=(value)
+        @hypervisor = strip_or_nil(value)
+    end
+
+    def logo=(value)
+        @logo = strip_or_nil(value)
+
+        @logo = @logo.split('/').last if @logo
+    end
+
     ###
 
+    KEYS = %w(name version publisher description short_description tags format
+              creation_time opennebula_template opennebula_version
+              os_id os_release os_arch hypervisor logo)
+
     def from_options(options)
-        %w(name version publisher description tags format
-           creation_time opennebula_template).each { |opt|
+        KEYS.each { |opt|
             if options.key?(opt.to_sym)
                 self.send("#{opt}=", options[opt.to_sym])
             end
@@ -103,8 +145,7 @@ class Appliance
     end
 
     def from_h(data)
-        %w(id name version publisher description tags format
-        creation_time opennebula_template).each { |k|
+        KEYS.each { |k|
             self.send("#{k}=", data[k])
 #            self.instance_variable_set("@#{k}", data[k])
         }
@@ -122,7 +163,6 @@ class Appliance
 
         # legacy (ON marketplace) key names
         if legacy
-            k_desc = 'short_description'
             k_imgs = 'files'
 
             if @opennebula_template
@@ -131,7 +171,6 @@ class Appliance
                 )
             end
         else
-            k_desc = 'description'
             k_imgs = 'images'
 
             if @opennebula_template
@@ -152,14 +191,21 @@ class Appliance
             'name'                => @name,
             'version'             => @version,
             'publisher'           => @publisher,
-            k_desc                => @description,
+            'description'         => @description,
+            'short_description'   => @short_description,
             'tags'                => @tags,
             'format'              => @format,
             'creation_time'       => @creation_time,
-            'opennebula_template' => template
+            'os_id'               => @os_id,
+            'os_release'          => @os_release,
+            'os_arch'             => @os_arch,
+            'hypervisor'          => @hypervisor,
+            'opennebula_version'  => @opennebula_version,
+            'opennebula_template' => template,
+            'logo'                => @logo
         })
 
-        # app. images 
+        # app. images
         if !@images.nil? and !@images.empty?
             data[k_imgs] = []
             @images.each { |file|
@@ -231,8 +277,8 @@ class Appliance
             else
                 new[name] = value
             end
-        }   
-        new 
+        }
+        new
     end
 
     private

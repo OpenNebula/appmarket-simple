@@ -12,6 +12,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    redcarpet (3.3.4)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -48,6 +49,7 @@ DEPENDENCIES
   json
   rack
   rack-test
+  redcarpet
   rspec
   sinatra
   sinatra-contrib
