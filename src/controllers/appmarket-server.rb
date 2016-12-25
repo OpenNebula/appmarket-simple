@@ -60,7 +60,10 @@ get '/appliance/?' do
     json :sEcho => 1, :appliances => apps
 end
 
-get '/appliance/:id/?' do
+get '/appliance/:id/?', :provides => :html do
+    # ON marketplace wants JSON
+    pass if request.user_agent =~ /OpenNebula/i
+
     app = appliances.get(params[:id])
     if app.nil?
         error 404
@@ -80,6 +83,15 @@ get '/appliance/:id/?' do
             :space_after_headers => true)
 
         haml :appliance, :locals => {:app => app}
+    end
+end
+
+get '/appliance/:id/?' do
+    app = appliances.get(params[:id])
+    if app.nil?
+        error 404
+    else
+        json app
     end
 end
 
