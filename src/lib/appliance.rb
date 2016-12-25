@@ -48,6 +48,7 @@ class Appliance
 
     def description=(value)
         @description = strip_or_nil(value)
+        @description.gsub!(/\r\n/,"\n") if @description
     end
 
     def short_description=(value)
@@ -249,7 +250,7 @@ class Appliance
     end
 
     def write_yaml(name=nil)
-        yaml = self.to_h().to_yaml(:line_width => 70)
+        yaml = self.to_h.to_yaml(:line_width => 70)
 
         if name.nil?
             puts yaml
