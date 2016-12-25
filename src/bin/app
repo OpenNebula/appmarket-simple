@@ -63,7 +63,7 @@ class AppCli < Thor
             :desc     => "Image driver",
             :banner   => "DRIVER"
 
-        method_option :image_location,
+        method_option :image_url,
             :banner   => "URL",
             :desc     => "Image location (URL)",
             :required => mandatory

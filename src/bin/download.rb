@@ -97,9 +97,9 @@ mkt_apps.each { |mkt_app|
         'creation_time'         => mkt_app['creation_time'],
         'opennebula_template'   => mkt_app['opennebula_template'],
         'opennebula_version'    => mkt_app['opennebula_version'],
-        'os_id'                 => mkt_app['os-id'],
-        'os_release'            => mkt_app['os-release'],
-        'os_arch'               => mkt_app['os-arch'],
+        'os-id'                 => mkt_app['os-id'],
+        'os-release'            => mkt_app['os-release'],
+        'os-arch'               => mkt_app['os-arch'],
         'hypervisor'            => mkt_app['hypervisor'],
         'logo'                  => mkt_app['logo']
     })
@@ -108,10 +108,11 @@ mkt_apps.each { |mkt_app|
     mkt_app['files'].each_with_index { |mkt_file, mkt_idx|
         image = Appliance::Image.new()
         image.from_h({
+            'name'          => mkt_file['name'],
             'type'          => mkt_file['type'],
             'dev_prefix'    => mkt_file['dev_prefix'],
             'driver'        => mkt_file['driver'],
-            'location'      => nil,
+            'url'           => nil,
             'size'          => mkt_file['size'].to_i,
         })
 
@@ -125,16 +126,16 @@ mkt_apps.each { |mkt_app|
         end
 
         if mkt_file['url']
-            image.location = mkt_file['url']
+            image.url= mkt_file['url']
         else
             # get image URL
             uri = URI.parse('%s/%s/download/%i' % [ONE_MARKET_URL, id, mkt_idx])
             req = Net::HTTP::Get.new(uri.request_uri)
             res = http.request(req)
             if (res.is_a? Net::HTTPFound)
-                image.location = res['Location']
+                image.url = res['Location']
             else
-                abort "Image location not found for %s / %i" % [id, mkt_idx]
+                abort "Image URL not found for %s / %i" % [id, mkt_idx]
             end
         end
 

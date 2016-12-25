@@ -1,8 +1,9 @@
 require 'appliance'
 
 class Appliances
-    def initialize(dir)
+    def initialize(dir, base_url)
         @dir = dir
+        @base_url = base_url
         @appliances = nil
         self.reload
     end
@@ -26,7 +27,7 @@ class Appliances
                 raise "Duplicate appliance ID #{id}"
             end
 
-            new[id] = app.to_h(true)
+            new[id] = app.to_h(legacy: true, base_url: @base_url)
         }
         @appliances = new
     end

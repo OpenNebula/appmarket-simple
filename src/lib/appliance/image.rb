@@ -5,16 +5,21 @@ require 'systemu'
 
 class Appliance
     class Image
-        attr_reader :type, :dev_prefix, :driver, :location, :size, :checksum
+        attr_reader :name, :type, :dev_prefix, :driver, :url, :size, :checksum
 
         def initialize(data=nil)
+            @name = nil
             @type = nil
             @dev_prefix = nil
             @driver = nil
-            @location = nil
+            @url = nil
             @size = nil
             @checksum = nil
             self.from_h(data) unless data.nil?
+        end
+
+        def name=(value)
+            @name = strip_or_nil(value)
         end
 
         def type=(value)
@@ -29,8 +34,8 @@ class Appliance
             @driver = strip_or_nil(value)
         end
 
-        def location=(value)
-            @location = strip_or_nil(value)
+        def url=(value)
+            @url = strip_or_nil(value)
         end
 
         def size=(value)
@@ -62,13 +67,13 @@ class Appliance
         ###
 
         def from_h(data)
-            %w(type dev_prefix driver location size checksum).each { |k|
+            %w(name type dev_prefix driver url size checksum).each { |k|
                 self.send("#{k}=", data[k])
             }
         end
 
         def from_options(options)
-            %w(type dev_prefix driver location size).each { |opt|
+            %w(name type dev_prefix driver url size).each { |opt|
                 opt_name = "image_#{opt.to_sym}".to_sym
                 self.send("#{opt}=", options[opt_name]) if options.key?(opt_name)
             }
@@ -91,7 +96,8 @@ class Appliance
 
         def to_h(legacy=false)
             data = {
-                'location'      => @location,
+                'name'          => @name,
+                'url'           => @url,
                 'type'          => @type,
                 'dev_prefix'    => @dev_prefix,
                 'driver'        => @driver,
@@ -110,7 +116,7 @@ class Appliance
         def refresh
             Tempfile.open("tmp") { |file|
                 # download the file
-                open(@location, "rb") { |l|
+                open(@url, "rb") { |l|
                     file.write(l.read)
                 }
                 file.close

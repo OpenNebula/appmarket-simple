@@ -5,8 +5,10 @@ require 'models/appliances'
 require 'redcarpet'
 
 # appliances metadata
+APPMARKET_URL = ENV["APPMARKET_URL"] || "http://marketplace.opennebula.systems"
 APPMARKET_DIR = ENV['APPMARKET_DIR'] || 'data/'
-appliances = Appliances.new(APPMARKET_DIR)
+appliances = Appliances.new(APPMARKET_DIR, APPMARKET_URL)
+
 
 helpers do
     def h(text)
@@ -102,9 +104,9 @@ get '/appliance/:id/download/?:file_id?' do
         error 404
     else
         file = app['files'][file_id]
-        if file['size']>0 && file['location']
+        if file['size']>0 && file['url']
             headers["OpenNebula-AppMarket-Size"] = file['size'].to_s
-            redirect file['location']
+            redirect file['url']
         else
             error 404
         end

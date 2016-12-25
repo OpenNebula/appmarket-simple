@@ -117,14 +117,15 @@ class Appliance
 
     ###
 
-    KEYS = %w(name version publisher description short_description tags format
+    KEYS = %w(id name version publisher description short_description tags format
               creation_time opennebula_template opennebula_version
-              os_id os_release os_arch hypervisor logo)
+              os-id os-release os-arch hypervisor logo)
 
     def from_options(options)
         KEYS.each { |opt|
             if options.key?(opt.to_sym)
-                self.send("#{opt}=", options[opt.to_sym])
+                opt_priv = opt.gsub(/-/, '_')
+                self.send("#{opt_priv}=", options[opt.to_sym])
             end
         }
 
@@ -146,19 +147,20 @@ class Appliance
 
     def from_h(data)
         KEYS.each { |k|
-            self.send("#{k}=", data[k])
+            k_priv = k.gsub(/-/, '_')
+            self.send("#{k_priv}=", data[k])
 #            self.instance_variable_set("@#{k}", data[k])
         }
 
         @images = []
         if data["images"].is_a? Array
-            data["images"].each { |file|
-                @images << Appliance::Image.new(file)
+            data["images"].each { |image|
+                @images << Appliance::Image.new(image)
             }
         end
     end
 
-    def to_h(legacy=false, with_id=false)
+    def to_h(legacy: false, with_id: false, base_url: "http://localhost:9292")
         template = nil
 
         # legacy (ON marketplace) key names
@@ -180,9 +182,11 @@ class Appliance
 
         data = {}
 
-        # app. ID
         if legacy 
             data['_id'] = { '$oid' => @id }
+
+            url = "#{base_url}/appliance/#{@id}/download"
+            data['links'] =  { 'download' => { 'href' => url } }
         elsif with_id
             data['id'] = @id
         end
@@ -196,9 +200,9 @@ class Appliance
             'tags'                => @tags,
             'format'              => @format,
             'creation_time'       => @creation_time,
-            'os_id'               => @os_id,
-            'os_release'          => @os_release,
-            'os_arch'             => @os_arch,
+            'os-id'               => @os_id,
+            'os-release'          => @os_release,
+            'os-arch'             => @os_arch,
             'hypervisor'          => @hypervisor,
             'opennebula_version'  => @opennebula_version,
             'opennebula_template' => template,
@@ -208,8 +212,8 @@ class Appliance
         # app. images
         if !@images.nil? and !@images.empty?
             data[k_imgs] = []
-            @images.each { |file|
-                data[k_imgs] << file.to_h(legacy)
+            @images.each { |image|
+                data[k_imgs] << image.to_h(legacy)
             }
         end
 
