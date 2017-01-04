@@ -214,7 +214,9 @@ class Appliance
         if !@images.nil? and !@images.empty?
             data[k_imgs] = []
             @images.each { |image|
-                data[k_imgs] << image.to_h(legacy)
+                i = image.to_h(legacy)
+                i['hypervisor'] = @hypervisor if legacy
+                data[k_imgs] << i
             }
         end
 
