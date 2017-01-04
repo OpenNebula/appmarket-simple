@@ -215,7 +215,11 @@ class Appliance
             data[k_imgs] = []
             @images.each { |image|
                 i = image.to_h(legacy)
-                i['hypervisor'] = @hypervisor if legacy
+                if legacy
+                    i['hypervisor'] = @hypervisor
+                    i['os-arch'] = @os_arch
+                    i['format'] = @format
+                end
                 data[k_imgs] << i
             }
         end
