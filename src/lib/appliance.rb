@@ -297,7 +297,7 @@ class Appliance
         if value.nil?
             value
         else
-            value.strip
+            value.to_s.strip
         end
     end
 end
