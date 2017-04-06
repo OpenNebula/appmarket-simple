@@ -54,6 +54,7 @@ get '/appliance/?', :provides => :html do
     pass if request.user_agent =~ /OpenNebula/i
 
     apps = appliances.get_all_list
+    apps.delete_if { |a| a.has_key?("version") and a["version"] =~ /DELETE/i }
     haml :index, :locals => { :appliances => apps }, :content_type => "text/html"
 end
 
