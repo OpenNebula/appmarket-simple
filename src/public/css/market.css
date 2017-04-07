@@ -240,3 +240,7 @@ blockquote small {
   line-height: 18px;
   color: #353735;
 }
+
+blockquote small:before {
+  content: unset;
+}
