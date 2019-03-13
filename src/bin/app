@@ -19,7 +19,7 @@ class AppCli < Thor
         method_option :publisher,
             :desc     => "Publisher name",
             :required => mandatory
-            
+
         method_option :description,
             :desc     => "Description",
             :required => mandatory
@@ -32,6 +32,11 @@ class AppCli < Thor
         method_option :format,
             :desc     => "Format",
             :enum     => %w(raw qcow2 vmdk vdi),
+            :required => mandatory
+
+        method_option :type,
+            :desc     => "Type",
+            :enum     => %w(IMAGE VMTEMPLATE),
             :required => mandatory
 
         method_option :creation_time,

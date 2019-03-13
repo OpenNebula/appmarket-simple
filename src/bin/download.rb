@@ -101,7 +101,8 @@ mkt_apps.each { |mkt_app|
         'os-release'            => mkt_app['os-release'],
         'os-arch'               => mkt_app['os-arch'],
         'hypervisor'            => mkt_app['hypervisor'],
-        'logo'                  => mkt_app['logo']
+        'logo'                  => mkt_app['logo'],
+        'type'                  => mkt_app['type']
     })
 
     # appliance files
