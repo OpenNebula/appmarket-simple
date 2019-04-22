@@ -71,8 +71,10 @@ class Image extends Component {
             )}
           </div>
           <CardBody>
-            <CardTitle className={classnames('overflow-hidden')}>
-              {substr(name, 23)}
+            <CardTitle
+              className={classnames('overflow-hidden', 'text-truncate')}
+            >
+              {name}
             </CardTitle>
             <Button
               className={classnames('info-btn', 'w-100')}

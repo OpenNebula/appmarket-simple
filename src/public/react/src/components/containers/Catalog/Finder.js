@@ -39,7 +39,7 @@ class Finder extends Component {
       clearTitle
     } = this.props;
     const renderTags = tags.map(e => (
-      <option key={e} value={e}>
+      <option key={e} value={e} className={classnames('text-capitalize')}>
         {e}
       </option>
     ));
@@ -62,7 +62,7 @@ class Finder extends Component {
             </InputGroup>
             <Col xs="12" className={classnames('p-0', 'text-right')}>
               <Button
-                className={classnames('font-weight-bold')}
+                className={classnames('font-weight-bold', 'color-primary')}
                 onClick={this.toggle}
                 size="sm"
                 color="link"
