@@ -41,7 +41,7 @@ helpers do
 end
 
 get '/' do
-    redirect '/appliance'
+    redirect '/marketplace/'
 end
 
 get '/robots.txt' do
@@ -49,13 +49,12 @@ get '/robots.txt' do
     "User-agent: *\nDisallow: /"
 end
 
-get '/appliance/?', :provides => :html do
-    # ON marketplace wants JSON
-    pass if request.user_agent =~ /OpenNebula/i
+get '/marketplace', :provides => :html do
+    redirect '/marketplace/'
+end
 
-    apps = appliances.get_all_list
-    apps.delete_if { |a| a.has_key?("version") and a["version"] =~ /DELETE/i }
-    haml :index, :locals => { :appliances => apps }, :content_type => "text/html"
+get '/marketplace/*', :provides => :html do
+    haml :react, :content_type => "text/html"
 end
 
 get '/appliance/?' do
@@ -63,6 +62,7 @@ get '/appliance/?' do
     json :sEcho => 1, :appliances => apps
 end
 
+=begin
 get '/appliance/:id/?', :provides => :html do
     # ON marketplace wants JSON
     pass if request.user_agent =~ /OpenNebula/i
@@ -88,7 +88,7 @@ get '/appliance/:id/?', :provides => :html do
         haml :appliance, :locals => {:app => app}
     end
 end
-
+=end
 get '/appliance/:id/?' do
     app = appliances.get(params[:id])
     if app.nil?

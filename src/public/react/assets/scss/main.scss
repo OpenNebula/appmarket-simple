@@ -1,0 +1,34 @@
+$font-color: #555;
+$footer-bgcolor: #343a40;
+$footer-color: #fff;
+$footer-color-hover: #acacac;
+$app-height: 100vh;
+$default-shadow-image: rgba(0,0,0,0.14);
+$opennebula-color: #3398c4;
+$opennebula-color-hover: #217194;
+
+@mixin box-shadow($x-axis: 0, $y-axis: 0, $blur: 5px, $width: 3px, $color: $default-shadow-image) {
+  box-shadow: $x-axis $y-axis $blur $width $color;
+}
+
+html,body,#app{
+  min-height: $app-height;
+}
+#app{
+  .app-container{
+    min-height: $app-height;
+  }
+}
+.color-primary{
+  color: $opennebula-color;
+}
+.nav-pills{
+  .nav-link.active,.show>.nav-link{
+    color: $footer-color !important;
+    background-color: $opennebula-color;
+  }
+}
+@import "header";
+@import "catalog";
+@import "product";
+@import "footer";
