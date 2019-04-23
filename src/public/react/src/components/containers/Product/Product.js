@@ -278,7 +278,11 @@ class Product extends Component {
             <InputGroup>
               <Input
                 type="textarea"
-                defaultValue={opennebulaTemplate}
+                defaultValue={JSON.stringify(
+                  JSON.parse(opennebulaTemplate),
+                  null,
+                  2
+                )}
                 className={classnames('template')}
                 disabled
               />
