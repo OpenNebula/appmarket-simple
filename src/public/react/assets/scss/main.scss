@@ -22,6 +22,9 @@ html,body,#app{
 .color-primary{
   color: $opennebula-color;
 }
+.nav-item{
+  cursor: pointer;
+}
 .nav-pills{
   .nav-link.active,.show>.nav-link{
     color: $footer-color !important;
