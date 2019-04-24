@@ -3,78 +3,113 @@ import {
   Row,
   Input,
   Label,
-  Col,
   InputGroup,
   InputGroupAddon,
   Button,
-  Collapse
+  Collapse,
+  Card
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { filterTitle, selectTags, displayFilters } from '../../../actions';
 import { SEARCH, TAGS } from '../../../constants';
 
 class Finder extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      collapse: false
-    };
     this.toggle = this.toggle.bind(this);
+    this.changeTitle = this.changeTitle.bind(this);
+    this.changeTags = this.changeTags.bind(this);
+    this.clearTags = this.clearTags.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
   toggle() {
-    this.setState({
-      collapse: !this.state.collapse
-    });
+    const { dispatch, displayFilters: showFilters } = this.props;
+    dispatch(displayFilters(!showFilters));
+  }
+
+  changeTitle(e) {
+    const { dispatch } = this.props;
+    const title = e.target.value;
+    dispatch(filterTitle(title));
+    this.redirect();
+  }
+
+  changeTags(e) {
+    const { dispatch } = this.props;
+    if (e && e.target && e.target.options) {
+      const options = e.target.options;
+      const optionsSelected = [...options]
+        .filter(option => option.selected)
+        .map(option => option.value);
+      dispatch(selectTags(optionsSelected));
+      this.redirect();
+    }
+  }
+
+  clearTags() {
+    const { dispatch } = this.props;
+    dispatch(selectTags([]));
+    this.redirect();
+  }
+
+  redirect() {
+    const { redirect, location } = this.props;
+    if (location !== '/') {
+      redirect('/');
+    }
   }
 
   render() {
     const {
-      value,
-      changeTitle,
+      title,
       tags,
-      changeTags,
-      clearTags,
       selectedTags,
-      clearTitle
+      displayFilters: showFilters
     } = this.props;
+    const idFilters = 'filters';
     const renderTags = tags.map(e => (
       <option key={e} value={e} className={classnames('text-capitalize')}>
         {e}
       </option>
     ));
     return (
-      <Row className={classnames('finder', 'card', 'mx-0')}>
-        <Col className={classnames('card-body', 'py-0')}>
-          <Row>
-            <InputGroup className={classnames('col-12', 'p-0', 'mb-2')}>
-              <Input
-                className={classnames('h-auto')}
-                placeholder={SEARCH}
-                onChange={changeTitle}
-                value={value}
-              />
-              <InputGroupAddon addonType="append">
-                <Button color="danger" onClick={clearTitle}>
-                  <i className={classnames('fas', 'fa-eraser')} />
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
-            <Col xs="12" className={classnames('p-0', 'text-right')}>
-              <Button
-                className={classnames('font-weight-bold', 'color-primary')}
-                onClick={this.toggle}
-                size="sm"
-                color="link"
-              >
+      <div className={classnames('finder', 'w-100')}>
+        <Row id={idFilters} className={classnames('no-gutters')}>
+          <InputGroup className={classnames('col-12')}>
+            <Input
+              className={classnames('h-auto')}
+              placeholder={SEARCH}
+              onChange={this.changeTitle}
+              value={title}
+            />
+            <InputGroupAddon addonType="append">
+              <Button outline color="secondary" onClick={this.toggle}>
                 <i className={classnames('fas', 'fa-filter')} />
               </Button>
-            </Col>
-            <Collapse
-              isOpen={this.state.collapse}
-              className={classnames('col-12')}
+            </InputGroupAddon>
+          </InputGroup>
+          <Collapse
+            className={classnames(
+              'finder-filters',
+              'col-12',
+              'position-relative'
+            )}
+            isOpen={showFilters}
+            toggle={this.toggle}
+          >
+            <Card
+              body
+              className={classnames(
+                'mt-2',
+                'p-2',
+                'position-absolute',
+                'w-100'
+              )}
             >
-              <Row className={classnames('pt-2')}>
+              <Row className={classnames('no-gutters')}>
                 <Label
                   className={classnames('col-12', 'col-sm-2', 'p-0', 'p-sm-2')}
                 >
@@ -86,43 +121,51 @@ class Finder extends Component {
                   <Input
                     type="select"
                     value={selectedTags}
-                    onChange={changeTags}
+                    onChange={this.changeTags}
                     multiple
                   >
                     {renderTags}
                   </Input>
                   <InputGroupAddon addonType="append">
-                    <Button color="danger" onClick={clearTags}>
+                    <Button color="danger" onClick={this.clearTags}>
                       <i className={classnames('fas', 'fa-eraser')} />
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
               </Row>
-            </Collapse>
-          </Row>
-        </Col>
-      </Row>
+            </Card>
+          </Collapse>
+        </Row>
+      </div>
     );
   }
 }
 Finder.propTypes = {
-  value: PropTypes.string,
-  changeTitle: PropTypes.func,
+  title: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
-  changeTags: PropTypes.func,
-  clearTags: PropTypes.func,
-  clearTitle: PropTypes.func,
-  selectedTags: PropTypes.arrayOf(PropTypes.string)
+  selectedTags: PropTypes.arrayOf(PropTypes.string),
+  dispatch: PropTypes.func,
+  redirect: PropTypes.func,
+  location: PropTypes.string,
+  displayFilters: PropTypes.bool
 };
 
 Finder.defaultProps = {
-  value: '',
-  changeTitle: () => null,
+  title: '',
   tags: [],
-  changeTags: () => null,
-  clearTags: () => null,
-  clearTitle: () => null,
-  selectedTags: []
+  selectedTags: [],
+  dispatch: () => null,
+  redirect: () => null,
+  location: '',
+  displayFilters: false
 };
+function mapStateToProps({ catalog }) {
+  return {
+    title: catalog.title,
+    selectedTags: catalog.selectedTags,
+    tags: catalog.tags,
+    displayFilters: catalog.displayFilters
+  };
+}
 
-export default Finder;
+export default connect(mapStateToProps)(Finder);

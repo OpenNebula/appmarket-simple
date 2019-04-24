@@ -1,11 +1,12 @@
-$font-color: #555;
-$footer-bgcolor: #343a40;
-$footer-color: #fff;
-$footer-color-hover: #acacac;
+$font-color:                 #555;
+$footer-bgcolor:             #343a40;
+$footer-color:               #fff;
+$footer-color-hover:         #acacac;
+
+$default-shadow-image:       rgba(0,0,0,0.14);
+$opennebula-color:           #3398c4;
+$opennebula-color-background:#f4fbfd;
 $app-height: 100vh;
-$default-shadow-image: rgba(0,0,0,0.14);
-$opennebula-color: #3398c4;
-$opennebula-color-hover: #217194;
 
 @mixin box-shadow($x-axis: 0, $y-axis: 0, $blur: 5px, $width: 3px, $color: $default-shadow-image) {
   box-shadow: $x-axis $y-axis $blur $width $color;
@@ -31,6 +32,38 @@ html,body,#app{
     background-color: $opennebula-color;
   }
 }
+.form-control:disabled, .form-control[readonly]{
+  background-color: #fff;
+}
+
+.badge{
+  font-size: 0.8rem;
+}
+
+.bg-opennebula{
+  background-color: $opennebula-color;
+}
+
+button.bg-opennebula{
+  &:active, &:focus, &:hover{
+    background-color: $opennebula-color !important;
+  }
+}
+
+.btn{
+  &.focus,&:focus{
+    box-shadow: none !important;
+  }
+}
+
+.finder-filters{
+  height: initial !important;
+  .card{
+    z-index: 1;
+    @include box-shadow();
+  }
+}
+
 @import "header";
 @import "catalog";
 @import "product";

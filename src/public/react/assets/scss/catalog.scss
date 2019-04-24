@@ -1,8 +1,3 @@
-.finder{
-  padding: 1rem 15px;
-  @include box-shadow()
-}
-
 .loading{
   .fa-spinner{
     font-size: 2rem;
@@ -13,7 +8,12 @@
 .image{
   margin: 15px 0;
   font-size: 0.8rem;
-  @include box-shadow()
+  cursor: pointer;
+  @include box-shadow();
+
+  &:hover{
+    @include box-shadow(0, 0, 9px, 9px);
+  }
 
   .card-title{
     font-weight: bold;
@@ -23,17 +23,6 @@
     white-space: normal;
   }
 
-  button.btn-success{
-    background-color: $opennebula-color;
-    border-color: $opennebula-color;
-    box-shadow: none !important;
-
-    &:hover,&:active{
-      background-color: $opennebula-color-hover !important;
-      border-color: $opennebula-color-hover !important;
-    }
-  }
-
   .card-text{
     height: 4.5rem;
     margin-top: 0.5rem;
@@ -41,7 +30,7 @@
   }
 
   .card-footer{
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   .image-place{
@@ -52,7 +41,7 @@
     &:before{
       content: "";
       display: block;
-      padding-top: 70%;
+      padding-top: 50%;
     }
 
     img{

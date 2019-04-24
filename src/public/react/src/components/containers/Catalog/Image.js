@@ -52,7 +52,7 @@ class Image extends Component {
     } = data;
     const pathLogo = `${DOMAIN}/logos/${logo}`;
     const rendertags = tags.length ? (
-      <div className={classnames('tags')}>
+      <div className={classnames('tags', 'd-flex', 'justify-content-center')}>
         {tags.map(tag => (
           <Badge color="dark" key={tag}>
             {tag}
@@ -62,7 +62,7 @@ class Image extends Component {
     ) : null;
     return (
       <Col xs="12" sm="6" lg="3" key={data}>
-        <Card className={classnames('image')}>
+        <Card className={classnames('image')} onClick={() => select(data)}>
           <div className={classnames('image-place', 'card-img-top')}>
             {error ? (
               <i className={classnames('fas', 'fa-hdd')} />
@@ -76,46 +76,31 @@ class Image extends Component {
             >
               {name}
             </CardTitle>
-            <Button
-              className={classnames('info-btn', 'w-100')}
-              onClick={() => select(data)}
-              color="success"
-            >
-              {MORE_INFO}
-            </Button>
             {rendertags}
           </CardBody>
-          <CardFooter className={classnames('text-right')}>
+          <CardFooter className={classnames('text-left')}>
             <Row>
               <Col>
-                <small>
-                  <b>{PUBLISHER}</b>
-                  {publisher}
-                </small>
+                <b>{PUBLISHER}</b>
+                {publisher}
               </Col>
             </Row>
             <Row>
               <Col>
-                <small>
-                  <b>{HYPERVISOR}</b>
-                  {hypervisor}
-                </small>
+                <b>{HYPERVISOR}</b>
+                {hypervisor}
               </Col>
             </Row>
             <Row>
               <Col>
-                <small>
-                  <b>{ARCH}</b>
-                  {arch}
-                </small>
+                <b>{ARCH}</b>
+                {arch}
               </Col>
             </Row>
             <Row>
               <Col>
-                <small>
-                  <b>{FORMAT}</b>
-                  {format}
-                </small>
+                <b>{FORMAT}</b>
+                {format}
               </Col>
             </Row>
           </CardFooter>

@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 import Loading from './Loading';
-import Finder from './Finder';
 import Image from './Image';
 import Nofound from './Nofound';
-import { addImages, selectImage, addTags } from '../../../actions';
+import {
+  addImages,
+  selectImage,
+  addTags,
+  displayFilters
+} from '../../../actions';
 import {
   fetchData,
   IMAGES_URL,
@@ -18,14 +22,7 @@ import {
 class Catalog extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: '',
-      selectedTags: []
-    };
     this.setImage = this.setImage.bind(this);
-    this.filterByName = this.filterByName.bind(this);
-    this.changeTags = this.changeTags.bind(this);
-    this.clearTags = this.clearTags.bind(this);
   }
 
   componentDidMount() {
@@ -61,31 +58,12 @@ class Catalog extends Component {
     dispatch(selectImage(image));
     if (image && image._id && image._id.$oid) {
       history.push(`/${image._id.$oid}`);
+      dispatch(displayFilters(false));
     }
-  }
-
-  changeTags(e) {
-    if (e && e.target && e.target.options) {
-      const options = e.target.options;
-      const optionsSelected = [...options]
-        .filter(option => option.selected)
-        .map(option => option.value);
-      this.setState({ selectedTags: optionsSelected });
-    }
-  }
-
-  filterByName(e) {
-    const title = e.target.value;
-    this.setState({ title });
-  }
-
-  clearTags(e) {
-    this.setState({ selectedTags: [] });
   }
 
   render() {
-    const { images, tags } = this.props;
-    const { title, selectedTags } = this.state;
+    const { images, title, selectedTags } = this.props;
     let render = null;
     if (images.length <= 0) {
       render = <Loading />;
@@ -117,17 +95,6 @@ class Catalog extends Component {
       );
       render = (
         <Row>
-          <Col xs="12" className={classnames('py-4')}>
-            <Finder
-              value={title}
-              changeTitle={this.filterByName}
-              tags={tags}
-              selectedTags={selectedTags}
-              changeTags={this.changeTags}
-              clearTags={this.clearTags}
-              clearTitle={() => this.setState({ title: '' })}
-            />
-          </Col>
           <Col xs="12">
             <Row>
               <Col className={classnames('mb-1')}>{imagesRender}</Col>
@@ -137,8 +104,15 @@ class Catalog extends Component {
       );
     }
     return (
-      <section className={classnames('catalog', 'flex-grow-1')}>
-        {render}
+      <section
+        className={classnames(
+          'catalog',
+          'flex-grow-1',
+          'bg-opennebula',
+          'pt-4'
+        )}
+      >
+        <Container>{render}</Container>
       </section>
     );
   }
@@ -147,7 +121,8 @@ class Catalog extends Component {
 Catalog.propTypes = {
   dispatch: PropTypes.func,
   images: PropTypes.arrayOf(ImagesPropTypes),
-  tags: PropTypes.arrayOf(PropTypes.string),
+  selectedTags: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func
   })
@@ -156,7 +131,8 @@ Catalog.propTypes = {
 Catalog.defaultProps = {
   dispatch: () => null,
   images: [ImagesDefaultProp],
-  tags: [],
+  selectedTags: [],
+  title: '',
   history: { push: () => null }
 };
 
@@ -164,7 +140,8 @@ function mapStateToProps({ catalog }) {
   return {
     images: catalog.images,
     image: catalog.image,
-    tags: catalog.tags
+    selectedTags: catalog.selectedTags,
+    title: catalog.title
   };
 }
 export default connect(mapStateToProps)(Catalog);

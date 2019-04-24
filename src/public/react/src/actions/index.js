@@ -14,19 +14,29 @@ export function selectImage(image) {
     }
   };
 }
-export function changePage(page) {
+export function selectTags(selectedTags) {
   return {
-    type: 'CHANGE_PAGE',
+    type: 'SELECT_TAGS',
     payload: {
-      page
+      selectedTags
     }
   };
 }
-export function changePaginate(paginate) {
+
+export function displayFilters(display) {
   return {
-    type: 'CHANGE_PAGINATE',
+    type: 'DISPLAY_FILTERS',
     payload: {
-      paginate
+      displayFilters: display
+    }
+  };
+}
+
+export function filterTitle(title) {
+  return {
+    type: 'FILTER_TITLE',
+    payload: {
+      title
     }
   };
 }

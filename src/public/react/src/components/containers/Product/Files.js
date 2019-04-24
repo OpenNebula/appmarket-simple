@@ -93,28 +93,22 @@ class Files extends Component {
                   <div className={classnames('details')}>
                     <Row>
                       <Col>
-                        <small>
-                          <b className={classnames('color-primary')}>{NAME}</b>
-                          {name}
-                        </small>
+                        <b className={classnames('color-primary')}>{NAME}</b>
+                        {name}
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <small>
-                          <b className={classnames('color-primary')}>
-                            {CHECKSUM}
-                          </b>
-                          {checksum && checksum.md5}
-                        </small>
+                        <b className={classnames('color-primary')}>
+                          {CHECKSUM}
+                        </b>
+                        {checksum && checksum.md5}
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <small>
-                          <b className={classnames('color-primary')}>{SIZE}</b>
-                          {size}
-                        </small>
+                        <b className={classnames('color-primary')}>{SIZE}</b>
+                        {size}
                       </Col>
                     </Row>
                   </div>

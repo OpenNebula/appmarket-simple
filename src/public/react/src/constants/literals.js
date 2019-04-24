@@ -2,7 +2,7 @@ import _LOGO from '../../assets/logo.png';
 import _LOGO_GREY from '../../assets/grey.png';
 import _LOGO_SYSTEMS from '../../assets/systems.png';
 
-export const MARKETPLACE_TITLE = 'OpenNebula Marketplace';
+export const MARKETPLACE_TITLE = 'Marketplace';
 export const NOT_FOUND = 'Not found';
 export const NOT_FOUND_RECORDS = 'Not founds records';
 export const MESSAGES_NOT_FOUND = 'Error 404';
@@ -44,12 +44,12 @@ export const FOOTER_TEXT =
   '© %YEAR% OpenNebula Systems S.L. All Rights Reserved. %LINK1% Please send comments to %LINK2% This site is managed by %LINK3% <br> OpenNebula and OpenNebula Systems are not responsible for any content you may access or download from external sites';
 export const PRINCIPAL_MENU = [
   {
-    title: 'Marketplace Docs',
+    title: 'APP DOC',
     url: 'http://marketplace.opennebula.systems/docs/',
     target: '_blank'
   },
   {
-    title: 'Integrate with Sunstone',
+    title: 'ONE DOC',
     url:
       'http://docs.opennebula.org/5.8/advanced_components/marketplace/market_one.html',
     target: '_blank'

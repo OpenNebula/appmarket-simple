@@ -15,7 +15,8 @@ import {
   Button,
   InputGroup,
   Input,
-  InputGroupAddon
+  InputGroupAddon,
+  Container
 } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import classnames from 'classnames';
@@ -179,84 +180,62 @@ class Product extends Component {
                 <Col xs="12" sm="6">
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>
-                          {PUBLISHER}
-                        </b>
-                        {publisher}
-                      </small>
+                      <b className={classnames('color-primary')}>{PUBLISHER}</b>
+                      {publisher}
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>{ID}</b>
-                        {id && id.$oid}
-                      </small>
+                      <b className={classnames('color-primary')}>{ID}</b>
+                      {id && id.$oid}
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>{CREATED}</b>
-                        {moment
-                          .unix(creationTime)
-                          .format('YYYY-MM-DD HH:mm:ss')}
-                      </small>
+                      <b className={classnames('color-primary')}>{CREATED}</b>
+                      {moment.unix(creationTime).format('YYYY-MM-DD HH:mm:ss')}
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>{VERSION}</b>
-                        {version}
-                      </small>
+                      <b className={classnames('color-primary')}>{VERSION}</b>
+                      {version}
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>
-                          {OPENNEBULA_VERSION}
-                        </b>
-                        {opennebulaVersion}
-                      </small>
+                      <b className={classnames('color-primary')}>
+                        {OPENNEBULA_VERSION}
+                      </b>
+                      {opennebulaVersion}
                     </Col>
                   </Row>
                 </Col>
                 <Col xs="12" sm="6">
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>{FORMAT}</b>
-                        {format}
-                      </small>
+                      <b className={classnames('color-primary')}>{FORMAT}</b>
+                      {format}
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>{OS}</b>
-                        {`${osId} ${osRelease}`}
-                      </small>
+                      <b className={classnames('color-primary')}>{OS}</b>
+                      {`${osId} ${osRelease}`}
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>
-                          {HYPERVISOR}
-                        </b>
-                        {hypervisor}
-                      </small>
+                      <b className={classnames('color-primary')}>
+                        {HYPERVISOR}
+                      </b>
+                      {hypervisor}
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <small>
-                        <b className={classnames('color-primary')}>{ARCH}</b>
-                        {arch}
-                      </small>
+                      <b className={classnames('color-primary')}>{ARCH}</b>
+                      {arch}
                     </Col>
                   </Row>
                 </Col>
@@ -336,7 +315,13 @@ class Product extends Component {
         </Card>
       );
     }
-    return <div className={classnames('product', 'flex-grow-1')}>{render}</div>;
+    return (
+      <div className={classnames('bg-opennebula', 'flex-grow-1', 'd-flex')}>
+        <Container className={classnames('product', 'pt-4')}>
+          {render}
+        </Container>
+      </div>
+    );
   }
 }
 

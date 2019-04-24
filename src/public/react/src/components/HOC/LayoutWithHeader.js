@@ -13,7 +13,7 @@ const LayoutWithHeader = ComposedComponent => props => (
       'justify-content-between'
     )}
   >
-    <Container
+    <div
       className={classnames(
         'app',
         'flex-grow-1',
@@ -22,9 +22,9 @@ const LayoutWithHeader = ComposedComponent => props => (
         'justify-content-between'
       )}
     >
-      <Header />
+      <Header {...props} />
       <ComposedComponent {...props} />
-    </Container>
+    </div>
     <Footer />
   </div>
 );

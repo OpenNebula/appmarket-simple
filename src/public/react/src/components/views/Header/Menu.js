@@ -1,10 +1,10 @@
 import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink, Button } from 'reactstrap';
 import classnames from 'classnames';
-import { PRINCIPAL_MENU } from '../../../constants';
+import { PRINCIPAL_MENU, substr } from '../../../constants';
 
 export default () => (
-  <Nav navbar>
+  <Nav className={classnames('justify-content-center')}>
     {PRINCIPAL_MENU.map(e => {
       const { title, url, target } = e;
       return (
@@ -12,9 +12,14 @@ export default () => (
           <NavLink
             href={url}
             target={target}
-            className={classnames('text-right', 'w-100')}
+            className={classnames('text-right', 'w-100', 'p-0')}
           >
-            <b className={classnames('p-2')}>{title}</b>
+            <Button
+              className={classnames('p-0', 'mx-1', 'bg-opennebula')}
+              color="primary"
+            >
+              <b className={classnames('p-2')}>{substr(title, 7, '')}</b>
+            </Button>
           </NavLink>
         </NavItem>
       );

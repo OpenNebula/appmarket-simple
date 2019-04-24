@@ -20,7 +20,7 @@ const Footer = () => {
     <section className={classnames('footer')}>
       <div className={classnames('logos-place')}>
         <Container>
-          <Row>
+          <Row className={classnames('align-items-center', 'py-1')}>
             <Col xs="12" sm="6" className={classnames('text-center')}>
               <a href={LOGO_GREY_URL} target="_blank">
                 <img

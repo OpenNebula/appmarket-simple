@@ -1,11 +1,10 @@
-import { DEFAULT_LIMIT_PAGINATE } from '../constants/literals';
-
 const initialState = {
   images: [],
   image: null,
   tags: [],
-  page: 0,
-  paginate: DEFAULT_LIMIT_PAGINATE
+  selectedTags: [],
+  title: '',
+  displayFilters: false
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -13,6 +12,24 @@ export default (state = initialState, action) => {
       return {
         ...state,
         images: action.payload.images
+      };
+    }
+    case 'SELECT_TAGS': {
+      return {
+        ...state,
+        selectedTags: action.payload.selectedTags
+      };
+    }
+    case 'DISPLAY_FILTERS': {
+      return {
+        ...state,
+        displayFilters: action.payload.displayFilters
+      };
+    }
+    case 'FILTER_TITLE': {
+      return {
+        ...state,
+        title: action.payload.title
       };
     }
     case 'ADD_TAGS': {
