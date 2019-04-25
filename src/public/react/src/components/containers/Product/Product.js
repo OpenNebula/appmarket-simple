@@ -56,6 +56,8 @@ class Product extends Component {
     this.toggle = this.toggle.bind(this);
     this.errorImage = this.errorImage.bind(this);
     this.renderTabs = this.renderTabs.bind(this);
+    this.parseMarkdown = this.parseMarkdown.bind(this);
+    this.copy = this.copy.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +84,16 @@ class Product extends Component {
         active: tab
       });
     }
+  }
+
+  parseMarkdown(text) {
+    let r = text;
+    if (text && text.length) {
+      try {
+        r = JSON.stringify(JSON.parse(text), null, 2);
+      } catch (error) {}
+    }
+    return r;
   }
 
   copy(value) {
@@ -257,11 +269,7 @@ class Product extends Component {
             <InputGroup>
               <Input
                 type="textarea"
-                defaultValue={JSON.stringify(
-                  JSON.parse(opennebulaTemplate),
-                  null,
-                  2
-                )}
+                defaultValue={this.parseMarkdown(opennebulaTemplate)}
                 className={classnames('template')}
                 disabled
               />
@@ -317,7 +325,7 @@ class Product extends Component {
     }
     return (
       <div className={classnames('bg-opennebula', 'flex-grow-1', 'd-flex')}>
-        <Container className={classnames('product', 'pt-4')}>
+        <Container className={classnames('product', 'pt-4', 'mb-4')}>
           {render}
         </Container>
       </div>

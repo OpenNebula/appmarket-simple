@@ -5,7 +5,9 @@ $footer-color-hover:         #acacac;
 
 $default-shadow-image:       rgba(0,0,0,0.14);
 $opennebula-color:           #3398c4;
-$opennebula-color-background:#f4fbfd;
+$color-ec2:                  #f7981f;
+$color-vmware:               #067cba;
+$color-kvm:                  #ab0000;
 $app-height: 100vh;
 
 @mixin box-shadow($x-axis: 0, $y-axis: 0, $blur: 5px, $width: 3px, $color: $default-shadow-image) {
@@ -42,11 +44,13 @@ html,body,#app{
 
 .bg-opennebula{
   background-color: $opennebula-color;
+  border-color: $opennebula-color;
 }
 
 button.bg-opennebula{
   &:active, &:focus, &:hover{
     background-color: $opennebula-color !important;
+    border-color: $opennebula-color !important;
   }
 }
 
@@ -63,6 +67,18 @@ button.bg-opennebula{
     @include box-shadow();
   }
 }
+.bg-ec2{
+  background-color: $color-ec2 !important;
+}
+
+.bg-vmware{
+  background-color: $color-vmware !important;
+}
+
+.bg-kvm{
+  background-color: $color-kvm !important;
+}
+
 
 @import "header";
 @import "catalog";

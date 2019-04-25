@@ -4,7 +4,9 @@ const initialState = {
   tags: [],
   selectedTags: [],
   title: '',
-  displayFilters: false
+  displayFilters: false,
+  hypervisors: [],
+  selectedHypervisors: []
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -12,6 +14,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         images: action.payload.images
+      };
+    }
+    case 'ADD_HYPERVISORS': {
+      return {
+        ...state,
+        hypervisors: action.payload.hypervisors
+      };
+    }
+    case 'SELECT_HYPERVISORS': {
+      return {
+        ...state,
+        selectedHypervisors: action.payload.selectedHypervisors
       };
     }
     case 'SELECT_TAGS': {

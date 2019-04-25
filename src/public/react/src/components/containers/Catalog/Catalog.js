@@ -10,6 +10,7 @@ import {
   addImages,
   selectImage,
   addTags,
+  addHypervisors,
   displayFilters
 } from '../../../actions';
 import {
@@ -29,6 +30,7 @@ class Catalog extends Component {
     const { dispatch, images } = this.props;
     if (images && images.length <= 0) {
       let createTags = [];
+      const createHypervisors = [];
       fetchData(IMAGES_URL, {
         method: 'GET',
         json: true
@@ -46,8 +48,16 @@ class Catalog extends Component {
                 e.tags.filter(tag => createTags.indexOf(tag) < 0)
               );
             }
+            if (
+              e.hypervisor &&
+              e.hypervisor.length &&
+              !createHypervisors.includes(e.hypervisor)
+            ) {
+              createHypervisors.push(e.hypervisor);
+            }
           });
           dispatch(addTags(createTags));
+          dispatch(addHypervisors(createHypervisors));
         }
       });
     }
@@ -63,18 +73,29 @@ class Catalog extends Component {
   }
 
   render() {
-    const { images, title, selectedTags } = this.props;
+    const {
+      images,
+      title,
+      selectedTags,
+      selectedHypervisors,
+      hypervisors
+    } = this.props;
+
     let render = null;
     if (images.length <= 0) {
       render = <Loading />;
     } else {
       let renderImages = images;
+      /** filters */
+
+      // title
       if (title.length) {
         renderImages = images.filter(e => {
           const re = new RegExp(title, 'i');
           return e.name && e.name.match(re);
         });
       }
+      // tags
       if (selectedTags.length) {
         renderImages = renderImages.filter(image => {
           let r = false;
@@ -84,10 +105,39 @@ class Catalog extends Component {
           return r;
         });
       }
+      // hypervisors
+      if (selectedHypervisors.length) {
+        renderImages = renderImages.filter(image => {
+          let r = false;
+          if (image && image.hypervisor) {
+            r = !!selectedHypervisors.find(tag => tag === image.hypervisor);
+          }
+          return r;
+        });
+      }
+      // sort by name
+      renderImages.sort((a, b) => {
+        if (a.name && b.name) {
+          const lowerA = a.name.toLowerCase();
+          const lowerB = b.name.toLowerCase();
+          if (lowerA > lowerB) {
+            return 1;
+          }
+          if (lowerA < lowerB) {
+            return -1;
+          }
+        }
+        return 0;
+      });
       const imagesRender = renderImages.length ? (
         <Row className={classnames('justify-content-md-start')}>
           {renderImages.map(e => (
-            <Image data={e} select={this.setImage} key={e.name} />
+            <Image
+              data={e}
+              select={this.setImage}
+              key={e.name}
+              removeHypervisors={hypervisors}
+            />
           ))}
         </Row>
       ) : (
@@ -125,7 +175,9 @@ Catalog.propTypes = {
   title: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func
-  })
+  }),
+  selectedHypervisors: PropTypes.arrayOf(PropTypes.string),
+  hypervisors: PropTypes.arrayOf(PropTypes.string)
 };
 
 Catalog.defaultProps = {
@@ -133,7 +185,9 @@ Catalog.defaultProps = {
   images: [ImagesDefaultProp],
   selectedTags: [],
   title: '',
-  history: { push: () => null }
+  history: { push: () => null },
+  selectedHypervisors: [],
+  hypervisors: []
 };
 
 function mapStateToProps({ catalog }) {
@@ -141,7 +195,9 @@ function mapStateToProps({ catalog }) {
     images: catalog.images,
     image: catalog.image,
     selectedTags: catalog.selectedTags,
-    title: catalog.title
+    title: catalog.title,
+    selectedHypervisors: catalog.selectedHypervisors,
+    hypervisors: catalog.hypervisors
   };
 }
 export default connect(mapStateToProps)(Catalog);

@@ -14,6 +14,22 @@ export function selectImage(image) {
     }
   };
 }
+export function addHypervisors(hypervisors) {
+  return {
+    type: 'ADD_HYPERVISORS',
+    payload: {
+      hypervisors
+    }
+  };
+}
+export function selectHypervisors(selectedHypervisors) {
+  return {
+    type: 'SELECT_HYPERVISORS',
+    payload: {
+      selectedHypervisors
+    }
+  };
+}
 export function selectTags(selectedTags) {
   return {
     type: 'SELECT_TAGS',

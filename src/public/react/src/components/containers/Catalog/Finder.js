@@ -7,13 +7,19 @@ import {
   InputGroupAddon,
   Button,
   Collapse,
-  Card
+  Card,
+  Col
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { filterTitle, selectTags, displayFilters } from '../../../actions';
-import { SEARCH, TAGS } from '../../../constants';
+import {
+  filterTitle,
+  selectTags,
+  displayFilters,
+  selectHypervisors
+} from '../../../actions';
+import { SEARCH, TAGS, HYPERVISOR } from '../../../constants';
 
 class Finder extends Component {
   constructor(props) {
@@ -21,7 +27,9 @@ class Finder extends Component {
     this.toggle = this.toggle.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
     this.changeTags = this.changeTags.bind(this);
+    this.changeHypervisors = this.changeHypervisors.bind(this);
     this.clearTags = this.clearTags.bind(this);
+    this.clearHypervisors = this.clearHypervisors.bind(this);
     this.redirect = this.redirect.bind(this);
   }
 
@@ -49,9 +57,27 @@ class Finder extends Component {
     }
   }
 
+  changeHypervisors(e) {
+    const { dispatch } = this.props;
+    if (e && e.target && e.target.options) {
+      const options = e.target.options;
+      const optionsSelected = [...options]
+        .filter(option => option.selected)
+        .map(option => option.value);
+      dispatch(selectHypervisors(optionsSelected));
+      this.redirect();
+    }
+  }
+
   clearTags() {
     const { dispatch } = this.props;
     dispatch(selectTags([]));
+    this.redirect();
+  }
+
+  clearHypervisors() {
+    const { dispatch } = this.props;
+    dispatch(selectHypervisors([]));
     this.redirect();
   }
 
@@ -67,17 +93,23 @@ class Finder extends Component {
       title,
       tags,
       selectedTags,
-      displayFilters: showFilters
+      displayFilters: showFilters,
+      hypervisors,
+      selectedHypervisors
     } = this.props;
-    const idFilters = 'filters';
     const renderTags = tags.map(e => (
+      <option key={e} value={e} className={classnames('text-capitalize')}>
+        {e}
+      </option>
+    ));
+    const renderHypervisors = hypervisors.map(e => (
       <option key={e} value={e} className={classnames('text-capitalize')}>
         {e}
       </option>
     ));
     return (
       <div className={classnames('finder', 'w-100')}>
-        <Row id={idFilters} className={classnames('no-gutters')}>
+        <Row className={classnames('no-gutters')}>
           <InputGroup className={classnames('col-12')}>
             <Input
               className={classnames('h-auto')}
@@ -98,7 +130,6 @@ class Finder extends Component {
               'position-relative'
             )}
             isOpen={showFilters}
-            toggle={this.toggle}
           >
             <Card
               body
@@ -110,28 +141,66 @@ class Finder extends Component {
               )}
             >
               <Row className={classnames('no-gutters')}>
-                <Label
-                  className={classnames('col-12', 'col-sm-2', 'p-0', 'p-sm-2')}
-                >
-                  <b>{`${TAGS}:`}</b>
-                </Label>
-                <InputGroup
-                  className={classnames('col-12', 'col-sm-10', 'p-0')}
-                >
-                  <Input
-                    type="select"
-                    value={selectedTags}
-                    onChange={this.changeTags}
-                    multiple
-                  >
-                    {renderTags}
-                  </Input>
-                  <InputGroupAddon addonType="append">
-                    <Button color="danger" onClick={this.clearTags}>
-                      <i className={classnames('fas', 'fa-eraser')} />
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
+                <Col>
+                  <Row className={classnames('no-gutters')}>
+                    <Label
+                      className={classnames(
+                        'col-12',
+                        'col-sm-4',
+                        'p-0',
+                        'p-sm-2'
+                      )}
+                    >
+                      <b>{`${TAGS}`}</b>
+                    </Label>
+                    <InputGroup
+                      className={classnames('col-12', 'col-sm-8', 'p-0')}
+                    >
+                      <Input
+                        type="select"
+                        value={selectedTags}
+                        onChange={this.changeTags}
+                        multiple
+                      >
+                        {renderTags}
+                      </Input>
+                      <InputGroupAddon addonType="append">
+                        <Button color="danger" onClick={this.clearTags}>
+                          <i className={classnames('fas', 'fa-eraser')} />
+                        </Button>
+                      </InputGroupAddon>
+                    </InputGroup>
+                  </Row>
+                  <Row className={classnames('mt-2', 'no-gutters')}>
+                    <Label
+                      className={classnames(
+                        'col-12',
+                        'col-sm-4',
+                        'p-0',
+                        'p-sm-2'
+                      )}
+                    >
+                      <b>{`${HYPERVISOR}`}</b>
+                    </Label>
+                    <InputGroup
+                      className={classnames('col-12', 'col-sm-8', 'p-0')}
+                    >
+                      <Input
+                        type="select"
+                        value={selectedHypervisors}
+                        onChange={this.changeHypervisors}
+                        multiple
+                      >
+                        {renderHypervisors}
+                      </Input>
+                      <InputGroupAddon addonType="append">
+                        <Button color="danger" onClick={this.clearHypervisors}>
+                          <i className={classnames('fas', 'fa-eraser')} />
+                        </Button>
+                      </InputGroupAddon>
+                    </InputGroup>
+                  </Row>
+                </Col>
               </Row>
             </Card>
           </Collapse>
@@ -147,7 +216,9 @@ Finder.propTypes = {
   dispatch: PropTypes.func,
   redirect: PropTypes.func,
   location: PropTypes.string,
-  displayFilters: PropTypes.bool
+  displayFilters: PropTypes.bool,
+  hypervisors: PropTypes.arrayOf(PropTypes.string),
+  selectedHypervisors: PropTypes.arrayOf(PropTypes.string)
 };
 
 Finder.defaultProps = {
@@ -157,14 +228,18 @@ Finder.defaultProps = {
   dispatch: () => null,
   redirect: () => null,
   location: '',
-  displayFilters: false
+  displayFilters: false,
+  hypervisors: [],
+  selectedHypervisors: []
 };
 function mapStateToProps({ catalog }) {
   return {
     title: catalog.title,
     selectedTags: catalog.selectedTags,
     tags: catalog.tags,
-    displayFilters: catalog.displayFilters
+    displayFilters: catalog.displayFilters,
+    hypervisors: catalog.hypervisors,
+    selectedHypervisors: catalog.selectedHypervisors
   };
 }
 
