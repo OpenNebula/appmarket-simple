@@ -63,7 +63,6 @@ class Image extends Component {
       'os-arch': arch,
       format
     } = data;
-    console.log('-->', hypervisor.toLowerCase());
     const pathLogo = `${DOMAIN}/logos/${logo}`;
     const rendertags = tags.length ? (
       <div

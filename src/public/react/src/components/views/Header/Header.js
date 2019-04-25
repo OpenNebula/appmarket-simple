@@ -24,7 +24,7 @@ const Header = ({ history, location }) => {
                 alt={MARKETPLACE_TITLE}
                 className={classnames('d-sm-inline')}
               />
-              <h3 className={classnames('d-none', 'd-sm-inline')}>
+              <h3 className={classnames('d-none', 'd-lg-inline')}>
                 {MARKETPLACE_TITLE}
               </h3>
             </a>
