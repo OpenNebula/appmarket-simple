@@ -287,7 +287,7 @@ class Product extends Component {
       ];
 
       const rendertags = tags.length ? (
-        <div className={classnames('my-2', 'text-center')}>
+        <div className={classnames('my-2', 'text-center', 'tags')}>
           {tags.map(tag => (
             <Badge color="dark" key={tag}>
               {tag}
@@ -382,7 +382,7 @@ class Product extends Component {
       );
     }
     return (
-      <div className={classnames('bg-opennebula', 'flex-grow-1', 'd-flex')}>
+      <div className={classnames('bg-color', 'flex-grow-1', 'd-flex')}>
         <Container className={classnames('product', 'pt-4', 'mb-4')}>
           {render}
         </Container>

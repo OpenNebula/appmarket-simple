@@ -12,7 +12,7 @@
   @include box-shadow();
 
   &:hover{
-    @include box-shadow(0, 0, 9px, 9px);
+    @include box-shadow(0, 0, 5px, 5px, $opennebula-color-hover);
   }
 
   .hypervisor{

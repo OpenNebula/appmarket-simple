@@ -155,12 +155,7 @@ class Catalog extends Component {
     }
     return (
       <section
-        className={classnames(
-          'catalog',
-          'flex-grow-1',
-          'bg-opennebula',
-          'pt-4'
-        )}
+        className={classnames('catalog', 'flex-grow-1', 'bg-color', 'pt-4')}
       >
         <Container>{render}</Container>
       </section>
