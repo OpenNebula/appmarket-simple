@@ -227,7 +227,7 @@ class Product extends Component {
                     >
                       {removeEndPoints(VERSION)}
                     </b>
-                    {version}
+                    <div>{version}</div>
                   </Col>
                 </Row>
                 <Row className={classnames('mb-3')}>
