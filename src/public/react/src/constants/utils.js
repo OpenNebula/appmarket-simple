@@ -6,6 +6,8 @@ export const substr = (value = '', limit, ext = '...') => {
   return r;
 };
 
+export const removeEndPoints = (text = '') => text.replace(/\:\s$/, '');
+
 export const iff = (condition, then, otherwise) =>
   condition ? then : otherwise;
 

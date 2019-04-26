@@ -17,7 +17,8 @@ import {
   SIZE,
   DOWNLOAD,
   PATH_APPLIANCE,
-  DOMAIN
+  DOMAIN,
+  removeEndPoints
 } from '../../../constants';
 
 class Files extends Component {
@@ -90,25 +91,44 @@ class Files extends Component {
                     </a>
                   </div>
                   <hr />
-                  <div className={classnames('details')}>
-                    <Row>
+                  <div>
+                    <Row className={classnames('mb-3')}>
                       <Col>
-                        <b className={classnames('color-primary')}>{NAME}</b>
-                        {name}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <b className={classnames('color-primary')}>
-                          {CHECKSUM}
+                        <b
+                          className={classnames(
+                            'text-uppercase',
+                            'color-primary'
+                          )}
+                        >
+                          {removeEndPoints(NAME)}
                         </b>
-                        {checksum && checksum.md5}
+                        <div>{name}</div>
                       </Col>
                     </Row>
-                    <Row>
+                    <Row className={classnames('mb-3')}>
                       <Col>
-                        <b className={classnames('color-primary')}>{SIZE}</b>
-                        {size}
+                        <b
+                          className={classnames(
+                            'text-uppercase',
+                            'color-primary'
+                          )}
+                        >
+                          {removeEndPoints(CHECKSUM)}
+                        </b>
+                        <div>{checksum && checksum.md5}</div>
+                      </Col>
+                    </Row>
+                    <Row className={classnames('mb-3')}>
+                      <Col>
+                        <b
+                          className={classnames(
+                            'text-uppercase',
+                            'color-primary'
+                          )}
+                        >
+                          {removeEndPoints(SIZE)}
+                        </b>
+                        <div>{size}</div>
                       </Col>
                     </Row>
                   </div>
@@ -120,7 +140,7 @@ class Files extends Component {
       }
     });
     return (
-      <Col>
+      <Col className={classnames('p-0')}>
         <Nav tabs horizontal="end">
           {navs}
         </Nav>

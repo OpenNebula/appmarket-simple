@@ -4,11 +4,17 @@ $footer-color:               #fff;
 $footer-color-hover:         #acacac;
 
 $default-shadow-image:       rgba(0,0,0,0.14);
+$defautl-limit-color:        rgba(0,0,0,0.1);
 $opennebula-color:           #3398c4;
 $color-ec2:                  #f7981f;
 $color-vmware:               #067cba;
 $color-kvm:                  #ab0000;
 $app-height: 100vh;
+
+@font-face {
+	font-family: "Open Sans";
+	src: url("../fonts/open-sans.regular.ttf") format("truetype"),
+}
 
 @mixin box-shadow($x-axis: 0, $y-axis: 0, $blur: 5px, $width: 3px, $color: $default-shadow-image) {
   box-shadow: $x-axis $y-axis $blur $width $color;
@@ -16,6 +22,9 @@ $app-height: 100vh;
 
 html,body,#app{
   min-height: $app-height;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
 }
 #app{
   .app-container{
@@ -45,6 +54,13 @@ html,body,#app{
 .bg-opennebula{
   background-color: $opennebula-color;
   border-color: $opennebula-color;
+}
+
+.border-right-limit{
+  border-right: 1px solid $defautl-limit-color;
+  @media (max-width: 576px){
+    border-right: none;
+  }
 }
 
 button.bg-opennebula{

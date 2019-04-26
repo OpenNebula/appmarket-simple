@@ -2,15 +2,22 @@
   .card{
     @include box-shadow();
 
+    .description{
+      background-color: $defautl-limit-color;
+      border-radius: 0.3rem;
+    }
+
     .image-place{
       width: 100%;
       position: relative;
       overflow: hidden;
-  
+      border: 1px solid $defautl-limit-color;
+      border-radius: 0.3rem;
+
       &:before{
         content: "";
         display: block;
-        padding-top: 70%;
+        padding-top: 50%;
       }
   
       img{
@@ -53,13 +60,6 @@
 
     .template{
       min-height: 15rem;
-    }
-
-    .details{
-      font-size: 0.8rem;
-      b{
-        padding-right: .5rem;
-      }
     }
   }
 }

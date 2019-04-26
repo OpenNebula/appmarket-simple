@@ -43,7 +43,8 @@ import {
   ID,
   VERSION,
   OPENNEBULA_VERSION,
-  OS
+  OS,
+  removeEndPoints
 } from '../../../constants';
 
 class Product extends Component {
@@ -144,7 +145,15 @@ class Product extends Component {
     });
     return (
       <Col>
-        <Nav pills>{navs}</Nav>
+        <Nav
+          pills
+          className={classnames(
+            'justify-content-center',
+            'justify-content-sm-start'
+          )}
+        >
+          {navs}
+        </Nav>
         <TabContent className={classnames('mt-2')} activeTab={active}>
           {panes}
         </TabContent>
@@ -184,74 +193,64 @@ class Product extends Component {
           title: INFO,
           content: (
             <div>
-              <div className={classnames('pb-2', 'description')}>
+              <div className={classnames('p-3', 'description')}>
                 <ReactMarkdown source={description} />
               </div>
               <hr />
-              <Row className={classnames('details')}>
-                <Col xs="12" sm="6">
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>{PUBLISHER}</b>
-                      {publisher}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>{ID}</b>
-                      {id && id.$oid}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>{CREATED}</b>
+              <div>
+                <Row className={classnames('mb-3')}>
+                  <Col>
+                    <b
+                      className={classnames('color-primary', 'text-uppercase')}
+                    >
+                      {removeEndPoints(ID)}
+                    </b>
+                    <div>{id && id.$oid}</div>
+                  </Col>
+                </Row>
+                <Row className={classnames('mb-3')}>
+                  <Col>
+                    <b
+                      className={classnames('color-primary', 'text-uppercase')}
+                    >
+                      {removeEndPoints(CREATED)}
+                    </b>
+                    <div>
                       {moment.unix(creationTime).format('YYYY-MM-DD HH:mm:ss')}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>{VERSION}</b>
-                      {version}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>
-                        {OPENNEBULA_VERSION}
-                      </b>
-                      {opennebulaVersion}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xs="12" sm="6">
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>{FORMAT}</b>
-                      {format}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>{OS}</b>
-                      {`${osId} ${osRelease}`}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>
-                        {HYPERVISOR}
-                      </b>
-                      {hypervisor}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <b className={classnames('color-primary')}>{ARCH}</b>
-                      {arch}
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+                    </div>
+                  </Col>
+                </Row>
+                <Row className={classnames('mb-3')}>
+                  <Col>
+                    <b
+                      className={classnames('color-primary', 'text-uppercase')}
+                    >
+                      {removeEndPoints(VERSION)}
+                    </b>
+                    {version}
+                  </Col>
+                </Row>
+                <Row className={classnames('mb-3')}>
+                  <Col>
+                    <b
+                      className={classnames('color-primary', 'text-uppercase')}
+                    >
+                      {removeEndPoints(OPENNEBULA_VERSION)}
+                    </b>
+                    <div>{opennebulaVersion}</div>
+                  </Col>
+                </Row>
+                <Row className={classnames('mb-3')}>
+                  <Col>
+                    <b
+                      className={classnames('color-primary', 'text-uppercase')}
+                    >
+                      {removeEndPoints(OS)}
+                    </b>
+                    <div>{`${osId} ${osRelease}`}</div>
+                  </Col>
+                </Row>
+              </div>
             </div>
           ),
           condition: description && description.length
@@ -288,7 +287,7 @@ class Product extends Component {
       ];
 
       const rendertags = tags.length ? (
-        <div className={classnames('tags', 'text-center')}>
+        <div className={classnames('my-2', 'text-center')}>
           {tags.map(tag => (
             <Badge color="dark" key={tag}>
               {tag}
@@ -301,7 +300,10 @@ class Product extends Component {
       render = (
         <Card body className={classnames('mt-4')}>
           <Row>
-            <Col xs="12" sm="4">
+            <Col className={classnames('d-block', 'd-sm-none')}>
+              <h3 className={classnames('text-center', 'mb-3')}>{name}</h3>
+            </Col>
+            <Col xs="12" sm="3" className={classnames('border-right-limit')}>
               <div className={classnames('image-place')}>
                 {errorImg ? (
                   <i className={classnames('fas', 'fa-hdd')} />
@@ -310,10 +312,66 @@ class Product extends Component {
                 )}
               </div>
               {rendertags}
-            </Col>
-            <Col xs="12" sm="8">
               <Row>
-                <Col>
+                <Col xs="12">
+                  <Row className={classnames('mb-3')}>
+                    <Col>
+                      <b
+                        className={classnames(
+                          'color-primary',
+                          'text-uppercase'
+                        )}
+                      >
+                        {removeEndPoints(PUBLISHER)}
+                      </b>
+                      <div>{publisher}</div>
+                    </Col>
+                  </Row>
+                  <Row className={classnames('mb-3')}>
+                    <Col>
+                      <b
+                        className={classnames(
+                          'color-primary',
+                          'text-uppercase'
+                        )}
+                      >
+                        {removeEndPoints(HYPERVISOR)}
+                      </b>
+                      <div>{hypervisor}</div>
+                    </Col>
+                  </Row>
+                  <Row className={classnames('mb-3')}>
+                    <Col>
+                      <b
+                        className={classnames(
+                          'color-primary',
+                          'text-uppercase'
+                        )}
+                      >
+                        {removeEndPoints(ARCH)}
+                      </b>
+                      <div>{arch}</div>
+                    </Col>
+                  </Row>
+                  <Row className={classnames('mb-3')}>
+                    <Col>
+                      <b
+                        className={classnames(
+                          'color-primary',
+                          'text-uppercase'
+                        )}
+                      >
+                        {FORMAT}
+                      </b>
+                      <div>{removeEndPoints(format)}</div>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs="12" sm="9">
+              <Row>
+                <Col className={classnames('d-none', 'd-sm-block')}>
                   <h3 className={classnames('text-center', 'mb-3')}>{name}</h3>
                 </Col>
               </Row>
