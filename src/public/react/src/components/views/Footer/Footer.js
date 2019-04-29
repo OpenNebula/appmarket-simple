@@ -21,20 +21,15 @@ const Footer = () => {
       <div className={classnames('logos-place')}>
         <Container>
           <Row className={classnames('align-items-center', 'py-1')}>
-            <Col xs="12" sm="6" className={classnames('text-center')}>
-              <a href={LOGO_GREY_URL} target="_blank">
-                <img
-                  src={LOGO_GREY}
-                  className={classnames('m-2', 'w-50')}
-                  alt={LOGO_GREY_URL}
-                />
-              </a>
-            </Col>
-            <Col xs="12" sm="6" className={classnames('text-center')}>
+            <Col xs="12" className={classnames('text-center')}>
               <a href={LOGO_SYSTEMS_URL} target="_blank">
                 <img
                   src={LOGO_SYSTEMS}
-                  className={classnames('m-2', 'w-50')}
+                  className={classnames(
+                    'm-2',
+                    'w-50',
+                    'opennebula-systems-logo'
+                  )}
                   alt={LOGO_SYSTEMS_URL}
                 />
               </a>
