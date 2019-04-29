@@ -53,7 +53,11 @@ get '/appliance', :provides => :html do
     redirect '/appliance/'
 end
 
-get '/appliance/*', :provides => :html do
+get '/appliance/', :provides => :html do
+  haml :react, :content_type => "text/html"
+end
+
+get '/appliance/:id', :provides => :html do
     haml :react, :content_type => "text/html"
 end
 
