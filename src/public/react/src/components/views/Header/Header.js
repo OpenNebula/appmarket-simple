@@ -1,16 +1,21 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { MARKETPLACE_TITLE, INDEX_PATH, LOGO } from '../../../constants';
 import Menu from './Menu';
 import Finder from '../../containers/Catalog/Finder';
+import { displayFilters } from '../../../actions';
 
-const Header = ({ history, location }) => {
+const Header = ({ history, location, dispatch }) => {
   const { push } = history;
   const { pathname } = location;
   return (
-    <section className={classnames('header')}>
+    <section
+      className={classnames('header')}
+      onClick={() => dispatch(displayFilters(false))}
+    >
       <Container className={classnames('my-4')}>
         <Row className={classnames('align-items-center')}>
           <Col xs="12" sm="4">
@@ -55,11 +60,16 @@ Header.propTypes = {
   }),
   history: PropTypes.shape({
     push: PropTypes.func
-  })
+  }),
+  dispatch: PropTypes.func
 };
 
 Header.defaultProps = {
   location: { pathname: '' },
-  history: { push: () => null }
+  history: { push: () => null },
+  dispatch: () => null
 };
-export default Header;
+function mapStateToProps() {
+  return {};
+}
+export default connect(mapStateToProps)(Header);

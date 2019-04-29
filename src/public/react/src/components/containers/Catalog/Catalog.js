@@ -78,7 +78,8 @@ class Catalog extends Component {
       title,
       selectedTags,
       selectedHypervisors,
-      hypervisors
+      hypervisors,
+      dispatch
     } = this.props;
 
     let render = null;
@@ -156,6 +157,7 @@ class Catalog extends Component {
     return (
       <section
         className={classnames('catalog', 'flex-grow-1', 'bg-color', 'pt-4')}
+        onClick={() => dispatch(displayFilters(false))}
       >
         <Container>{render}</Container>
       </section>

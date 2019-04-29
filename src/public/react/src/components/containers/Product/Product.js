@@ -22,7 +22,7 @@ import ReactMarkdown from 'react-markdown';
 import classnames from 'classnames';
 import Loading from '../Catalog/Loading';
 import Files from './Files';
-import { selectImage } from '../../../actions';
+import { selectImage, displayFilters } from '../../../actions';
 import {
   ImagesPropTypes,
   fetchData,
@@ -44,7 +44,8 @@ import {
   VERSION,
   OPENNEBULA_VERSION,
   OS,
-  removeEndPoints
+  removeEndPoints,
+  NOT_AVAILABLE
 } from '../../../constants';
 
 class Product extends Component {
@@ -162,7 +163,7 @@ class Product extends Component {
   }
 
   render() {
-    const { image } = this.props;
+    const { image, dispatch } = this.props;
     let render = null;
     if (image === null) {
       render = <Loading />;
@@ -213,41 +214,9 @@ class Product extends Component {
                     <b
                       className={classnames('color-primary', 'text-uppercase')}
                     >
-                      {removeEndPoints(CREATED)}
-                    </b>
-                    <div>
-                      {moment.unix(creationTime).format('YYYY-MM-DD HH:mm:ss')}
-                    </div>
-                  </Col>
-                </Row>
-                <Row className={classnames('mb-3')}>
-                  <Col>
-                    <b
-                      className={classnames('color-primary', 'text-uppercase')}
-                    >
-                      {removeEndPoints(VERSION)}
-                    </b>
-                    <div>{version}</div>
-                  </Col>
-                </Row>
-                <Row className={classnames('mb-3')}>
-                  <Col>
-                    <b
-                      className={classnames('color-primary', 'text-uppercase')}
-                    >
                       {removeEndPoints(OPENNEBULA_VERSION)}
                     </b>
                     <div>{opennebulaVersion}</div>
-                  </Col>
-                </Row>
-                <Row className={classnames('mb-3')}>
-                  <Col>
-                    <b
-                      className={classnames('color-primary', 'text-uppercase')}
-                    >
-                      {removeEndPoints(OS)}
-                    </b>
-                    <div>{`${osId} ${osRelease}`}</div>
                   </Col>
                 </Row>
               </div>
@@ -270,7 +239,7 @@ class Product extends Component {
                 type="textarea"
                 defaultValue={this.parseMarkdown(opennebulaTemplate)}
                 className={classnames('template')}
-                disabled
+                readOnly
               />
               <InputGroupAddon addonType="append">
                 <Button
@@ -366,6 +335,51 @@ class Product extends Component {
                       <div>{removeEndPoints(format)}</div>
                     </Col>
                   </Row>
+                  <Row className={classnames('mb-3')}>
+                    <Col>
+                      <b
+                        className={classnames(
+                          'color-primary',
+                          'text-uppercase'
+                        )}
+                      >
+                        {removeEndPoints(CREATED)}
+                      </b>
+                      <div>
+                        {creationTime
+                          ? moment
+                              .unix(creationTime)
+                              .format('YYYY-MM-DD HH:mm:ss')
+                          : NOT_AVAILABLE}
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className={classnames('mb-3')}>
+                    <Col>
+                      <b
+                        className={classnames(
+                          'color-primary',
+                          'text-uppercase'
+                        )}
+                      >
+                        {removeEndPoints(VERSION)}
+                      </b>
+                      <div>{version}</div>
+                    </Col>
+                  </Row>
+                  <Row className={classnames('mb-3')}>
+                    <Col>
+                      <b
+                        className={classnames(
+                          'color-primary',
+                          'text-uppercase'
+                        )}
+                      >
+                        {removeEndPoints(OS)}
+                      </b>
+                      <div>{`${osId} ${osRelease || ''}`}</div>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Col>
@@ -382,7 +396,10 @@ class Product extends Component {
       );
     }
     return (
-      <div className={classnames('bg-color', 'flex-grow-1', 'd-flex')}>
+      <div
+        className={classnames('bg-color', 'flex-grow-1', 'd-flex')}
+        onClick={() => dispatch(displayFilters(false))}
+      >
         <Container className={classnames('product', 'pt-4', 'mb-4')}>
           {render}
         </Container>

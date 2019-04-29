@@ -18,7 +18,7 @@ export default () => (
               className={classnames('p-0', 'mx-1', 'bg-opennebula')}
               color="primary"
             >
-              <b className={classnames('p-2')}>{substr(title, 7, '')}</b>
+              <b className={classnames('p-2')}>{substr(title, 13, '')}</b>
             </Button>
           </NavLink>
         </NavItem>

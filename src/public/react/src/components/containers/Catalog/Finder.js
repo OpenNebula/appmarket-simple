@@ -19,7 +19,7 @@ import {
   displayFilters,
   selectHypervisors
 } from '../../../actions';
-import { SEARCH, TAGS, HYPERVISOR } from '../../../constants';
+import { SEARCH, TAGS, HYPERVISOR, stopPropagation } from '../../../constants';
 
 class Finder extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Finder extends Component {
     this.redirect = this.redirect.bind(this);
   }
 
-  toggle() {
+  toggle(e) {
     const { dispatch, displayFilters: showFilters } = this.props;
     dispatch(displayFilters(!showFilters));
   }
@@ -108,7 +108,7 @@ class Finder extends Component {
       </option>
     ));
     return (
-      <div className={classnames('finder', 'w-100')}>
+      <div className={classnames('finder', 'w-100')} onClick={stopPropagation}>
         <Row className={classnames('no-gutters')}>
           <InputGroup className={classnames('col-12')}>
             <Input

@@ -29,7 +29,7 @@
     font-weight: bold;
     text-transform: capitalize;
     text-align: center;
-    height: 3rem;
+    height: 2rem;
     white-space: normal;
     @media (max-width: 576px){
       height: auto;
@@ -44,6 +44,13 @@
 
   .card-footer{
     font-size: 0.8rem;
+    height: 6.2rem;
+    @media (max-width: 576px){
+      height: auto;
+    }
+    .short-description{
+      white-space: normal;
+    }
   }
 
   .image-place{

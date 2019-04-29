@@ -1,42 +1,38 @@
 import React, { Component } from 'react';
-import {
-  Col,
-  Card,
-  CardText,
-  CardBody,
-  Button,
-  CardTitle,
-  CardFooter,
-  Badge,
-  Row
-} from 'reactstrap';
+import moment from 'moment';
+import { Col, Card, CardBody, CardFooter, Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
   ImagesPropTypes,
-  MORE_INFO,
   ImagesDefaultProp,
   DOMAIN,
-  substr,
-  PUBLISHER,
-  HYPERVISOR,
+  TAGS,
   ARCH,
-  FORMAT
+  VERSION,
+  CREATED,
+  NOT_AVAILABLE
 } from '../../../constants';
 
 class Image extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: false
+      error: false,
+      showDescription: false
     };
     this.errorImage = this.errorImage.bind(this);
+    this.showShortDescription = this.showShortDescription.bind(this);
     this.removeHypervisorInTitle = this.removeHypervisorInTitle.bind(this);
   }
 
   errorImage(e) {
     e.target.onerror = null;
     this.setState({ error: true });
+  }
+
+  showShortDescription(state = false) {
+    this.setState({ showDescription: state });
   }
 
   removeHypervisorInTitle(title) {
@@ -53,38 +49,25 @@ class Image extends Component {
 
   render() {
     const { data, select } = this.props;
-    const { error } = this.state;
+    const { error, showDescription } = this.state;
     const {
       name,
       tags,
       logo,
-      publisher,
+      version,
       hypervisor,
+      creation_time: creationTime,
       'os-arch': arch,
-      format
+      short_description: shortDescription
     } = data;
     const pathLogo = `${DOMAIN}/logos/${logo}`;
-    const rendertags = tags.length ? (
-      <div
-        className={classnames(
-          'tags',
-          'd-none',
-          'd-sm-flex',
-          'justify-content-center'
-        )}
-      >
-        {tags.map(tag => (
-          <Badge color="dark" key={tag}>
-            {tag}
-          </Badge>
-        ))}
-      </div>
-    ) : null;
     return (
       <Col xs="12" sm="6" lg="3" key={data}>
         <Card
           className={classnames('image', 'overflow-hidden', 'border-0')}
           onClick={() => select(data)}
+          onMouseEnter={() => this.showShortDescription(true)}
+          onMouseLeave={() => this.showShortDescription()}
         >
           <div
             className={classnames(
@@ -120,9 +103,10 @@ class Image extends Component {
               {hypervisor}
             </div>
           ) : null}
-          <CardBody>
-            <CardTitle
+          <CardBody className={classnames('py-2')}>
+            <h6
               className={classnames(
+                'card-title',
                 'overflow-hidden',
                 'text-truncate',
                 'm-0',
@@ -133,35 +117,57 @@ class Image extends Component {
               )}
             >
               {this.removeHypervisorInTitle(name)}
-            </CardTitle>
-            {rendertags}
+            </h6>
           </CardBody>
-          <CardFooter className={classnames('text-left')}>
-            <Row>
-              <Col>
-                <b>{PUBLISHER}</b>
-                {publisher}
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <b>{HYPERVISOR}</b>
-                {hypervisor}
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <b>{ARCH}</b>
-                {arch}
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <b>{FORMAT}</b>
-                {format}
-              </Col>
-            </Row>
-          </CardFooter>
+          {showDescription ? (
+            <CardFooter className={classnames('text-left')}>
+              <Row
+                className={classnames(
+                  'h-100',
+                  'align-items-center',
+                  'justify-content-center',
+                  'overflow-hidden'
+                )}
+              >
+                <Col
+                  className={classnames('text-truncate', 'short-description')}
+                >
+                  {shortDescription}
+                </Col>
+              </Row>
+            </CardFooter>
+          ) : (
+            <CardFooter className={classnames('text-left')}>
+              <Row>
+                <Col>
+                  <b>{ARCH}</b>
+                  {arch}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <b>{VERSION}</b>
+                  {version}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <b>{CREATED}</b>
+                  {creationTime
+                    ? moment.unix(creationTime).format('YYYY-MM-DD HH:mm:ss')
+                    : NOT_AVAILABLE}
+                </Col>
+              </Row>
+              {tags && tags.length >= 1 ? (
+                <Row>
+                  <Col>
+                    <b>{TAGS}</b>
+                    {tags.join(', ')}
+                  </Col>
+                </Row>
+              ) : null}
+            </CardFooter>
+          )}
         </Card>
       </Col>
     );
