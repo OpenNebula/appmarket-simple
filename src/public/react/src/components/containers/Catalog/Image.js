@@ -139,19 +139,19 @@ class Image extends Component {
           ) : (
             <CardFooter className={classnames('text-left')}>
               <Row>
-                <Col>
+                <Col className={classnames('text-truncate')}>
                   <b>{ARCH}</b>
                   {arch}
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col className={classnames('text-truncate')}>
                   <b>{VERSION}</b>
                   {version}
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col className={classnames('text-truncate')}>
                   <b>{CREATED}</b>
                   {creationTime
                     ? moment.unix(creationTime).format('YYYY-MM-DD HH:mm:ss')
@@ -160,7 +160,7 @@ class Image extends Component {
               </Row>
               {tags && tags.length >= 1 ? (
                 <Row>
-                  <Col>
+                  <Col className={classnames('text-truncate')}>
                     <b>{TAGS}</b>
                     {tags.join(', ')}
                   </Col>

@@ -41,7 +41,7 @@ helpers do
 end
 
 get '/' do
-    redirect '/marketplace/'
+    redirect '/appliance/'
 end
 
 get '/robots.txt' do
@@ -49,11 +49,11 @@ get '/robots.txt' do
     "User-agent: *\nDisallow: /"
 end
 
-get '/marketplace', :provides => :html do
-    redirect '/marketplace/'
+get '/appliance', :provides => :html do
+    redirect '/appliance/'
 end
 
-get '/marketplace/*', :provides => :html do
+get '/appliance/*', :provides => :html do
     haml :react, :content_type => "text/html"
 end
 

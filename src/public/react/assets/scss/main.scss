@@ -15,7 +15,8 @@ $app-height: 100vh;
 
 @font-face {
 	font-family: "Open Sans";
-	src: url("../fonts/open-sans.regular.ttf") format("truetype"),
+  src: url("../fonts/open-sans.regular.ttf") format("truetype"),
+  url("../fonts/open-sans.regular.woff2") format("woff2"),
 }
 
 @mixin box-shadow($x-axis: 0, $y-axis: 0, $blur: 5px, $width: 3px, $color: $default-shadow-image) {
