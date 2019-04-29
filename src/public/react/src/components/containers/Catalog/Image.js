@@ -19,7 +19,7 @@ class Image extends Component {
     super(props);
     this.state = {
       error: false,
-      showDescription: false
+      showDescription: true
     };
     this.errorImage = this.errorImage.bind(this);
     this.showShortDescription = this.showShortDescription.bind(this);
@@ -66,8 +66,8 @@ class Image extends Component {
         <Card
           className={classnames('image', 'overflow-hidden', 'border-0')}
           onClick={() => select(data)}
-          onMouseEnter={() => this.showShortDescription(true)}
-          onMouseLeave={() => this.showShortDescription()}
+          onMouseEnter={() => this.showShortDescription()}
+          onMouseLeave={() => this.showShortDescription(true)}
         >
           <div
             className={classnames(

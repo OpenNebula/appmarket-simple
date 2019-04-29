@@ -330,9 +330,9 @@ class Product extends Component {
                           'text-uppercase'
                         )}
                       >
-                        {FORMAT}
+                        {removeEndPoints(FORMAT)}
                       </b>
-                      <div>{removeEndPoints(format)}</div>
+                      <div>{format}</div>
                     </Col>
                   </Row>
                   <Row className={classnames('mb-3')}>
