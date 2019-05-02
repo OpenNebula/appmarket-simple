@@ -49,15 +49,10 @@ get '/robots.txt' do
     "User-agent: *\nDisallow: /"
 end
 
-get '/appliance', :provides => :html do
-    redirect '/appliance/'
-end
+get '/appliance/?', :provides => :html do
+    # ON marketplace wants JSON
+    pass if request.user_agent =~ /OpenNebula/i
 
-get '/appliance/', :provides => :html do
-  haml :react, :content_type => "text/html"
-end
-
-get '/appliance/:id', :provides => :html do
     haml :react, :content_type => "text/html"
 end
 
@@ -66,33 +61,13 @@ get '/appliance/?' do
     json :sEcho => 1, :appliances => apps
 end
 
-=begin
 get '/appliance/:id/?', :provides => :html do
     # ON marketplace wants JSON
     pass if request.user_agent =~ /OpenNebula/i
 
-    app = appliances.get(params[:id])
-    if app.nil?
-        error 404
-    else
-        render = Redcarpet::Render::HTML.new(
-            :filter_html => true,
-            :no_images => false,
-            :no_links => false,
-            :no_styles => true,
-            :safe_links_only => true,
-            :with_toc_data => true,
-            :hard_wrap => true,
-            :xhtml => true)
-
-        @markdown = Redcarpet::Markdown.new(render,
-            :autolink => true,
-            :space_after_headers => true)
-
-        haml :appliance, :locals => {:app => app}
-    end
+    haml :react, :content_type => "text/html"
 end
-=end
+
 get '/appliance/:id/?' do
     app = appliances.get(params[:id])
     if app.nil?
