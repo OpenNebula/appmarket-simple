@@ -20,7 +20,7 @@ const Header = ({ history, location, dispatch }) => {
         <Row className={classnames('align-items-center')}>
           <Col xs="12" sm="4">
             <a
-              href={`/${INDEX_PATH}/`}
+              href={`/${INDEX_PATH}`}
               target="_self"
               className={classnames('mr-auto')}
             >
