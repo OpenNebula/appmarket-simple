@@ -40,14 +40,20 @@ helpers do
     end
 end
 
+before do
+  cache_control :no_cache, :no_store, :must_revalidate
+end
+
 get '/' do
-    redirect '/appliance/'
+    redirect '/appliance'
 end
 
 get '/robots.txt' do
     content_type :text
     "User-agent: *\nDisallow: /"
 end
+
+
 
 get '/appliance/?', :provides => :html do
     # ON marketplace wants JSON
@@ -57,6 +63,7 @@ get '/appliance/?', :provides => :html do
 end
 
 get '/appliance/?' do
+    content_type :json
     apps = appliances.get_all_list
     json :sEcho => 1, :appliances => apps
 end
@@ -69,6 +76,7 @@ get '/appliance/:id/?', :provides => :html do
 end
 
 get '/appliance/:id/?' do
+    content_type :json
     app = appliances.get(params[:id])
     if app.nil?
         error 404
