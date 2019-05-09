@@ -40,6 +40,10 @@ helpers do
     end
 end
 
+before do
+    cache_control :no_cache, :no_store, :must_revalidate
+end
+
 get '/' do
     redirect '/appliance'
 end
@@ -49,16 +53,17 @@ get '/robots.txt' do
     "User-agent: *\nDisallow: /"
 end
 
+
+
 get '/appliance/?', :provides => :html do
     # ON marketplace wants JSON
     pass if request.user_agent =~ /OpenNebula/i
 
-    apps = appliances.get_all_list
-    apps.delete_if { |a| a.has_key?("version") and a["version"] =~ /DELETE/i }
-    haml :index, :locals => { :appliances => apps }, :content_type => "text/html"
+    haml :react, :content_type => "text/html"
 end
 
 get '/appliance/?' do
+    content_type :json
     apps = appliances.get_all_list
     json :sEcho => 1, :appliances => apps
 end
@@ -67,29 +72,11 @@ get '/appliance/:id/?', :provides => :html do
     # ON marketplace wants JSON
     pass if request.user_agent =~ /OpenNebula/i
 
-    app = appliances.get(params[:id])
-    if app.nil?
-        error 404
-    else
-        render = Redcarpet::Render::HTML.new(
-            :filter_html => true,
-            :no_images => false,
-            :no_links => false,
-            :no_styles => true,
-            :safe_links_only => true,
-            :with_toc_data => true,
-            :hard_wrap => true,
-            :xhtml => true)
-
-        @markdown = Redcarpet::Markdown.new(render,
-            :autolink => true,
-            :space_after_headers => true)
-
-        haml :appliance, :locals => {:app => app}
-    end
+    haml :react, :content_type => "text/html"
 end
 
 get '/appliance/:id/?' do
+    content_type :json
     app = appliances.get(params[:id])
     if app.nil?
         error 404

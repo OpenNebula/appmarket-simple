@@ -1,0 +1,20 @@
+.footer{
+  .opennebula-systems-logo{
+    max-width: 20rem;
+  }
+  .legal-place{
+    background-color: $footer-bgcolor;
+    color: $footer-color;
+    font-size: 0.7rem;
+
+    a{
+      text-decoration: none;
+      font-weight: bold;
+      color: $footer-color;
+
+      &:hover{
+        color: $footer-color-hover;
+      }
+    }
+  }
+}

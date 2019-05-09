@@ -1,0 +1,23 @@
+.header{
+  border-bottom: 1px solid #d8d8d8;
+
+  a{
+    text-decoration: none;
+    color: $font-color;
+    display: table;
+
+    *{
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    img{
+      max-height: 2.5rem;
+      max-width: 120px;
+    }
+
+    h3{
+      padding-left: 1rem; 
+    }
+  }
+}

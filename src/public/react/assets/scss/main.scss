@@ -1,0 +1,110 @@
+$font-color:                 #555;
+$footer-bgcolor:             #343a40;
+$footer-color:               #fff;
+$footer-color-hover:         #acacac;
+
+$default-shadow-image:       rgba(0,0,0,0.14);
+$defautl-limit-color:        rgba(0,0,0,0.1);
+$opennebula-color:           #3398c4;
+$opennebula-color-hover:     rgba(51, 152, 196, .3);
+$color-ec2:                  #f7981f;
+$color-vmware:               #067cba;
+$color-kvm:                  #ab0000;
+$bg-color:                   #fafafa;
+$app-height: 100vh;
+
+@font-face {
+	font-family: "Open Sans";
+  src: url("../fonts/open-sans.regular.ttf") format("truetype"),
+  url("../fonts/open-sans.regular.woff2") format("woff2"),
+}
+
+@mixin box-shadow($x-axis: 0, $y-axis: 0, $blur: 5px, $width: 3px, $color: $default-shadow-image) {
+  box-shadow: $x-axis $y-axis $blur $width $color;
+}
+
+html,body,#app{
+  min-height: $app-height;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+#app{
+  .app-container{
+    min-height: $app-height;
+  }
+}
+.color-primary{
+  color: $opennebula-color;
+}
+.nav-item{
+  cursor: pointer;
+}
+.nav-pills{
+  .nav-link.active,.show>.nav-link{
+    color: $footer-color !important;
+    background-color: $opennebula-color;
+  }
+}
+.form-control:disabled, .form-control[readonly]{
+  background-color: #fff;
+}
+
+.badge{
+  font-size: 0.8rem;
+}
+
+.bg-opennebula{
+  background-color: $opennebula-color;
+  border-color: $opennebula-color;
+}
+
+.bg-color{
+  background-color: $bg-color;
+  border-color: $bg-color;
+}
+
+.border-right-limit{
+  border-right: 1px solid $defautl-limit-color;
+  @media (max-width: 576px){
+    border-right: none;
+  }
+}
+
+button.bg-opennebula{
+  &:active, &:focus, &:hover{
+    background-color: $opennebula-color !important;
+    border-color: $opennebula-color !important;
+  }
+}
+
+.btn{
+  &.focus,&:focus{
+    box-shadow: none !important;
+  }
+}
+
+.finder-filters{
+  height: initial !important;
+  .card{
+    z-index: 1;
+    @include box-shadow();
+  }
+}
+.bg-ec2{
+  background-color: $color-ec2 !important;
+}
+
+.bg-vmware{
+  background-color: $color-vmware !important;
+}
+
+.bg-kvm{
+  background-color: $color-kvm !important;
+}
+
+
+@import "header";
+@import "catalog";
+@import "product";
+@import "footer";
