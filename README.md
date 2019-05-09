@@ -1,28 +1,41 @@
-#Dependencies to generate a build javascript.
+# Simple OpenNebula Marketplace
 
--[Nodejs](https://nodejs.org/en/download/)
--[Yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
+This is a simple implementation of the OpenNebula Marketplace, without
+the need of having the heavyweight OpenNebula installation with the database.
+All information about appliances is taken from the set of metadata YAML files,
+which are deployed into the `src/data/` directory.
 
-##Start.
+Metadata used by official public OpenNebula Marketplace are in [dedicated repository](https://github.com/OpenNebula/marketplace).
 
-To start with this, need download the javascript dependencies, this is achieved by using the command `yarn` while on the path `public/react`.
+## Development
 
-###Routing.
+### Frontend
 
-All connections of the api are managed by Ruby Server, only the routes `/marketplace/*` are managed by React in the file `public/react/src/routes.js`.
+Dependencies:
 
-##Testing with proxy.
+- [Nodejs](https://nodejs.org/en/download/)
+- [Yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
 
--Comment line 2 and uncomment line 1 to `public/react/src/constants/endpoints.js`.
--Run in `public/react` path the command `yarn start`.
+To start, you need to download the JavaScript dependencies. This can be achieved achieved by running the command `yarn` inside the directory `src/public/react`.
+
+Most requests on the API are managed by the Ruby backend, only the routes `/marketplace/*` are managed by React in the file `src/public/react/src/routes.js`.
+
+### Testing with Proxy
+
+- Comment line 2 and uncomment line 1 to `src/public/react/src/constants/endpoints.js`.
+- Run in `src/public/react` path the command `yarn start`.
 
 **NOTE:** All the graphic fonts used in it will fail, only use to prove with the information that is in production.
 
-##Generate a build javascript.
+### Build Production Code
 
--Validate that line 2 is uncomment and line 1 is comment to `public/react/src/constants/endpoints.js`.
--Run in `public/react` path the command `yarn build`.
+- Validate that line 2 is uncomment and line 1 is comment to `src/public/react/src/constants/endpoints.js`.
+- Run in `src/public/react` path the command `yarn build`.
 
-##Testing final
+### Testing
 
-Once the build javascript is generated, you only need to use the command  `bundle exec rackup`
+Once the production build is created, you only need to run
+
+```
+$ bundle exec rackup
+```
