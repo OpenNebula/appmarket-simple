@@ -5,9 +5,7 @@ import {
   addDataString,
   FOOTER_TEXT,
   LOGO_GREY,
-  LOGO_SYSTEMS,
   LOGO_GREY_URL,
-  LOGO_SYSTEMS_URL,
   LINK1,
   LINK2,
   LINK3
@@ -22,15 +20,15 @@ const Footer = () => {
         <Container>
           <Row className={classnames('align-items-center', 'py-1')}>
             <Col xs="12" className={classnames('text-center')}>
-              <a href={LOGO_SYSTEMS_URL} target="_blank">
+              <a href={LOGO_GREY_URL} target="_blank">
                 <img
-                  src={LOGO_SYSTEMS}
+                  src={LOGO_GREY}
                   className={classnames(
                     'm-2',
                     'w-50',
                     'opennebula-systems-logo'
                   )}
-                  alt={LOGO_SYSTEMS_URL}
+                  alt={LOGO_GREY_URL}
                 />
               </a>
             </Col>
