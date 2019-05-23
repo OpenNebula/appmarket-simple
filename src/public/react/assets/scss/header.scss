@@ -5,6 +5,13 @@
     text-decoration: none;
     color: $font-color;
     display: table;
+    
+    h3{
+      font-family: "URW Gothic", "Open Sans", Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      font-size: 1.45rem;
+      color: $header-color-logo;
+    }
 
     *{
       display: table-cell;
