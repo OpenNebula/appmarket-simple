@@ -42,7 +42,7 @@ export const LINK2 = '<a href="mailto:contact@opennebula.io">webmaster.</a>';
 export const LINK3 =
   '<a href="http://opennebula.io/">OpenNebula Systems.</a>';
 export const FOOTER_TEXT =
-  '© %YEAR% OpenNebula Systems. All Rights Reserved. %LINK1%. Please send comments to %LINK2% This site is managed by %LINK3% <br> OpenNebula and OpenNebula Systems are not responsible for any content you may access or download from external sites';
+  '© %YEAR% OpenNebula Systems. All Rights Reserved. %LINK1% Please send comments to %LINK2% This site is managed by %LINK3% <br> OpenNebula and OpenNebula Systems are not responsible for any content you may access or download from external sites';
 export const PRINCIPAL_MENU = [
   {
     title: 'Documentation',
