@@ -6,7 +6,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import proxyMiddleware from 'http-proxy-middleware';
 import webpackDevConfig from '../../webpack.dev.config';
 
-const PATH = 'https://marketplace.opennebula.systems';
+const PATH = 'https://marketplace.opennebula.io';
 const PORT = 8181;
 const app = express();
 const isDevelopment = process.env.NODE_ENV !== 'production';
