@@ -7,7 +7,7 @@ class Appliance
     attr_reader :id, :name, :version, :publisher, :description
     attr_reader :tags, :creation_time, :opennebula_template
     attr_reader :images, :opennebula_version, :creation_time
-    attr_reader :os_id, :os_release, :os_arch, :format, :hypervisor, :logo, :type
+    attr_reader :os_id, :os_release, :os_arch, :format, :hypervisor, :logo, :type, :roles, :disks, :md5
 
     def initialize(file=nil)
         @id = nil
@@ -28,6 +28,9 @@ class Appliance
         @logo = nil
         @images = []
         @type = nil
+        @roles = []
+        @disks = []
+        @md5 = nil
         self.read_yaml(file) if file
     end
 
@@ -73,6 +76,18 @@ class Appliance
 
     def type=(value)
         @type = strip_or_nil(value)
+    end
+
+    def roles=(value)
+        @roles = value
+    end
+
+    def disks=(value)
+        @disks = value
+    end
+
+    def md5=(value)
+        @md5 = strip_or_nil(value)
     end
 
     def creation_time_str
@@ -125,7 +140,7 @@ class Appliance
 
     KEYS = %w(id name version publisher description short_description tags format
               creation_time opennebula_template opennebula_version
-              os-id os-release os-arch hypervisor logo type)
+              os-id os-release os-arch hypervisor logo type roles disks md5)
 
     def from_options(options)
         KEYS.each { |opt|
@@ -135,7 +150,7 @@ class Appliance
             end
         }
 
-        if options[:image_index] < self.images.size
+        if self.images && options[:image_index] < self.images.size
             img = self.images[ options[:image_index] ]
         else
             img = Appliance::Image.new()
@@ -174,9 +189,13 @@ class Appliance
             k_imgs = 'files'
 
             if @opennebula_template
-                template = JSON.generate(
-                    tmpl_fixkeys(@opennebula_template, true)
-                )
+                if @type != 'SERVICE_TEMPLATE'
+                    template = JSON.generate(
+                        tmpl_fixkeys(@opennebula_template, true)
+                    )
+                else
+                    template = JSON.generate(@opennebula_template)
+                end
             end
         else
             k_imgs = 'images'
@@ -188,7 +207,7 @@ class Appliance
 
         data = {}
 
-        if legacy 
+        if legacy
             data['_id'] = { '$oid' => @id }
 
             url = "#{base_url}/appliance/#{@id}/download"
@@ -213,7 +232,10 @@ class Appliance
             'opennebula_version'  => @opennebula_version,
             'opennebula_template' => template,
             'logo'                => @logo,
-            'type'                => @type
+            'type'                => @type,
+            'roles'               => @roles,
+            'disks'               => @disks,
+            'md5'                 => @md5
         })
 
         # app. images
