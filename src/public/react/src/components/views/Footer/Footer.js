@@ -18,18 +18,16 @@ const Footer = () => {
     <section className={classnames('footer')}>
       <div className={classnames('logos-place')}>
         <Container>
-          <Row className={classnames('align-items-center', 'py-1')}>
+          <Row className={classnames('align-items-center', 'py-3')}>
             <Col xs="12" className={classnames('text-center')}>
-              <a href={LOGO_GREY_URL} target="_blank">
-                <img
-                  src={LOGO_GREY}
-                  className={classnames(
-                    'm-2',
-                    'w-50',
-                    'opennebula-systems-logo'
-                  )}
-                  alt={LOGO_GREY_URL}
-                />
+              Made with ❤️ by
+              <a
+                href={LOGO_GREY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classnames('opennebula-link')}
+              >
+                OpenNebula
               </a>
             </Col>
           </Row>
