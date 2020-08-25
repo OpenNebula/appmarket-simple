@@ -2,6 +2,12 @@
   .opennebula-systems-logo{
     max-width: 20rem;
   }
+  .opennebula-link{
+    color: $footer-bgcolor-link;
+    font-weight: bold;
+    text-decoration: none;
+    padding-left: 5px;
+  }
   .legal-place{
     background-color: $footer-bgcolor;
     color: $footer-color;
