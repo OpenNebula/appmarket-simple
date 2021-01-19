@@ -229,8 +229,7 @@ class Appliance
             'logo'                => @logo,
             'type'                => @type,
             'roles'               => @roles,
-            'disks'               => @disks,
-            'md5'                 => @md5
+            'disks'               => @disks
         })
 
         # app. images
