@@ -7,7 +7,7 @@ class Appliance
     attr_reader :id, :name, :version, :publisher, :description
     attr_reader :tags, :creation_time, :opennebula_template
     attr_reader :images, :opennebula_version, :creation_time
-    attr_reader :os_id, :os_release, :os_arch, :format, :hypervisor, :logo, :type, :roles, :disks, :md5
+    attr_reader :os_id, :os_release, :os_arch, :format, :hypervisor, :logo, :type, :roles, :disks
 
     def initialize(file=nil)
         @id = nil
@@ -30,7 +30,6 @@ class Appliance
         @type = nil
         @roles = []
         @disks = []
-        @md5 = nil
         self.read_yaml(file) if file
     end
 
@@ -86,10 +85,6 @@ class Appliance
         @disks = value
     end
 
-    def md5=(value)
-        @md5 = strip_or_nil(value)
-    end
-
     def creation_time_str
         Time.at(@creation_time).utc.to_datetime if @creation_time
     end
@@ -140,7 +135,7 @@ class Appliance
 
     KEYS = %w(id name version publisher description short_description tags format
               creation_time opennebula_template opennebula_version
-              os-id os-release os-arch hypervisor logo type roles disks md5)
+              os-id os-release os-arch hypervisor logo type roles disks)
 
     def from_options(options)
         KEYS.each { |opt|
