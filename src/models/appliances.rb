@@ -1,11 +1,14 @@
 require 'appliance'
 
 class Appliances
+
     def initialize(dir, base_url)
-        @dir = dir
-        @base_url = base_url
+        @dir        = dir
+        @base_url   = base_url
         @appliances = nil
-        self.reload
+        @cache      = {}
+
+        reload
     end
 
     def reload
@@ -17,28 +20,42 @@ class Appliances
             raise "Invalid source #{@dir}"
         end
 
-        new = {}
-        Dir.glob(ptrn).each { |name|
+        new    = {}
+        @cache = {}
+
+        Dir.glob(ptrn).each do |name|
             app = Appliance.new(name)
-            id = app.id
+            id  = app.id
 
             # check for duplicate ID
-            if new.has_key?(id)
-                raise "Duplicate appliance ID #{id}"
-            end
+            raise "Duplicate appliance ID #{id}" if new.has_key?(id)
 
-            new[id] = app.to_h(legacy: true, base_url: @base_url)
-        }
+            hash    = app.to_h(legacy: true, base_url: @base_url)
+            new[id] = hash
+
+            # Add app to cache in the corresponding version
+            hash['opennebula_version'].split(',').each do |version|
+                version             = version.strip
+                @cache[version]     = {} unless @cache[version]
+                @cache[version][id] = hash
+            end
+        end
+
         @appliances = new
     end
 
-    def get_all_list
-        @appliances.values
+    def get_all_list(version)
+        return @appliances.values unless version
+
+        return @appliances.values unless @cache[version]
+
+        @cache[version].values
     end
 
     def get(id)
         @appliances[id]
     end
+
 end
 
 # vim: ai ts=4 sts=4 et sw=4 ft=ruby
