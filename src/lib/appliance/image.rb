@@ -114,11 +114,12 @@ class Appliance
         end
 
         def refresh
-            Tempfile.open("tmp") { |file|
+            Tempfile.open('tmp') do |file|
                 # download the file
-                open(@url, "rb") { |l|
+                URI.parse(@url).open('rb') do |l|
                     file.write(l.read)
-                }
+                end
+
                 file.close
 
                 # refresh
@@ -128,7 +129,7 @@ class Appliance
                 }
 
                 @size = get_size(file.path)
-            }
+            end
         end
 
         private
@@ -152,7 +153,7 @@ class Appliance
 
                 # unarchive
                 type = exec("file --mime-type -b #{file}").strip
-                Dir.mktmpdir { |unpacked_dir| 
+                Dir.mktmpdir { |unpacked_dir|
                     if type == "application/x-tar"
                         exec("tar -xf #{file} -C #{unpacked_dir}")
                     elsif type == "application/zip"
