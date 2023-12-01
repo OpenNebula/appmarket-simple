@@ -89,6 +89,9 @@ class AppCli < Thor
         method_option :image_refresh,
             :desc    => "Automatic size/checksums",
             :type    => :boolean
+
+        method_option :opennebula_version,
+            :desc     => "OpenNebula version"
     end
 end
 

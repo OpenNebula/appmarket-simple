@@ -15,6 +15,7 @@ class Appliance
             @url = nil
             @size = nil
             @checksum = nil
+            @opennebula_version = nil
             self.from_h(data) unless data.nil?
         end
 
@@ -62,6 +63,10 @@ class Appliance
             else
                 @checksum[type.downcase.strip] = digest.strip
             end
+        end
+
+        def opennebula_version=(value)
+            @opennebula_version = value.nil? ? value : value.to_i
         end
 
         ###
