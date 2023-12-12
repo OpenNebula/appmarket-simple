@@ -132,7 +132,6 @@ class Appliance
             end
         end
 
-        private
         def get_size(file)
             size = nil
             Tempfile.open("tmp") { |unpacked|
