@@ -66,7 +66,9 @@ class Appliance
         end
 
         def opennebula_version=(value)
-            @opennebula_version = value.nil? ? value : value.to_i
+            @opennebula_version = Integer(value)
+        rescue StandardError
+            @opennebula_version = nil
         end
 
         ###
