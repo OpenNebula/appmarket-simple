@@ -1,45 +1,53 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    backports (3.6.8)
-    diff-lcs (1.2.5)
-    haml (4.0.7)
+    base64 (0.2.0)
+    diff-lcs (1.5.0)
+    haml (6.3.0)
+      temple (>= 0.8.2)
+      thor
       tilt
-    json (2.0.2)
-    multi_json (1.12.1)
-    rack (1.6.5)
-    rack-protection (1.5.3)
-      rack
-    rack-test (0.6.3)
-      rack (>= 1.0)
-    redcarpet (3.3.4)
-    rspec (3.5.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
-    rspec-core (3.5.4)
-      rspec-support (~> 3.5.0)
-    rspec-expectations (3.5.0)
+    json (2.7.1)
+    multi_json (1.15.0)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
+    rack (2.2.8)
+    rack-protection (3.2.0)
+      base64 (>= 0.1.0)
+      rack (~> 2.2, >= 2.2.4)
+    rack-test (2.1.0)
+      rack (>= 1.3)
+    redcarpet (3.6.0)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-mocks (3.5.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.6)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-support (3.5.0)
-    sinatra (1.4.7)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
-    sinatra-contrib (1.4.7)
-      backports (>= 2.0)
-      multi_json
-      rack-protection
-      rack-test
-      sinatra (~> 1.4.0)
-      tilt (>= 1.3, < 3)
+      rspec-support (~> 3.12.0)
+    rspec-support (3.12.1)
+    ruby2_keywords (0.0.5)
+    sinatra (3.2.0)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.2.0)
+      tilt (~> 2.0)
+    sinatra-contrib (3.2.0)
+      multi_json (>= 0.0.2)
+      mustermann (~> 3.0)
+      rack-protection (= 3.2.0)
+      sinatra (= 3.2.0)
+      tilt (~> 2.0)
     systemu (2.6.5)
-    thor (0.19.4)
-    tilt (2.0.5)
+    temple (0.10.3)
+    thor (1.3.0)
+    tilt (2.3.0)
+    webrick (1.8.1)
 
 PLATFORMS
   ruby
@@ -47,7 +55,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   json
-  rack
+  rack (< 3)
   rack-test
   redcarpet
   rspec
@@ -55,6 +63,7 @@ DEPENDENCIES
   sinatra-contrib
   systemu
   thor
+  webrick (~> 1.8)
 
 BUNDLED WITH
-   1.13.6
+   2.5.5
