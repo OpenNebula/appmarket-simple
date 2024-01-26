@@ -27,14 +27,14 @@ end
 
 ######
 
-ONE_MARKET_URL = 'http://marketplace.opennebula.systems/appliance'
+ONE_MARKET_URL = 'https://marketplace.opennebula.io/appliance'
 
 appliances = Hash.new()
 
 # expect destination dir. as argument
 if (ARGV.size > 0)
     dir = ARGV[0]
-    if File.exists?(dir)
+    if File.exist?(dir)
         abort "#{dir} already exists"
     end
 
@@ -59,13 +59,18 @@ if appliances_file
     end
 else
     # fetch current appliances
-    uri = URI.parse(ONE_MARKET_URL)
-    http = Net::HTTP.new(uri.host, uri.port)
+    uri = URI(ONE_MARKET_URL)
     req = Net::HTTP::Get.new(uri.request_uri)
-    res = http.request(req)
 
-    unless res.is_a? Net::HTTPSuccess
-        abort "Error downloading appliances list"
+    req['User-Agent'] = 'OpenNebula appmarket-simple' 
+
+    res = Net::HTTP.start(uri.hostname, uri.port,
+                          :use_ssl => uri.scheme == 'https') do |http|
+            http.request(req)
+        end
+
+    if !res.is_a? Net::HTTPSuccess
+        abort "Error downloading appliances list (#{res.code}): #{res.message}"
     end
 
     begin
@@ -126,22 +131,10 @@ mkt_apps.each { |mkt_app|
             image.set_checksum('md5', mkt_file['md5'])
         end
 
-        if mkt_file['url']
-            image.url= mkt_file['url']
-        else
-            # get image URL
-            uri = URI.parse('%s/%s/download/%i' % [ONE_MARKET_URL, id, mkt_idx])
-            req = Net::HTTP::Get.new(uri.request_uri)
-            res = http.request(req)
-            if (res.is_a? Net::HTTPFound)
-                image.url = res['Location']
-            else
-                abort "Image URL not found for %s / %i" % [id, mkt_idx]
-            end
-        end
+        image.url= mkt_file['url'] if mkt_file['url']
 
         app.images << image
-    }
+    } if mkt_app['files']
 
     appliances[id] = app
 }
@@ -160,7 +153,7 @@ begin
         app.write_yaml("#{new_dir}/#{id}.yaml")
     }
 
-    unless File.exists?(dir)
+    unless File.exist?(dir)
         File.rename(tmp_dir, dir)
     else
         abort "#{dir} already exists"
