@@ -1,0 +1,63 @@
+---
+- name: Install OS packages required to run appmarket-simple
+  ansible.builtin.package:
+    name: "{{ _packages[ansible_os_family] }}"
+  vars:
+    _packages:
+      Debian: [bash, gcc, git, make, nodejs, rsync, ruby-bundler, ruby-dev, yarnpkg]
+  register: package
+  until: package is success
+  retries: 3
+  delay: 10
+
+- name: Push /appmarket-simple
+  ansible.posix.synchronize:
+    dest: "{{ item.dest }}"
+    src: "{{ playbook_dir }}/{{ item.src }}/"
+    checksum: true
+    delete: true
+    rsync_opts:
+      - --no-motd
+      - --exclude=.git
+  loop:
+    - { dest: "{{ install_path }}/appmarket-simple" , src: ../../appmarket-simple/ }
+#   For local installation of markeplace module (i.e. git submodule)
+#    - { dest: /opt/marketplace      , src: ../marketplace/      }
+
+- name: Clone market metadata from offical OpenNebula repo
+  git:
+    repo: https://github.com/OpenNebula/marketplace.git
+    dest: "{{ install_path }}/marketplace"
+    clone: yes
+    update: yes
+
+- name: Setup symlinks
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    src: "{{ item.src }}"
+    state: link
+  loop:
+    - { path: /opt/appmarket-simple/src/data , src: "{{ install_path }}/marketplace/" }
+    - { path: /opt/appmarket-simple/src/public/logos , src: ../data/logos/ }
+
+- name: Install ruby dependencies (via bundler)
+  ansible.builtin.shell:
+    cmd: |
+      set -o errexit
+      bundle update --bundler ||:
+      bundle remove rack
+      bundle add rack -v '< 3'
+      bundle update
+      touch /var/tmp/appmarket-simple.BUNDLE
+    executable: /bin/bash
+    chdir: /opt/appmarket-simple/src/
+    creates: /var/tmp/appmarket-simple.BUNDLE
+
+- name: Make /appmarket-simple and /marketplace RW by others
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    mode: o+rw
+    recurse: true
+  loop:
+    - path: /opt/appmarket-simple/
+    - path: /opt/marketplace/

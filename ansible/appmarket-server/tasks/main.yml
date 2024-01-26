@@ -1,0 +1,9 @@
+---
+- name: Set base installation path
+  set_fact:
+    install_path: 'opt'
+
+- include_tasks: install.yml
+
+- include_tasks: service.yml
+

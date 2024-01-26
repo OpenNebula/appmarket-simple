@@ -1,0 +1,73 @@
+---
+- name: Find all appliance subdirs
+  ansible.builtin.find:
+    paths: "{{ install_path }}/marketplace/appliances/"
+    file_type: directory
+    recurse: false
+  register: find_appliance_dirs
+
+- name: Create systemd resources
+  ansible.builtin.copy:
+    dest: "/etc/systemd/system/{{ item.name }}"
+    owner: root
+    group: root
+    mode: u=rw,go=r
+    content: |
+      {{ item.content }}
+  loop:
+    - name: appmarket-simple.service
+      content: |
+        [Unit]
+        After=network.target
+
+        [Service]
+        Type=simple
+        User=root
+        Group=root
+        WorkingDirectory=/opt/appmarket-simple/src/
+        ExecStart=/bin/bash -c 'exec bundler exec rackup -o 0.0.0.0'
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: appmarket-simple-watcher.service
+      content: |
+        [Unit]
+        After=network.target
+
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/systemctl restart appmarket-simple.service
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: appmarket-simple-watcher.path
+      content: |
+        [Path]
+        {% for dir in _appliance_dirs %}
+        PathModified={{ dir }}/
+        {% endfor %}
+
+        [Install]
+        WantedBy=multi-user.target
+  vars:
+    _appliance_dirs: >-
+      {{ find_appliance_dirs.files | default([])
+                                   | map(attribute='path')
+                                   | list }}
+  register: copy_systemd_resources
+
+- when: copy_systemd_resources is changed
+  block:
+    - name: Reload systemd daemon
+      ansible.builtin.systemd: { daemon_reload: true }
+
+    - name: Enable/Restart systemd resources
+      ansible.builtin.systemd:
+        name: "{{ item.name }}"
+        masked: false
+        enabled: true
+        state: restarted
+      loop:
+        - name: appmarket-simple.service
+        - name: appmarket-simple-watcher.service
+        - name: appmarket-simple-watcher.path
