@@ -45,8 +45,6 @@
     cmd: |
       set -o errexit
       bundle update --bundler ||:
-      bundle remove rack
-      bundle add rack -v '< 3'
       bundle update
       touch /var/tmp/appmarket-simple.BUNDLE
     executable: /bin/bash

@@ -2,9 +2,7 @@
 #  - ONE_IP
 #  - VERSION
 
-ifndef INSTALL_PATH
-INSTALL_PATH := '/opt'
-endif
+INSTALL_PATH ?= '/opt'
 
 ifndef REMOTE_USER
 REMOTE_USER := 'root'
