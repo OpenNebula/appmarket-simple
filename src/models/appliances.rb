@@ -13,7 +13,7 @@ class Appliances
 
     def reload
         if File.directory?(@dir)
-            ptrn = @dir + '/**/*.yaml'
+            ptrn = @dir + '/appliances/**/*.yaml'
 #        elsif File.file?(@dir)
 #            ptrn = @dir
         else
