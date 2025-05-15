@@ -60,6 +60,12 @@ class Appliances
         @cache.keys.empty? ? nil : @cache.keys.max_by {|v| v.split('.').map(&:to_i) }
     end
 
+    def version?(version)
+        return false if version.nil?
+
+        @cache.key?(version)
+    end
+
 end
 
 # vim: ai ts=4 sts=4 et sw=4 ft=ruby
