@@ -64,8 +64,7 @@ end
 
 get '/appliance/?' do
     version = request.user_agent.match(/^OpenNebula (\d+\.\d+)/)
-    version = version ? version[1] : appliances.latest_one_version
-
+    version = version && appliances.version?(version[1]) ? version[1] : appliances.latest_one_version
     content_type :json
     apps = appliances.get_all_list(version)
     json :sEcho => 1, :appliances => apps
