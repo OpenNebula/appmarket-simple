@@ -1,7 +1,9 @@
 ---
 - name: Find all appliance subdirs
   ansible.builtin.find:
-    paths: "{{ install_path }}/marketplace/appliances/"
+    paths:
+      - /opt/marketplace.git/appliances/default
+      - /opt/marketplace.git/appliances/v6
     file_type: directory
     recurse: false
   register: find_appliance_dirs
