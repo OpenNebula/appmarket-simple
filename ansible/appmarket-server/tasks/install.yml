@@ -59,3 +59,48 @@
   loop:
     - path: /opt/appmarket-simple/
     - path: /opt/marketplace/
+
+- name: Install NVM if not present
+  shell: |
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  args:
+    executable: /bin/bash
+    creates: "/root/.nvm/nvm.sh"
+  environment:
+    NVM_DIR: "/root/.nvm"
+  tags: build
+
+- name: Install and use Node.js 22 via NVM
+  ansible.builtin.shell: |
+    . "$NVM_DIR/nvm.sh"
+    nvm install 22
+    nvm use 22
+  args:
+    executable: /bin/bash
+  environment:
+    NVM_DIR: "/root/.nvm"
+  tags: build
+
+- name: Install dependencies and build React app
+  ansible.builtin.shell: |
+    . "$NVM_DIR/nvm.sh"
+    nvm use 22
+    cd {{ install_path }}/appmarket-simple/src/public/react
+    npm install
+    npm run build:opennebula
+  args:
+    executable: /bin/bash
+  environment:
+    NVM_DIR: "/root/.nvm"
+  tags: build
+
+- name: Copy built React dist contents to public directory
+  shell: |
+    cp -r {{ install_path }}/appmarket-simple/src/public/react/dist/opennebula/. {{ install_path }}/appmarket-simple/src/public
+  args:
+    executable: /bin/bash
+  tags: build
+
+
+
+

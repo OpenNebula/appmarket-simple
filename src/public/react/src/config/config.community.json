@@ -1,0 +1,14 @@
+{
+    "logo":"/opennebula-white-no-text.png",
+    "title":"OpenNebula",
+    "subtitle": "Community Marketplace",
+    "apiURL": "https://community-marketplace.opennebula.io/appliance",
+    "filters": {
+        "Hypervisors": true,
+        "OpenNebula Versions": true,
+        "Versions": true,
+        "Tags": true,
+        "OS Systems": true,
+        "Date Interval": true
+    }
+}
