@@ -70,7 +70,7 @@ get '/appliance/:id/?', :provides => :html do
     # ON marketplace wants JSON
     pass if request.user_agent =~ /OpenNebula/i
 
-    haml :react, :content_type => "text/html"
+    send_file File.join(settings.public_folder, 'index.html'), type: :html
 end
 
 get '/appliance/:id/?' do
