@@ -84,7 +84,7 @@ const AppliancesTable = ({ appliancesFiltered }: AppliancesTableInterface) => {
           aria-label="delete"
           size="small"
           component={Link}
-          to={`/detail/${appliance._id.$oid}`}
+          to={`/appliance/${appliance._id.$oid}`}
         >
           <ArrowForwardIosIcon />
         </IconButton>

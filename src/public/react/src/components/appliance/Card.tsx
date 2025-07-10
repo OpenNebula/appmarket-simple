@@ -161,7 +161,7 @@ function BasicCard({ appliance }: BasicCardProps) {
             aria-label="delete"
             size="large"
             component={Link}
-            to={`/detail/${appliance._id.$oid}`}
+            to={`/appliance/${appliance._id.$oid}`}
           >
             <ArrowForwardIosIcon />
           </IconButton>

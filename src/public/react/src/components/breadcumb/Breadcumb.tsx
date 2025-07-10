@@ -21,7 +21,7 @@ const Breadcumb = ({ name }: BreadcumbInterface) => {
     </Link>
 
       <Typography sx={{ color: "text.primary" }}>
-        <b>Appliance selected:</b> {name}
+        <b>{name}</b> 
       </Typography>
     </Breadcrumbs>
   );

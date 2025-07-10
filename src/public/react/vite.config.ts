@@ -14,6 +14,39 @@ export default defineConfig(({mode}) => {
   // URL to consume API (only development mode). Use to avoid CORS in development mode.
   const pathAPIDevelopmentMode = appType === "community" ? "https://community-marketplace.opennebula.io" : "https://marketplace.opennebula.io"
 
+  // API routes to avoid CORS and proxy to an API
+  const proxyRoutes = ["/appliance", "/logos"];
+
+  // Proxy config to avoid CORS when calling the API
+  const proxyConfig =
+    mode === 'development'
+      ? Object.fromEntries(
+          proxyRoutes.map((route) => [
+            route,
+            {
+              target: pathAPIDevelopmentMode,
+              changeOrigin: true,
+              secure: false,
+              proxyTimeout: 10000,
+              timeout: 10000,
+              agent: false,
+              bypass: (req) => {
+                const acceptHeader = req.headers.accept || ''
+                if (acceptHeader.includes('text/html')) {
+                  // Bypass proxy for browser navigation requests
+                  return '/index.html'
+                }
+              },
+              configure: (proxy) => {
+                proxy.on('proxyReq', (proxyReq) => {
+                  proxyReq.setHeader('Referer', pathAPIDevelopmentMode)
+                })
+              },
+            },
+          ])
+        )
+      : undefined
+
   return {
     base: '/',
     plugins: [react()],
@@ -28,33 +61,7 @@ export default defineConfig(({mode}) => {
       chunkSizeWarningLimit: 1024,
     },
     server: {
-      // Proxy only for development - The target here is to avoid CORS when development in local
-      proxy: mode === 'development' ? {
-        '/appliance': {
-          target: pathAPIDevelopmentMode,
-          changeOrigin: true,
-          secure: false,
-          proxyTimeout: 10000,
-          timeout: 10000,
-          configure: (proxy) => {
-            proxy.on('proxyReq', (proxyReq) => {
-              proxyReq.setHeader('Referer', pathAPIDevelopmentMode);
-            });
-          },
-        },
-        '/logos': {
-          target: pathAPIDevelopmentMode,
-          changeOrigin: true,
-          secure: false,
-          proxyTimeout: 10000,
-          timeout: 10000,
-          configure: (proxy) => {
-            proxy.on('proxyReq', (proxyReq) => {
-              proxyReq.setHeader('Referer', pathAPIDevelopmentMode);
-            });
-          },
-        },
-      } : undefined,  // Return an empty object if not in development mode
+      proxy: proxyConfig,
     },
   }
 })

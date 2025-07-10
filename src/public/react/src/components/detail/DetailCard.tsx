@@ -6,12 +6,12 @@ import { Appliance } from "@/interfaces/Appliances";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import Linkify from "../linkify/Linkify";
 import { IconButton, Tooltip } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { useState } from "react";
 import { parseToOpenNebulaFormat } from "@/utils/parser";
+import Markdown from 'react-markdown'
 
 interface DetailCardProps {
   appliance: Appliance;
@@ -48,8 +48,12 @@ const DetailCard = ({ appliance }: DetailCardProps) => {
       }}
     >
       <img
-        src={`/logos/${appliance.logo}`}
-        style={{ height: "200px" }}
+        src={appliance.logo ? `/logos/${appliance.logo}` : '/assets/logo-appliance.svg'}
+        style={{
+          width: "200px",
+          height: "200px",
+          objectFit: "contain", // keeps aspect ratio, adds padding if needed
+        }}
       ></img>
 
       <CardContent sx={{ flex: 1 }}>
@@ -86,9 +90,9 @@ const DetailCard = ({ appliance }: DetailCardProps) => {
         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
           Description
         </Typography>
-        <Typography variant="body1" sx={{ mb: 4 }}>
-          <Linkify text={appliance.description} />
-        </Typography>
+        <Box sx={{ mb: 4, typography: 'body1' }}>          
+          <Markdown>{appliance.description}</Markdown>
+        </Box>
 
         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
           Publisher
