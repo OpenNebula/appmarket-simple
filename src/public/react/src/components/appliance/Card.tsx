@@ -63,8 +63,12 @@ function BasicCard({ appliance }: BasicCardProps) {
       <CardContent>
         <div style={{ textAlign: "center" }}>
           <img
-            style={{ height: "120px" }}
-            src={`/logos/${appliance.logo}`}
+            style={{
+              width: "120px",
+              height: "120px",
+              objectFit: "contain", // keeps aspect ratio, adds padding if needed
+            }}
+            src={appliance.logo ? `/logos/${appliance.logo}` : '/assets/logo-appliance.svg'}
             alt=""
           />
         </div>
@@ -157,7 +161,7 @@ function BasicCard({ appliance }: BasicCardProps) {
             aria-label="delete"
             size="large"
             component={Link}
-            to={`/appliance/${appliance._id.$oid}`}
+            to={`/detail/${appliance._id.$oid}`}
           >
             <ArrowForwardIosIcon />
           </IconButton>

@@ -50,7 +50,7 @@ const FilterCard = () => {
               )}
             </BasicAccordion>
           ) : (
-            <BasicAccordion defaultExpanded={false} name={"Date Interval"}>
+            <BasicAccordion defaultExpanded={false} name={"Date Interval"} key={key}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateRangePicker"]}>
 

@@ -10,11 +10,15 @@ interface BreadcumbInterface {
 const Breadcumb = ({ name }: BreadcumbInterface) => {
   return (
     <Breadcrumbs sx={{ mb: 4 }} aria-label="breadcrumb">
-      <Link underline="hover" color="inherit">
-        <NavLink style={{ textDecoration: "none", color: "inherit" }} to="/">
-          Home
-        </NavLink>
-      </Link>
+    <Link
+      component={NavLink}
+      to="/"
+      underline="hover"
+      color="inherit"
+      sx={{ textDecoration: 'none' }}
+    >
+      Home
+    </Link>
 
       <Typography sx={{ color: "text.primary" }}>
         <b>Appliance selected:</b> {name}

@@ -10,6 +10,7 @@ import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import config from "@config";
+import { NavLink } from "react-router-dom";
 
 interface NavBarProps {
   toggle: () => void;
@@ -34,7 +35,9 @@ function ResponsiveAppBar({ toggle, mode }: NavBarProps) {
     <AppBar position="relative" sx={{ zIndex: "2" }} enableColorOnDark>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
-          <img style={{ height: "43px" }} src={appLogo} alt="" />
+          <NavLink style={{ textDecoration: "none", color: "inherit" }} to="/">
+            <img style={{ height: "43px" }} src={appLogo} alt="" />
+          </NavLink>
 
           <IconButton
             style={{ marginLeft: "auto" }}

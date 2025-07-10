@@ -77,7 +77,7 @@ const DetailCard = ({ appliance }: DetailCardProps) => {
             </Typography>
             <Stack direction="row" spacing={1}>
               {appliance.tags?.map((tag) => {
-                return <Chip label={tag} />;
+                return <Chip key={tag} label={tag} />;
               })}
             </Stack>
           </Box>
