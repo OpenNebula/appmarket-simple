@@ -24,7 +24,7 @@ const createData = (
   short_description: string | undefined,
   os_id: string | undefined,
   version: string | undefined,
-  button: any,
+  button: unknown,
 ) => {
   return { name, hypervisor, short_description, os_id, version, button };
 };
@@ -55,13 +55,12 @@ const AppliancesTable = ({ appliancesFiltered }: AppliancesTableInterface) => {
             size="small"
             onClick={() => {
               handleCopiedTooltip();
-              appliance.opennebula_template
-                ? navigator.clipboard.writeText(
+              if (appliance.opennebula_template) 
+                navigator.clipboard.writeText(
                     parseToOpenNebulaFormat(
                       JSON.parse(appliance.opennebula_template),
                     ),
-                  )
-                : null;
+                  );
             }}
           >
             <ContentCopyIcon />
@@ -115,7 +114,7 @@ const AppliancesTable = ({ appliancesFiltered }: AppliancesTableInterface) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows?.map((row: any) => (
+          {rows?.map((row: unknown) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

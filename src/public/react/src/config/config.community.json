@@ -1,8 +1,6 @@
 {
-    "logo":"/opennebula-white-no-text.png",
-    "title":"OpenNebula",
-    "subtitle": "Community Marketplace",
-    "apiURL": "https://community-marketplace.opennebula.io/appliance",
+    "logo":"/assets/logo-community.svg",
+    "title":"Community Marketplace",
     "filters": {
         "Hypervisors": true,
         "OpenNebula Versions": true,

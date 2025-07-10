@@ -26,7 +26,7 @@ function BasicCard({ appliance }: BasicCardProps) {
     appliance?.creation_time ? appliance?.creation_time * 1000 : 1000,
   );
 
-  const day = date.getDay();
+  const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
 
@@ -131,14 +131,9 @@ function BasicCard({ appliance }: BasicCardProps) {
               aria-label="delete"
               size="large"
               onClick={() => {
-                handleCopiedTooltip();
-                appliance.opennebula_template
-                  ? navigator.clipboard.writeText(
-                      parseToOpenNebulaFormat(
-                        JSON.parse(appliance.opennebula_template),
-                      ),
-                    )
-                  : null;
+                handleCopiedTooltip();                                                
+                if (appliance.opennebula_template) 
+                  navigator.clipboard.writeText(parseToOpenNebulaFormat(JSON.parse(appliance.opennebula_template)));                  
               }}
             >
               <ContentCopyIcon />

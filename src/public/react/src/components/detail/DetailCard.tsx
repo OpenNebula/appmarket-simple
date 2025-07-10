@@ -150,13 +150,8 @@ const DetailCard = ({ appliance }: DetailCardProps) => {
             size="large"
             onClick={() => {
               handleCopiedTooltip();
-              appliance.opennebula_template
-                ? navigator.clipboard.writeText(
-                    parseToOpenNebulaFormat(
-                      JSON.parse(appliance.opennebula_template),
-                    ),
-                  )
-                : null;
+              if (appliance.opennebula_template)
+                navigator.clipboard.writeText(parseToOpenNebulaFormat(JSON.parse(appliance.opennebula_template)));
             }}
           >
             <ContentCopyIcon />

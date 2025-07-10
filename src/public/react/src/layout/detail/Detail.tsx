@@ -23,7 +23,7 @@ const Detail = () => {
         setAppliance(data);
       });
     });
-  }, []);
+  }, [params.id]);
 
   return appliance ? (
     <Container sx={{ mt: 5 }}>

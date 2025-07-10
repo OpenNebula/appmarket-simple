@@ -1,6 +1,5 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -10,21 +9,17 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Typography } from "@mui/material";
-
-// @ts-ignore
 import config from "@config";
 
 interface NavBarProps {
-  toggle: Function;
+  toggle: () => void;
   mode: "light" | "dark";
 }
 
 function ResponsiveAppBar({ toggle, mode }: NavBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const title = config.title;
-  const subtitle = config.subtitle;
+  // Get logo svg
   const appLogo = config.logo;
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -40,21 +35,6 @@ function ResponsiveAppBar({ toggle, mode }: NavBarProps) {
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <img style={{ height: "43px" }} src={appLogo} alt="" />
-
-          <Box sx={{ ml: 1 }}>
-            <Typography
-              sx={{
-                fontFamily: "Poppins",
-                fontSize: "20px",
-                fontWeight: "500",
-              }}
-            >
-              {title}
-            </Typography>
-            <Typography sx={{ fontFamily: "Poppins", fontWeight: "200" }}>
-              {subtitle}
-            </Typography>
-          </Box>
 
           <IconButton
             style={{ marginLeft: "auto" }}
@@ -95,7 +75,7 @@ function ResponsiveAppBar({ toggle, mode }: NavBarProps) {
                 onClick={handleClose}
                 component="a"
                 target="_blank"
-                href="https://docs.opennebula.io/6.10/"
+                href="https://docs.opennebula.io/stable"
                 color="inherit"
               >
                 OpenNebula Documentation

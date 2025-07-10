@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid2";
 
 import FilterCard from "@/layout/marketplace/filters/FilterCard";
-import { useAppContext } from "@/context/Context";
+import { useAppContext } from "@/context/useAppContext";
 import {
   Box,
   CircularProgress,
@@ -118,16 +118,22 @@ const Main = () => {
         (appliance.version && activeVersions.includes(appliance.version));
 
       // Filter: Date Interval
-      const date: DateRange<Dayjs> | undefined =
-        contextFilters["Date Interval"];
+      const date: DateRange<Dayjs> | undefined = contextFilters["Date Interval"];
+      
       let dateCondition = true;
-      if (date && date[0] && date[1]) {
-        const applianceDate = dayjs(
-          appliance.creation_time ? appliance.creation_time * 1000 : 1000,
-        );
-        dateCondition =
-          applianceDate.isAfter(date[0]) && applianceDate.isBefore(date[1]);
+
+      if (date) {
+
+        const applianceDate = dayjs.unix(appliance.creation_time)
+
+        if (date[0]) {
+          dateCondition = dateCondition && (applianceDate.isAfter(date[0], 'day') || applianceDate.isSame(date[0], 'day')) ;
+        }
+        if (date[1]) {
+          dateCondition = dateCondition && (applianceDate.isBefore(date[1], 'day') || applianceDate.isSame(date[0], 'day') );
+        }
       }
+
 
       // Filter: Search
       const searchCondition =

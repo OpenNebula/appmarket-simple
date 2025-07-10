@@ -96,11 +96,7 @@
 
 - name: Copy built React dist contents to public directory
   shell: |
-    cp -r {{ install_path }}/appmarket-simple/src/public/react/dist/opennebula/. {{ install_path }}/appmarket-simple/src/public
+    cp -r {{ install_path }}/appmarket-simple/src/public/react/dist/. {{ install_path }}/appmarket-simple/src/public
   args:
     executable: /bin/bash
   tags: build
-
-
-
-

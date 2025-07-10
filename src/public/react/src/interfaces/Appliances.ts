@@ -24,5 +24,5 @@ export interface Appliance {
   logo?: string;
   type?: string;
   disks?: string[];
-  [key: string]: any; // Index signature
+  [key: string]: unknown; // Index signature
 }

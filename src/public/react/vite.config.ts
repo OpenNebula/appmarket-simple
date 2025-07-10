@@ -10,10 +10,9 @@ export default defineConfig(({mode}) => {
 
   // Config files
   const configFile = appType === "community" ? "config.community.json" : "config.opennebula.json";
-  const outputDir = appType === "community" ? "dist/community" : "dist/opennebula";
   
   // URL to consume API (only development mode). Use to avoid CORS in development mode.
-  const pathAPIDevelopmentMode = "https://marketplace.opennebula.io"
+  const pathAPIDevelopmentMode = appType === "community" ? "https://community-marketplace.opennebula.io" : "https://marketplace.opennebula.io"
 
   return {
     base: '/',
@@ -25,7 +24,7 @@ export default defineConfig(({mode}) => {
       },
     },
     build: {
-      outDir: outputDir,      
+      outDir: 'dist',      
       chunkSizeWarningLimit: 1024,
     },
     server: {
@@ -35,6 +34,8 @@ export default defineConfig(({mode}) => {
           target: pathAPIDevelopmentMode,
           changeOrigin: true,
           secure: false,
+          proxyTimeout: 10000,
+          timeout: 10000,
           configure: (proxy) => {
             proxy.on('proxyReq', (proxyReq) => {
               proxyReq.setHeader('Referer', pathAPIDevelopmentMode);
@@ -45,6 +46,8 @@ export default defineConfig(({mode}) => {
           target: pathAPIDevelopmentMode,
           changeOrigin: true,
           secure: false,
+          proxyTimeout: 10000,
+          timeout: 10000,
           configure: (proxy) => {
             proxy.on('proxyReq', (proxyReq) => {
               proxyReq.setHeader('Referer', pathAPIDevelopmentMode);

@@ -5,12 +5,12 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Box } from "@mui/material";
 import BasicAccordion from "@/components/accordion/BasicAccordion";
 import FilterCheckbox from "@/layout/marketplace/filters/checkboxes/FilterCheckboxes";
-import { useAppContext } from "@/context/Context";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
+import { useAppContext } from "@/context/useAppContext";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { CheckboxFilters } from "@/context/interfaces";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const FilterCard = () => {
   const { contextFilters, setDateInterval } = useAppContext();
@@ -53,10 +53,29 @@ const FilterCard = () => {
             <BasicAccordion defaultExpanded={false} name={"Date Interval"}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateRangePicker"]}>
-                  <DateRangePicker
-                    value={contextFilters["Date Interval"]}
-                    onChange={setDateInterval}
-                    localeText={{ start: "Init date", end: "End date" }}
+
+                  <DatePicker
+                    label="Init date"
+                    value={contextFilters["Date Interval"][0]}
+                    onChange={(newStartDate) => {
+                      setDateInterval([newStartDate, contextFilters["Date Interval"][1]]);
+                    }}
+                    slotProps={{
+                      field: { clearable: true, onClear: () => setDateInterval([undefined, contextFilters["Date Interval"][1]]) },
+                    }}
+                    format="DD/MM/YYYY"
+                  />
+
+                  <DatePicker
+                    label="End date"
+                    value={contextFilters["Date Interval"][1]} 
+                    onChange={(newEndDate) => {
+                      setDateInterval([contextFilters["Date Interval"][0], newEndDate]);
+                    }}
+                    slotProps={{
+                      field: { clearable: true, onClear: () => setDateInterval([undefined, contextFilters["Date Interval"][1]]) },
+                    }}                    
+                    format="DD/MM/YYYY"
                   />
                 </DemoContainer>
               </LocalizationProvider>
