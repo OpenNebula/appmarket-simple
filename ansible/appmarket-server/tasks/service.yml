@@ -26,7 +26,7 @@
         Type=simple
         User=root
         Group=root
-        WorkingDirectory=/opt/appmarket-simple/src/
+        WorkingDirectory={{ install_path }}/appmarket-simple/src/
         ExecStart=/bin/bash -c 'exec bundler exec rackup -o 0.0.0.0'
 
         [Install]
