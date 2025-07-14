@@ -7,7 +7,7 @@ This implementation starts a Ruby API that responses with the data from the mark
 
 
 
-Marketplace architecture
+## Marketplace architecture
 
 ![image-20250714140633415](/home/david/.config/Typora/typora-user-images/image-20250714140633415.png)
 
