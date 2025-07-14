@@ -1,12 +1,12 @@
 # Simple OpenNebula Marketplace
 
-This project provides a lightweight implementation of a Marketplace service for OpenNebula. Appliance information is sourced from a collection of metadata YAML files located in the `src/data/` directory. For reference, the metadata format follows the structure used in the [official OpenNebula Marketplace repository](https://github.com/OpenNebula/marketplace).
+This project provides a lightweight implementation of a Marketplace service for OpenNebula. Appliance information is sourced from a collection of metadata YAML files located in the src/data/ directory. For reference, the metadata format follows the structure used in the [official OpenNebula Marketplace repository](https://github.com/OpenNebula/marketplace).
 
 The service launches a Ruby-based API that serves both the appliance metadata and the static assets for the Single Page Application (SPA) frontend.
 
 ## Marketplace architecture
 
-![image-20250714140633415](/home/david/.config/Typora/typora-user-images/image-20250714140633415.png)
+<img width="797" height="447" alt="Marketplace Diagram" src="https://github.com/user-attachments/assets/5b80c698-60fe-47ab-8ffb-9237dc5f689a" />
 
 The marketplace is basically a Ruby server that exposes an API with the following paths:
 
