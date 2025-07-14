@@ -1,11 +1,8 @@
 # Simple OpenNebula Marketplace
 
-This is a simple implementation of the OpenNebula Marketplace, without the need of having the heavyweight OpenNebula installation with the database.
-All information about appliances is taken from the set of metadata YAML files, which are deployed into the `src/data/` directory. To check the metadata used by official public OpenNebula Marketplace, check the following [dedicated repository](https://github.com/OpenNebula/marketplace).
+This project provides a lightweight implementation of a Marketplace service for OpenNebula. Appliance information is sourced from a collection of metadata YAML files located in the `src/data/` directory. For reference, the metadata format follows the structure used in the [official OpenNebula Marketplace repository](https://github.com/OpenNebula/marketplace).
 
-This implementation starts a Ruby API that responses with the data from the marketplace but also serves the Single Page Application files.
-
-
+The service launches a Ruby-based API that serves both the appliance metadata and the static assets for the Single Page Application (SPA) frontend.
 
 ## Marketplace architecture
 
@@ -13,15 +10,11 @@ This implementation starts a Ruby API that responses with the data from the mark
 
 The marketplace is basically a Ruby server that exposes an API with the following paths:
 
-
-
 | Path           | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
 | /              | Returns the index.html entrypoint for the React app.         |
 | /appliance     | Returns a list of JSON with all the information of the appliances defined in src/data. |
 | /appliance/:id | Returns a JSON with details of a specific appliance defined in src/data. |
-
-
 
 ## React Development
 
