@@ -7,35 +7,27 @@ which are deployed into the `src/data/` directory.
 
 Metadata used by official public OpenNebula Marketplace are in [dedicated repository](https://github.com/OpenNebula/marketplace).
 
-## Development
+This implementation starts a Ruby API that responses with the data from the marketplace but also serves the Single Page Application files.
 
-### Frontend
+## Frontend Development
 
-Dependencies:
+### Local
 
-- [Nodejs](https://nodejs.org/en/download/)
-- [Yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
+In order to develop in a local environment, install node version 20 and perform the following steps:
+- Change to the path /src/public/react
+- Execute `npm install`
+- Execute `npm run dev:opennebula`
 
-To start, you need to download the JavaScript dependencies. This can be achieved achieved by running the command `yarn` inside the directory `src/public/react`.
-
-Most requests on the API are managed by the Ruby backend, only the routes `/marketplace/*` are managed by React in the file `src/public/react/src/routes.js`.
-
-### Testing with Proxy
-
-- Comment line 2 and uncomment line 1 to `src/public/react/src/constants/endpoints.js`.
-- Run in `src/public/react` path the command `yarn start`.
-
-**NOTE:** All the graphic fonts used in it will fail, only use to prove with the information that is in production.
+Frontend uses the Ruby API to get the data of the appliances. Change the variable pathAPIDevelopmentMode in vite.config.ts in order to use a different address for the API.
 
 ### Build Production Code
 
-- Validate that line 2 is uncomment and line 1 is comment to `src/public/react/src/constants/endpoints.js`.
-- Run in `src/public/react` path the command `yarn build`.
+- Change to the path /src/public/react
+- Execute `npm install`
+- Execute `npm run build:opennebula`
 
-### Testing
+The API requests will be done against the same address where the React code is served.
 
-Once the production build is created, you only need to run
+### Run
 
-```
-$ bundle exec rackup
-```
+The React App always will be served through the Ruby API.

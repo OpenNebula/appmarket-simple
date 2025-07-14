@@ -2,6 +2,7 @@
 - name: Install OS packages required to run appmarket-simple
   ansible.builtin.package:
     name: "{{ _packages[ansible_os_family] }}"
+    update_cache: true
   vars:
     _packages:
       Debian: [bash, gcc, git, make, nodejs, rsync, ruby-bundler, ruby-dev, yarnpkg]
@@ -37,8 +38,8 @@
     src: "{{ item.src }}"
     state: link
   loop:
-    - { path: /opt/appmarket-simple/src/data , src: "{{ install_path }}/marketplace/" }
-    - { path: /opt/appmarket-simple/src/public/logos , src: ../data/logos/ }
+    - { path: "{{ install_path }}/appmarket-simple/src/data" , src: "{{ install_path }}/marketplace/" }
+    - { path: "{{ install_path }}/appmarket-simple/src/public/logos" , src: ../data/logos/ }
 
 - name: Install ruby dependencies (via bundler)
   ansible.builtin.shell:
@@ -48,7 +49,7 @@
       bundle update
       touch /var/tmp/appmarket-simple.BUNDLE
     executable: /bin/bash
-    chdir: /opt/appmarket-simple/src/
+    chdir: "{{ install_path }}/appmarket-simple/src/"
     creates: /var/tmp/appmarket-simple.BUNDLE
 
 - name: Make /appmarket-simple and /marketplace RW by others
@@ -57,5 +58,46 @@
     mode: o+rw
     recurse: true
   loop:
-    - path: /opt/appmarket-simple/
-    - path: /opt/marketplace/
+    - path: "{{ install_path }}/appmarket-simple/"
+    - path: "{{ install_path }}/marketplace/"
+
+- name: Install NVM if not present
+  shell: |
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  args:
+    executable: /bin/bash
+    creates: "/root/.nvm/nvm.sh"
+  environment:
+    NVM_DIR: "/root/.nvm"
+  tags: build
+
+- name: Install and use Node.js 20 via NVM
+  ansible.builtin.shell: |
+    . "$NVM_DIR/nvm.sh"
+    nvm install 20
+    nvm use 20
+  args:
+    executable: /bin/bash
+  environment:
+    NVM_DIR: "/root/.nvm"
+  tags: build
+
+- name: Install dependencies and build React app
+  ansible.builtin.shell: |
+    . "$NVM_DIR/nvm.sh"
+    nvm use 20
+    cd {{ install_path }}/appmarket-simple/src/public/react
+    npm install
+    npm run build:opennebula
+  args:
+    executable: /bin/bash
+  environment:
+    NVM_DIR: "/root/.nvm"
+  tags: build
+
+- name: Copy built React dist contents to public directory
+  shell: |
+    cp -r {{ install_path }}/appmarket-simple/src/public/react/dist/. {{ install_path }}/appmarket-simple/src/public
+  args:
+    executable: /bin/bash
+  tags: build

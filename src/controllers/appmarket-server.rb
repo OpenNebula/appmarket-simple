@@ -44,23 +44,19 @@ before do
     cache_control :no_cache, :no_store, :must_revalidate
 end
 
-get '/' do
-    redirect '/appliance'
-end
-
 get '/robots.txt' do
     content_type :text
     "User-agent: *\nDisallow: /"
 end
 
 
+# Return the index.html of the React app
+get '/', :provides => :html do
+  pass if request.user_agent =~ /OpenNebula/i
 
-get '/appliance/?', :provides => :html do
-    # ON marketplace wants JSON
-    pass if request.user_agent =~ /OpenNebula/i
-
-    haml :react, :content_type => "text/html"
+  send_file File.join(settings.public_folder, 'index.html'), type: :html
 end
+
 
 get '/appliance/?' do
     version = request.user_agent.match(/^OpenNebula (\d+\.\d+)/)
@@ -74,7 +70,7 @@ get '/appliance/:id/?', :provides => :html do
     # ON marketplace wants JSON
     pass if request.user_agent =~ /OpenNebula/i
 
-    haml :react, :content_type => "text/html"
+    send_file File.join(settings.public_folder, 'index.html'), type: :html
 end
 
 get '/appliance/:id/?' do
