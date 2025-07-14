@@ -6,7 +6,7 @@ The service launches a Ruby-based API that serves both the appliance metadata an
 
 ## Marketplace architecture
 
-<img width="797" height="447" alt="Marketplace Diagram" src="https://github.com/user-attachments/assets/5b80c698-60fe-47ab-8ffb-9237dc5f689a" />
+<img width="797" height="447" alt="Marketplace Diagram" src="https://github.com/user-attachments/assets/db0c1b9a-c7b1-482c-8bc9-ae60bbcf131a" />
 
 The marketplace is basically a Ruby server that exposes an API with the following paths:
 
