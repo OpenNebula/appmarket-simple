@@ -6,7 +6,7 @@ The service launches a Ruby-based API that serves both the appliance metadata an
 
 ## Marketplace architecture
 
-![image-20250714140633415](/home/david/.config/Typora/typora-user-images/image-20250714140633415.png)
+<img width="797" height="447" alt="Marketplace Diagram" src="https://github.com/user-attachments/assets/0b196771-1f13-4eb9-b8de-e4fe99e5fc07" />
 
 The marketplace is basically a Ruby server that exposes an API with the following paths:
 
