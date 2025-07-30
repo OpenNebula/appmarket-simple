@@ -1,5 +1,7 @@
 require 'appliance'
 
+APPLIANCES_FILTER = ENV['APPLIANCES_FILTER'] || '/appliances/**/*.yaml'
+
 class Appliances
 
     def initialize(dir, base_url)
@@ -13,7 +15,7 @@ class Appliances
 
     def reload
         if File.directory?(@dir)
-            ptrn = @dir + '/appliances/**/*.yaml'
+            ptrn = @dir + APPLIANCES_FILTER
 #        elsif File.file?(@dir)
 #            ptrn = @dir
         else
