@@ -1,10 +1,15 @@
+// React
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./index.css";
+
+// Marketplace
 import App from "@/App";
 import MarketPlace from "@/layout/marketplace/Marketplace";
 import Detail from "@/layout/detail/Detail";
 import config from "@config";
+
+// Styles
+import "./index.css";
 
 // Set the browser tab title from config
 document.title = config.title;
