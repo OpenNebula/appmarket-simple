@@ -15,7 +15,7 @@ import { useState } from "react";
 import { parseToOpenNebulaFormat } from "@/utils/parser";
 
 export interface AppliancesTableInterface {
-  appliancesFiltered: Appliance[] | undefined;
+  appliances: Appliance[] | undefined;
 }
 
 const createData = (
@@ -29,7 +29,7 @@ const createData = (
   return { name, hypervisor, short_description, os_id, version, button };
 };
 
-const AppliancesTable = ({ appliancesFiltered }: AppliancesTableInterface) => {
+const TableCard = ({ appliances }: AppliancesTableInterface) => {
   const [copyTooltip, setCopyTooltip] = useState<string>("Copy template");
 
   const handleCopiedTooltip = () => {
@@ -40,7 +40,7 @@ const AppliancesTable = ({ appliancesFiltered }: AppliancesTableInterface) => {
     }, 1000);
   };
 
-  const rows = appliancesFiltered?.map((appliance) => {
+  const rows = appliances?.map((appliance) => {
     const download: string =
       typeof appliance.links?.download.href === "string"
         ? appliance.links?.download.href
@@ -135,4 +135,4 @@ const AppliancesTable = ({ appliancesFiltered }: AppliancesTableInterface) => {
   );
 };
 
-export default AppliancesTable;
+export default TableCard;

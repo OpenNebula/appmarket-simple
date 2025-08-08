@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 
 import FilterCard from "@/layout/marketplace/filters/FilterCard";
 import { useAppContext } from "@/context/useAppContext";
@@ -6,26 +6,35 @@ import {
   Box,
   CircularProgress,
   SelectChangeEvent,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
+  Drawer,
 } from "@mui/material";
 import { useState } from "react";
 import { Appliance } from "@/interfaces/Appliances";
 import Search from "@/components/search/Search";
-import AppliancesTable from "@/layout/marketplace/appliance-table/AppliancesTable";
 import WindowIcon from "@mui/icons-material/Window";
 import TableRowsIcon from "@mui/icons-material/TableRows";
-import AppliancesList from "../appliances-list/AppliancesList";
 import Sort from "@/components/sort/Sort";
 import dayjs, { Dayjs } from "dayjs";
 import { DateRange } from "@mui/x-date-pickers-pro";
+import Paper from '@mui/material/Paper';
+
+// Material
+import { Button } from "@mui/material"; 
+
+// Marketplace components
+import Toolbar from "@/components/toolbar";
+import Table from "@/components/table";
+
+// Styles
+import styles from './main.module.css'
+import { styled } from '@mui/material/styles';
 
 const Main = () => {
   const { appliances, contextFilters } = useAppContext();
 
   const [search, setSearch] = useState<string>("");
-  const [view, setView] = useState("list");
+  //const [view, setView] = useState("list");
 
   const [activeCategory, setActiveCategory] = useState<string[]>(["name"]);
   const [activeOrder, setOrder] = useState<string[]>(["Asc"]);
@@ -47,12 +56,12 @@ const Main = () => {
     setOrder(typeof value === "string" ? value.split(",") : value);
   };
 
-  const handleToggleView = (
-    _: React.MouseEvent<HTMLElement>,
-    nextView: string,
-  ) => {
-    setView(nextView);
-  };
+  // const handleToggleView = (
+  //   _: React.MouseEvent<HTMLElement>,
+  //   nextView: string,
+  // ) => {
+  //   setView(nextView);
+  // };
 
   const orderValues = ["Name", "Hypervisor", "OS Systems"];
 
@@ -162,14 +171,34 @@ const Main = () => {
         : b[category]?.localeCompare(a[category]);
     });
 
-  return appliances ? (
-    <Grid container spacing={0.5}>
-      {/* Filter */}
-      <Grid size={3}>
-        <FilterCard />
-      </Grid>
 
-      <Grid size={9}>
+
+  // Filter panel state
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+
+
+
+  return appliances ? (
+    <Box sx={{ flexGrow: 1 }}>
+    <Grid container spacing={0}>
+      {/* Filter */}
+      {/* <Grid size={3}>
+        <FilterCard />
+      </Grid> */}
+
+      {/* <Grid size={12}>
         <Box
           sx={{
             p: 3,
@@ -179,7 +208,7 @@ const Main = () => {
           }}
         >
           <Grid sx={{ my: 3 }} container spacing={2}>
-            <Grid size={{ xs: 12, md: 9 }}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Search
                 handler={(
                   e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -194,6 +223,16 @@ const Main = () => {
                 activeOrder={activeOrder}
                 handleOrder={handleOrder}
               />
+            </Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
+              
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setDrawerOpen(true)}
+              >
+                Test
+              </Button>
             </Grid>
           </Grid>
           <Box sx={{ display: "flex", alignItems: "center", my: 3 }}>
@@ -221,8 +260,40 @@ const Main = () => {
             <AppliancesTable appliancesFiltered={appliancesFiltered} />
           )}
         </Box>
+      </Grid> */}
+
+      {/* Render the main layout component */}      
+      <Grid xs={12} className={styles.title}>
+        <Typography variant='h1'>Appliances</Typography>        
       </Grid>
+      <Grid xs={12} className={styles.toolbar}>
+        <Toolbar></Toolbar>
+      </Grid>
+      <Grid xs={12} className={styles.table}>
+        <Table 
+          appliances={appliancesFiltered}          
+        />
+      </Grid>      
+      
+
+      {/* Drawer Component */}
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        <Box
+          sx={{ width: 350, p: 2 }}
+          role="presentation"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <FilterCard />
+        </Box>
+      </Drawer>
+
+
     </Grid>
+    </Box>
   ) : (
     <Box
       sx={{

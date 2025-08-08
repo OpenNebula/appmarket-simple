@@ -28,12 +28,18 @@ const getDesignTokens = (mode: "light" | "dark") => {
             primary: {
               main: "#1897C2",
             },
+            text: {
+              h1: '#40435C'
+            }
           }
         : {
             // 👇 palette values for dark mode
             primary: {
               main: "#093544",
             },
+            text: {
+              headings: '#F5F7F9'
+            }
           }),
     },
   };
@@ -45,42 +51,23 @@ const getDesignTokens = (mode: "light" | "dark") => {
  * @returns {object} - Theme
  */
 const opennebulaTheme = (mode: "light" | "dark") => {
+  
+  // Get colors depending of the mode
+  const baseTokens = getDesignTokens(mode);
+  
   return {
-    ...getDesignTokens(mode),
     typography: {
-      fontFamily: ["Ubuntu", "Poppins"].join(","),
-    },
-    components: {
-      // Name of the component
-      MuiIconButton: {
-        styleOverrides: {
-          // Name of the slot
-          root: {
-            variants: [
-              {
-                props: { color: "info" },
-                style: {
-                  ":hover": {
-                    background: "#046B8E",
-                  },
-                  background: "#0D7FA5",
-                  color: "white",
-                },
-              },
-              {
-                props: { color: "secondary" },
-                style: {
-                  ":hover": {
-                    background: "#DFDFDF",
-                  },
-                  background: "white",
-                  color: "#0D7FA5",
-                },
-              },
-            ],
-          },
-        },
+      fontFamily: ['Inter'],      
+      h1: {
+        fontSize: '40px',
+        fontStyle: 'normal',
+        fontWeight: 600,
+        lineHeight: '48px', 
+        color: baseTokens.palette.text.headings,
       },
+    },
+
+    components: {
     },
   };
 };
