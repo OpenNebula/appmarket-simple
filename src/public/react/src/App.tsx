@@ -12,65 +12,36 @@ import AppBar from "@/components/navbar/Navbar";
 
 // Styles
 import "./App.css";
+import { theme } from '@/theme'
 
-/**
- * Return the palette for dark and light modes
- * @param {string} mode - Dark or light
- * @returns {object} - Palette
- */
-const getDesignTokens = (mode: "light" | "dark") => {
-  return {
-    palette: {
-      mode,
-      ...(mode === "light"
-        ? {
-            // 👇 palette values for light mode
-            primary: {
-              main: "#1897C2",
-            },
-            text: {
-              h1: '#40435C'
-            }
-          }
-        : {
-            // 👇 palette values for dark mode
-            primary: {
-              main: "#093544",
-            },
-            text: {
-              headings: '#F5F7F9'
-            }
-          }),
-    },
-  };
-};
 
-/**
- * Define theme TODO -> In a different file
- * @param {string} mode - Dark or light
- * @returns {object} - Theme
- */
-const opennebulaTheme = (mode: "light" | "dark") => {
+
+// /**
+//  * Define theme TODO -> In a different file
+//  * @param {string} mode - Dark or light
+//  * @returns {object} - Theme
+//  */
+// const opennebulaTheme = (mode: "light" | "dark") => {
   
-  // Get colors depending of the mode
-  const baseTokens = getDesignTokens(mode);
+//   // Get colors depending of the mode
+//   const baseTokens = getDesignTokens(mode);
   
-  return {
-    typography: {
-      fontFamily: ['Inter'],      
-      h1: {
-        fontSize: '40px',
-        fontStyle: 'normal',
-        fontWeight: 600,
-        lineHeight: '48px', 
-        color: baseTokens.palette.text.headings,
-      },
-    },
+//   return {
+//     typography: {
+//       fontFamily: ['Inter'],      
+//       h1: {
+//         fontSize: '40px',
+//         fontStyle: 'normal',
+//         fontWeight: 600,
+//         lineHeight: '48px', 
+//         color: baseTokens.palette.text.headings,
+//       },
+//     },
 
-    components: {
-    },
-  };
-};
+//     components: {
+//     },
+//   };
+// };
 
 /**
  * Return the App component.
@@ -87,12 +58,12 @@ function App() {
   };
 
   // Create them using mode
-  const theme = React.useMemo(() => createTheme(opennebulaTheme(mode)), [mode]);
+  const marketplaceTheme = React.useMemo(() => createTheme(theme(mode)), [mode]);
 
   // Return App component
   return (
 
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={marketplaceTheme}>
 
       {/* Css Baseline component to unify browser styles */}
       <CssBaseline />

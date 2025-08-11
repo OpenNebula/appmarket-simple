@@ -27,9 +27,9 @@ export default defineConfig(({mode}) => {
               target: pathAPIDevelopmentMode,
               changeOrigin: true,
               secure: false,
-              proxyTimeout: 10000,
-              timeout: 10000,
-              agent: false,
+              proxyTimeout: 30000,
+              timeout: 30000,
+              // agent: keepAliveAgent,
               bypass: (req) => {
                 const acceptHeader = req.headers.accept || ''
                 if (acceptHeader.includes('text/html')) {
