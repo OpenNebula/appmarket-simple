@@ -264,7 +264,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
       {/* Render the main layout component */}      
       <Grid xs={12} className={styles.title}>
-        <Typography variant='h1'>Appliances</Typography>        
+        <Typography variant='h3'>Appliances</Typography>        
       </Grid>
       <Grid xs={12} className={styles.toolbar}>
         <Toolbar></Toolbar>
