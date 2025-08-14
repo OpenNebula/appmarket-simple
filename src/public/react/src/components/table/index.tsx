@@ -8,13 +8,14 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 
 // Marketplace components
-import TableList from "@/components/table/list";
-import TableCard from "@/components/table/card";
+import TableList from "@/components/table/card";
+import TableCard from "@/components/table/list";
 
-// Styles
-import styles from './styles.module.css'
+// Component styles
+import styles from '@/components/table/styles'
 
 // Icons
 import { List, ViewGrid } from 'iconoir-react';
@@ -26,6 +27,10 @@ import { List, ViewGrid } from 'iconoir-react';
  */
 const Table = ({ appliances }) => {  
 
+  // Get styles for the component
+  const theme = useTheme();
+  const tableStyles = styles(theme)
+
   // Table mode view. List by default.
   const [view, setView] = useState("list");
 
@@ -36,7 +41,7 @@ const Table = ({ appliances }) => {
 
   return (
     <Stack direction='column'>
-      <Box className={styles.switchView}>
+      <Box className={tableStyles.switchView}>
         <ToggleButtonGroup            
           value={view}
           exclusive
