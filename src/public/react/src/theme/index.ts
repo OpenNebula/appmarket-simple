@@ -154,6 +154,35 @@ const theme = (mode: "light" | "dark") => {
             padding: 0,
           }
         }
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            border: 'none',
+            color: baseTokens.text.disabled,
+            fontSize: fontSize.body.md.desktop,
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: `${lineHeight.body.md.desktop}px`,
+          },
+        }
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          notchedOutline: {
+            border: 'none',
+          },
+          root: {
+            
+            border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
+            borderRadius: border.radius.xlg,
+            background: baseTokens.surface.primary,
+            padding: `${scale[200]}px ${scale[400]}px}`,        
+          },
+          input: {
+            padding: 0,
+          }          
+        },
       }
     },
   };

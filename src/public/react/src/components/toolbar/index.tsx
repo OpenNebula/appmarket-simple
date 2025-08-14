@@ -3,20 +3,28 @@ import {
   Grid,
 } from "@mui/material";
 
+
+import Search from "@/components/search";
+import Sort from "@/components/sort/Sort";
+
 /**
  * Component to display the toolbar in the main layout. The toolbar will contain search, sort and filter buttons.
  * @returns {JSX.Element} The rendered Toolbar component.
  */
 const Toolbar = () => {
   return (
-    <Grid container spacing={0}>
-      <Grid xs={12} md={5}>
-        Filter
+    <Grid container spacing={1}>
+      <Grid item xs={12} md={5}>
+        <Search
+          handler={(
+            e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+          ) => setSearch(e.target.value)}
+        />
       </Grid>
-      <Grid xs={12} md={5}>
-        Sort
+      <Grid item xs={12} md={5}>
+        <Sort/>
       </Grid>
-      <Grid xs={12} md={2}>
+      <Grid item xs={12} md={2}>
         Filter
       </Grid>
     </Grid>

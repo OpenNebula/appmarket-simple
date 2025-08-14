@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Appliance } from "@/interfaces/Appliances";
-import Search from "@/components/search/Search";
+import Search from "@/components/search";
 import WindowIcon from "@mui/icons-material/Window";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import Sort from "@/components/sort/Sort";
@@ -30,8 +30,12 @@ import Table from "@/components/table";
 import styles from './main.module.css'
 import { styled } from '@mui/material/styles';
 
+import { useAppliances } from '@/context/AppliancesProvider'
+
 const Main = () => {
-  const { appliances, contextFilters } = useAppContext();
+  // const { appliances, contextFilters } = useAppContext();
+
+  const { appliances } = useAppliances();
 
   const [search, setSearch] = useState<string>("");
   //const [view, setView] = useState("list");
@@ -65,132 +69,119 @@ const Main = () => {
 
   const orderValues = ["Name", "Hypervisor", "OS Systems"];
 
-  const appliancesFiltered: Appliance[] | undefined = appliances
-    ?.filter((appliance) => {
-      // Filter: Tags
-      const activeTags =
-        contextFilters.Tags?.filter((tag) => tag.value).map(
-          (tag) => tag.name,
-        ) ?? [];
-      const tagCondition =
-        activeTags.length === 0 ||
-        (Array.isArray(appliance.tags)
-          ? appliance.tags.some((tag) => activeTags.includes(tag))
-          : typeof appliance.tags === "string" &&
-            activeTags.includes(appliance.tags));
+  // const appliancesFiltered: Appliance[] | undefined = appliances
+  //   ?.filter((appliance) => {
+  //     // Filter: Tags
+  //     const activeTags =
+  //       contextFilters.Tags?.filter((tag) => tag.value).map(
+  //         (tag) => tag.name,
+  //       ) ?? [];
+  //     const tagCondition =
+  //       activeTags.length === 0 ||
+  //       (Array.isArray(appliance.tags)
+  //         ? appliance.tags.some((tag) => activeTags.includes(tag))
+  //         : typeof appliance.tags === "string" &&
+  //           activeTags.includes(appliance.tags));
 
-      // Filter: Hypervisors
-      const activeHypervisors =
-        contextFilters.Hypervisors?.filter((tag) => tag.value).map(
-          (tag) => tag.name,
-        ) ?? [];
-      const hypervisorCondition =
-        activeHypervisors.length === 0 ||
-        (appliance.hypervisor &&
-          activeHypervisors.includes(appliance.hypervisor));
+  //     // Filter: Hypervisors
+  //     const activeHypervisors =
+  //       contextFilters.Hypervisors?.filter((tag) => tag.value).map(
+  //         (tag) => tag.name,
+  //       ) ?? [];
+  //     const hypervisorCondition =
+  //       activeHypervisors.length === 0 ||
+  //       (appliance.hypervisor &&
+  //         activeHypervisors.includes(appliance.hypervisor));
 
-      // Filter: OS Systems
-      const activeOsSystems =
-        contextFilters["OS Systems"]
-          ?.filter((tag) => tag.value)
-          .map((tag) => tag.name) ?? [];
-      const osCondition =
-        activeOsSystems.length === 0 ||
-        (appliance["os-id"] && activeOsSystems.includes(appliance["os-id"]));
+  //     // Filter: OS Systems
+  //     const activeOsSystems =
+  //       contextFilters["OS Systems"]
+  //         ?.filter((tag) => tag.value)
+  //         .map((tag) => tag.name) ?? [];
+  //     const osCondition =
+  //       activeOsSystems.length === 0 ||
+  //       (appliance["os-id"] && activeOsSystems.includes(appliance["os-id"]));
 
-      // Filter: OpenNebula Versions
-      const activeOpenNebulaVersions =
-        contextFilters["OpenNebula Versions"]
-          ?.filter((tag) => tag.value)
-          .map((tag) => tag.name) ?? [];
-      let opennebulaCondition = true;
-      if (activeOpenNebulaVersions.length > 0) {
-        if (appliance.opennebula_version) {
-          const versions: string[] = appliance.opennebula_version
-            .split(",")
-            .map((version) => version.trim());
-          opennebulaCondition = activeOpenNebulaVersions.some((version) =>
-            versions.includes(version),
-          );
-        } else {
-          opennebulaCondition = false;
-        }
-      }
+  //     // Filter: OpenNebula Versions
+  //     const activeOpenNebulaVersions =
+  //       contextFilters["OpenNebula Versions"]
+  //         ?.filter((tag) => tag.value)
+  //         .map((tag) => tag.name) ?? [];
+  //     let opennebulaCondition = true;
+  //     if (activeOpenNebulaVersions.length > 0) {
+  //       if (appliance.opennebula_version) {
+  //         const versions: string[] = appliance.opennebula_version
+  //           .split(",")
+  //           .map((version) => version.trim());
+  //         opennebulaCondition = activeOpenNebulaVersions.some((version) =>
+  //           versions.includes(version),
+  //         );
+  //       } else {
+  //         opennebulaCondition = false;
+  //       }
+  //     }
 
-      // Filter: Versions
-      const activeVersions =
-        contextFilters.Versions?.filter((tag) => tag.value).map(
-          (tag) => tag.name,
-        ) ?? [];
-      const versionCondition =
-        activeVersions.length === 0 ||
-        (appliance.version && activeVersions.includes(appliance.version));
+  //     // Filter: Versions
+  //     const activeVersions =
+  //       contextFilters.Versions?.filter((tag) => tag.value).map(
+  //         (tag) => tag.name,
+  //       ) ?? [];
+  //     const versionCondition =
+  //       activeVersions.length === 0 ||
+  //       (appliance.version && activeVersions.includes(appliance.version));
 
-      // Filter: Date Interval
-      const date: DateRange<Dayjs> | undefined = contextFilters["Date Interval"];
+  //     // Filter: Date Interval
+  //     const date: DateRange<Dayjs> | undefined = contextFilters["Date Interval"];
       
-      let dateCondition = true;
+  //     let dateCondition = true;
 
-      if (date) {
+  //     if (date) {
 
-        const applianceDate = dayjs.unix(appliance.creation_time)
+  //       const applianceDate = dayjs.unix(appliance.creation_time)
 
-        if (date[0]) {
-          dateCondition = dateCondition && (applianceDate.isAfter(date[0], 'day') || applianceDate.isSame(date[0], 'day')) ;
-        }
-        if (date[1]) {
-          dateCondition = dateCondition && (applianceDate.isBefore(date[1], 'day') || applianceDate.isSame(date[0], 'day') );
-        }
-      }
+  //       if (date[0]) {
+  //         dateCondition = dateCondition && (applianceDate.isAfter(date[0], 'day') || applianceDate.isSame(date[0], 'day')) ;
+  //       }
+  //       if (date[1]) {
+  //         dateCondition = dateCondition && (applianceDate.isBefore(date[1], 'day') || applianceDate.isSame(date[0], 'day') );
+  //       }
+  //     }
 
 
-      // Filter: Search
-      const searchCondition =
-        search === "" ||
-        (appliance.name &&
-          appliance.name
-            .toLocaleLowerCase()
-            .includes(search.toLocaleLowerCase()));
+  //     // Filter: Search
+  //     const searchCondition =
+  //       search === "" ||
+  //       (appliance.name &&
+  //         appliance.name
+  //           .toLocaleLowerCase()
+  //           .includes(search.toLocaleLowerCase()));
 
-      return (
-        tagCondition &&
-        hypervisorCondition &&
-        osCondition &&
-        opennebulaCondition &&
-        versionCondition &&
-        dateCondition &&
-        searchCondition
-      );
-    })
-    .sort((a: Appliance, b: Appliance) => {
-      const category = activeCategory[0] as keyof Appliance;
-      const order = activeOrder[0];
+  //     return (
+  //       tagCondition &&
+  //       hypervisorCondition &&
+  //       osCondition &&
+  //       opennebulaCondition &&
+  //       versionCondition &&
+  //       dateCondition &&
+  //       searchCondition
+  //     );
+  //   })
+  //   .sort((a: Appliance, b: Appliance) => {
+  //     const category = activeCategory[0] as keyof Appliance;
+  //     const order = activeOrder[0];
 
-      return order === "Asc"
-        ? a[category]?.localeCompare(b[category])
-        : b[category]?.localeCompare(a[category]);
-    });
+  //     return order === "Asc"
+  //       ? a[category]?.localeCompare(b[category])
+  //       : b[category]?.localeCompare(a[category]);
+  //   });
 
 
 
   // Filter panel state
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
 
-
-
-
-  return appliances ? (
+  return (
     <Box sx={{ flexGrow: 1 }}>
     <Grid container spacing={0}>
       {/* Filter */}
@@ -270,9 +261,25 @@ const Item = styled(Paper)(({ theme }) => ({
         <Toolbar></Toolbar>
       </Grid>
       <Grid xs={12} className={styles.table}>
-        <Table 
-          appliances={appliancesFiltered}          
-        />
+        
+      {
+        appliances === null ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "80vh",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Grid xs={12} className={styles.table}>
+            <Table appliances={appliances} />
+          </Grid>
+        ) 
+      }
       </Grid>      
       
 
@@ -293,17 +300,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
     </Grid>
-    </Box>
-  ) : (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "80vh",
-      }}
-    >
-      <CircularProgress />
     </Box>
   );
 };

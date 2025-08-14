@@ -7,6 +7,7 @@ import {
   Box,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 
@@ -40,25 +41,34 @@ const Table = ({ appliances }) => {
   };
 
   return (
-    <Stack direction='column'>
-      <Box className={tableStyles.switchView}>
-        <ToggleButtonGroup            
-          value={view}
-          exclusive
-          onChange={handleToggleView}
-        >
-          <ToggleButton size="small" value="list" aria-label="list">
-            <ViewGrid />
-          </ToggleButton>
-          <ToggleButton size="small" value="table" aria-label="module">
-            <List />
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </Box>
+    <>
       {
-        view === 'list' ? <TableList appliances={appliances} /> : <TableCard appliances={appliances} />
+        appliances?.length === 0 ? (
+          <Typography>No appliances found</Typography>
+        ) : (
+          <Stack direction='column'>
+            <Box className={tableStyles.switchView}>
+              <ToggleButtonGroup            
+                value={view}
+                exclusive
+                onChange={handleToggleView}
+              >
+                <ToggleButton size="small" value="list" aria-label="list">
+                  <ViewGrid />
+                </ToggleButton>
+                <ToggleButton size="small" value="table" aria-label="module">
+                  <List />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Box>
+            {
+              view === 'list' ? <TableList appliances={appliances} /> : <TableCard appliances={appliances} />
+            }
+          </Stack>
+        )
       }
-    </Stack>
+    </>
+
   )
 };
 

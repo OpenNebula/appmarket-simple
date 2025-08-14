@@ -33,20 +33,20 @@ export const CheckboxProvider = ({ children }: CheckboxProviderProps) => {
   /**
    * Load the appliance from the API
    */
-  useEffect(() => {
-    fetch('/appliance', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      })
-    .then(res => {
-      res.json().then((data) => {
-        setAppliances(data.appliances);
-      });
-    })
-  }, [])
+  // useEffect(() => {
+  //   fetch('/appliance', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //       },
+  //     })
+  //   .then(res => {
+  //     res.json().then((data) => {
+  //       setAppliances(data.appliances);
+  //     });
+  //   })
+  // }, [])
 
   /**
    * Load data from appliances to use in the filters

@@ -2,7 +2,12 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
+
+import { useAppliances } from "@/context/AppliancesProvider";
+import Typography from "@mui/material/Typography";
+
+import { useState } from 'react'
 
 interface SortInterface {
   orderValues: string[];
@@ -14,39 +19,54 @@ interface SortInterface {
   handleOrder: (event: SelectChangeEvent<string[]>) => void;
 }
 
-const Sort = ({
-  orderValues,
-  activeCategory,
-  handleCategory,
+const Sort = ({  
   activeOrder,
   handleOrder,
 }: SortInterface) => {
+
+  // Values to order by
+  const orderValues = ["Name", "Hypervisor", "OS Systems"];
+
+  // Function to update sort by in appliances
+  const { setSorting } = useAppliances();
+
+  // Selected category to sort by
+  const [activeCategory, setActiveCategory] = useState("");
+
+  // Function to sort appliances
+  const handleSort = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const selected = event.target.value as string;
+    setActiveCategory(selected);
+    setSorting(selected.toLowerCase(), "asc");
+  };
+
+
   return (
     <Grid container spacing={2}>
-      <Grid size={{ xs: 12, md: 9 }}>
+      <Grid item xs={12} md={9} >
         <FormControl fullWidth>
-          <InputLabel id="select-sort-category-label">Sort by</InputLabel>
           <Select
-            labelId="select-sort-category-label"
-            id="select-sort-category"
             value={activeCategory}
-            label="Sorty by"
-            onChange={handleCategory}
-            sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
+            onChange={handleSort}
+            displayEmpty
+            renderValue={(selected) => {
+              if (!selected) {
+                return <Typography color="textSecondary">Sort by</Typography>;
+              }
+              return selected.charAt(0).toUpperCase() + selected.slice(1); // capitalize first letter
+            }}
           >
-            {orderValues.map((value: string) => {
-              return (
-                <MenuItem key={value} value={value.toLocaleLowerCase()}>
-                  {value}
-                </MenuItem>
-              );
-            })}
+            {orderValues.map((value: string) => (
+              <MenuItem key={value} value={value.toLowerCase()}>
+                {value}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
 
-      <Grid size={{ xs: 12, md: 3 }}>
-        <FormControl fullWidth>
+      <Grid item xs={12} md={3} >
+        {/* <FormControl fullWidth>
           <InputLabel id="select-order-label">Order</InputLabel>
           <Select
             labelId="select-order-label"
@@ -59,7 +79,7 @@ const Sort = ({
             <MenuItem value={"Asc"}>Asc</MenuItem>
             <MenuItem value={"Desc"}>Desc</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
       </Grid>
     </Grid>
   );
