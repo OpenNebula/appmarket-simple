@@ -2,8 +2,8 @@
 import { css } from '@emotion/css'
 
 // Import not colors variables
-import { fontSize, lineHeight, border } from '@/theme/responsive'
-import { scale, type } from '@/theme/brand'
+import { fontSize, lineHeight } from '@/theme/responsive'
+import { scale } from '@/theme/brand'
 
 import { light } from '@/theme/colors/themes/light';
 import { dark } from '@/theme/colors/themes/dark';

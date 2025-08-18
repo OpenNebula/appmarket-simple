@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, CardContent, Chip } from '@mui/material';
+import { Chip } from '@mui/material';
 
 /**
  * Render the tags that fit the width of the container.

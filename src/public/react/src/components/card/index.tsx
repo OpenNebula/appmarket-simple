@@ -9,11 +9,9 @@ import {
   MenuItem,
   ListItemIcon,
   Tooltip,
-  Snackbar,
   Card,
   CardContent,
   Typography,
-  Chip,
   Stack,
   IconButton,
 } from "@mui/material";
@@ -32,7 +30,7 @@ import Tags from '@/components/tags'
 // Utilities
 import { format } from 'date-fns';
 import { parseToOpenNebulaFormat } from "@/utils/parser";
-import { useSnackbar } from "@/context/SnackbarProvider";
+import { useSnackbar } from "@/context/snackbar/SnackbarContext";
 
 
 /**
@@ -56,7 +54,7 @@ const ApplianceCard = ({ appliance }) => {
     setAnchorEl(null);
   };
 
-  // Hook to display message
+  // Hook to display messages
   const { showMessage } = useSnackbar();
 
   // Fromat creation date  

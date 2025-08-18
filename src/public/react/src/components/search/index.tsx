@@ -8,7 +8,7 @@ import { InputAdornment, TextField } from "@mui/material";
 import { Search as SearchIcon } from "iconoir-react";
 
 // Appliances context
-import { useAppliances } from "@/context/AppliancesProvider";
+import { useAppliances } from "@/context/appliances/AppliancesContext";
 
 /**
  * Component to display the search bar and perform search by name in the appliances.

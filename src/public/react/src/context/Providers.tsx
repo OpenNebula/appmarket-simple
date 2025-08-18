@@ -1,7 +1,7 @@
 // Import Marketplace context providers
 import { CheckboxProvider } from "@/context/Context";
-import { SnackbarProvider } from "@/context/SnackbarProvider";
-import { AppliancesProvider } from "@/context/AppliancesProvider";
+import { SnackbarProvider } from "@/context/snackbar/SnackbarProvider";
+import { AppliancesProvider } from "@/context/appliances/AppliancesProvider";
 
 
 import { useState, useEffect } from "react";

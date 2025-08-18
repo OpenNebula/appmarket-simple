@@ -51,12 +51,12 @@ const Table = ({ appliances }) => {
               <ToggleButtonGroup            
                 value={view}
                 exclusive
-                onChange={handleToggleView}
+                onChange={handleToggleView}                
               >
-                <ToggleButton size="small" value="list" aria-label="list">
+                <ToggleButton size="small" value="list" aria-label="list" className={tableStyles.switchToggleButton}>
                   <ViewGrid />
                 </ToggleButton>
-                <ToggleButton size="small" value="table" aria-label="module">
+                <ToggleButton size="small" value="table" aria-label="module" className={tableStyles.switchToggleButton}>
                   <List />
                 </ToggleButton>
               </ToggleButtonGroup>

@@ -10,20 +10,27 @@ import { light } from '@/theme/colors/themes/light';
 import { dark } from '@/theme/colors/themes/dark';
 
 const styles = (theme) => {
-
   const baseTokens = theme.palette.mode === 'light' ? light : dark;
 
   return {
-    switchView: css({
-      alignSelf: 'flex-end',
-      marginBottom: '10px',
+    placeholderText: css({
+      color: baseTokens.text.disabled,
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      fontSize: `${fontSize.body.md.desktop}px`,
+      fontStyle: 'normal',
+      fontWeight: 400,
+      lineHeight: lineHeight.body.md.desktop,
+    }),
+    switchToggleGroup: css ({      
+      width: '100%',
     }),
     switchToggleButton: css({
       '&&': {
-        color: baseTokens.icon.action,
-        padding: `${scale[200]}px ${scale[500]}px`,
+        color: baseTokens.icon.primary,
+        padding: `${scale[300]}px ${scale[400]}px ${scale[300]}px ${scale[300]}px`,
         borderRadius: border.radius.xlg,
-        border: `${border.width.sm}px solid ${baseTokens.border.action2}`,
+        border: `1px solid ${baseTokens.border.primary}`,
         '& svg': {
           width: '16px',
           height: '16px',
@@ -33,10 +40,13 @@ const styles = (theme) => {
         },
       },
       '&&.Mui-selected': {
-        backgroundColor: baseTokens.surface.focus2,
-        color: baseTokens.icon.focus,
+        backgroundColor: 'transparent',
+        color: baseTokens.icon.action,
         '&:hover': {
           backgroundColor: baseTokens.surface.focus,
+        },
+        '& .MuiTypography-root': {
+          color: baseTokens.text.action,
         },
       },
       '&& .MuiTypography-root': {
@@ -47,8 +57,11 @@ const styles = (theme) => {
         lineHeight: `${lineHeight.body.sm.desktop}px`,
         textTransform: 'none',
       }
-    })
-  }
-}
+    }),
+    switchToggleButtonFirst: css({
+      borderRight: 'none !important',
+    })    
+  };
+};
 
 export default styles

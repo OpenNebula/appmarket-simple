@@ -5,6 +5,7 @@ import { dark } from '@/theme/colors/themes/dark'
 // Import not colors variables
 import { fontSize, lineHeight, border } from '@/theme/responsive'
 import { scale, type } from '@/theme/brand'
+import { borderRadius, fontStyle, fontWeight } from '@mui/system';
 
 /**
  * Define theme.
@@ -29,30 +30,6 @@ const theme = (mode: "light" | "dark") => {
     },
 
     components: {
-      MuiToggleButton: {
-        styleOverrides: {
-          root: {
-            color: baseTokens.icon.action,
-            padding: `${scale[200]}px ${scale[500]}px`,
-            '&.Mui-selected': {
-              backgroundColor: baseTokens.surface.focus,
-              color: baseTokens.icon.focus,
-              '&:hover': {
-                backgroundColor: baseTokens.surface.focus,
-              },
-            },
-            '& svg': {
-              width: '16px',
-              height: '16px',
-            },
-            '&:hover': {
-              backgroundColor: 'transparent',
-            },
-            borderRadius: border.radius.xlg,
-            border: `${border.width.sm}px solid ${baseTokens.border.action2}`,
-          }
-        }
-      },
       MuiCard: {
         styleOverrides: {
           root: {
@@ -172,17 +149,25 @@ const theme = (mode: "light" | "dark") => {
           notchedOutline: {
             border: 'none',
           },
-          root: {
-            
+          root: {            
             border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
             borderRadius: border.radius.xlg,
             background: baseTokens.surface.primary,
-            padding: `${scale[200]}px ${scale[400]}px}`,        
+            padding: `${scale[200]}px ${scale[400]}px}`,                    
           },
           input: {
             padding: 0,
           }          
         },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          root: {
+            borderRadius: border.radius.xlg,
+            border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
+            padding: `${scale[200]}px ${scale[400]}px`,
+          },
+        }
       }
     },
   };

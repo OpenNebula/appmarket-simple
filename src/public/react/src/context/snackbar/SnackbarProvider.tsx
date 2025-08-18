@@ -1,19 +1,14 @@
 // React imports
-import React, { createContext, useState, useCallback, useContext } from "react";
+import { useState, useCallback } from "react";
 
 // MUI components
 import { Snackbar, IconButton } from "@mui/material";
 
+// Import context
+import { SnackbarContext } from '@/context/snackbar/SnackbarContext';
+
 // Icons
 import { Xmark } from "iconoir-react";
-
-// Type for the Snackbar context
-type SnackbarContextType = {
-  showMessage: (message: string) => void;
-};
-
-// Create the context
-const SnackbarContext = createContext<SnackbarContextType | undefined>(undefined);
 
 /**
  * Provides a global snackbar notification system for the application.
@@ -30,7 +25,7 @@ const SnackbarContext = createContext<SnackbarContextType | undefined>(undefined
  * @param {ReactNode} props.children - The part of the React component tree that should have access to the snackbar context.
  * @returns {JSX.Element} The provider component that wraps its children with snackbar capabilities.
  */
-export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const SnackbarProvider = ({ children }) => {
 
   // State for open the snackbar
   const [open, setOpen] = useState(false);
@@ -67,28 +62,4 @@ export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       />
     </SnackbarContext.Provider>
   );
-};
-
-/**
- * Custom hook for accessing the global snackbar context.
- *
- * This hook allows any component inside a `SnackbarProvider` to display
- * snackbar notifications without directly managing their state or UI.
- *
- * @example
- * const { showSnackbar } = useSnackbar();
- * showSnackbar("Item saved successfully!");
- *
- * @throws {Error} If used outside of a `SnackbarProvider`, this hook will throw
- * to prevent undefined behavior.
- *
- * @returns {SnackbarContextType} The snackbar context value, which typically
- * includes methods such as `showSnackbar(message: string, options?: SnackbarOptions)`.
- */
-export const useSnackbar = (): SnackbarContextType => {
-  const context = useContext(SnackbarContext);
-  if (!context) {
-    throw new Error("useSnackbar must be used within a SnackbarProvider");
-  }
-  return context;
 };

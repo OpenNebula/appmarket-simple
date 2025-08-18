@@ -14,7 +14,7 @@ import { Appliance } from "@/interfaces/Appliances";
 import Search from "@/components/search";
 import WindowIcon from "@mui/icons-material/Window";
 import TableRowsIcon from "@mui/icons-material/TableRows";
-import Sort from "@/components/sort/Sort";
+import Sort from "@/components/sort";
 import dayjs, { Dayjs } from "dayjs";
 import { DateRange } from "@mui/x-date-pickers-pro";
 import Paper from '@mui/material/Paper';
@@ -30,7 +30,7 @@ import Table from "@/components/table";
 import styles from './main.module.css'
 import { styled } from '@mui/material/styles';
 
-import { useAppliances } from '@/context/AppliancesProvider'
+import { useAppliances } from '@/context/appliances/AppliancesContext'
 
 const Main = () => {
   // const { appliances, contextFilters } = useAppContext();

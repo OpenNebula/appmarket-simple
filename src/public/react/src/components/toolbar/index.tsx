@@ -5,7 +5,7 @@ import {
 
 
 import Search from "@/components/search";
-import Sort from "@/components/sort/Sort";
+import Sort from "@/components/sort";
 
 /**
  * Component to display the toolbar in the main layout. The toolbar will contain search, sort and filter buttons.
@@ -14,7 +14,7 @@ import Sort from "@/components/sort/Sort";
 const Toolbar = () => {
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} md={5}>
+      <Grid item xs={12} md={4}>
         <Search
           handler={(
             e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -24,7 +24,7 @@ const Toolbar = () => {
       <Grid item xs={12} md={5}>
         <Sort/>
       </Grid>
-      <Grid item xs={12} md={2}>
+      <Grid item xs={12} md={1}>
         Filter
       </Grid>
     </Grid>

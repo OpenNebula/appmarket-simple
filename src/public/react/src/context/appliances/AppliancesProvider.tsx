@@ -1,14 +1,11 @@
 // React imports
-import { createContext, useContext, useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
+
+// Import context
+import { AppliancesContext } from '@/context/appliances/AppliancesContext';
 
 // Utilities
 import _ from 'lodash';
-
-// Create the context
-export const AppliancesContext = createContext();
-
-// Use context
-export const useAppliances = () => useContext(AppliancesContext);
 
 /**
  * 
@@ -42,7 +39,14 @@ export const AppliancesProvider = ({ children, appliances }) => {
 
     // Apply sorting
     if (sortKey) {
-      result = _.orderBy(result, [sortKey], [sortOrder]);
+      result = _.orderBy(
+        result, 
+        [(item) => {
+          const value = item[sortKey];
+          // Only transform if it's a string
+          return typeof value === 'string' ? value.toLowerCase() : value;
+        }], 
+        [sortOrder]);
     }
 
     return result;

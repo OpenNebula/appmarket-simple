@@ -2,7 +2,7 @@
 import Grid from "@mui/material/Grid2";
 
 // App components
-import ApplianceCard from "@/components/card/Card";
+import ApplianceCard from "@/components/card";
 
 /**
  * Render a table with appliances in card format.
