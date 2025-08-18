@@ -14,7 +14,7 @@ import "./index.css";
 // Set the browser tab title from config
 document.title = config.title;
 
-createRoot(document.getElementById("app")!).render(
+createRoot(document.getElementById("app")).render(
   <BrowserRouter>
     <Routes>
       <Route element={<App />}>

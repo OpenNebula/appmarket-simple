@@ -26,7 +26,7 @@ export default function Search() {
    * Set filter when update query
    * @param e 
    */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const value = e.target.value;
     setQuery(value);
     setFilter("name", value);

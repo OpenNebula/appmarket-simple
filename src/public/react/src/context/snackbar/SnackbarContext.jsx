@@ -20,7 +20,7 @@ export const SnackbarContext = createContext();
  * @returns {SnackbarContextType} The snackbar context value, which typically
  * includes methods such as `showSnackbar(message: string, options?: SnackbarOptions)`.
  */
-export const useSnackbar = (): SnackbarContextType => {
+export const useSnackbar = () => {
   const context = useContext(SnackbarContext);
   if (!context) {
     throw new Error("useSnackbar must be used within a SnackbarProvider");

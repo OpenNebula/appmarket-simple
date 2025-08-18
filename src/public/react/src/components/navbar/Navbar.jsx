@@ -12,18 +12,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import config from "@config";
 import { NavLink } from "react-router-dom";
 
-interface NavBarProps {
-  toggle: () => void;
-  mode: "light" | "dark";
-}
-
-function ResponsiveAppBar({ toggle, mode }: NavBarProps) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+function ResponsiveAppBar({ toggle, mode }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   // Get logo svg
   const appLogo = config.logo;
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 

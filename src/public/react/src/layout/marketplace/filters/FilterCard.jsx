@@ -9,7 +9,7 @@ import { useAppContext } from "@/context/useAppContext";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-import { CheckboxFilters } from "@/context/interfaces";
+
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const FilterCard = () => {
@@ -35,13 +35,13 @@ const FilterCard = () => {
             >
               {values.map(
                 (
-                  value: { name: string; totalCount: number; value: boolean },
-                  index: string,
+                  value,
+                  index,
                 ) => {
                   return (
                     <FilterCheckbox
                       key={`${key}-${value}-${index}`}
-                      group={key as keyof CheckboxFilters}
+                      //group={key as keyof CheckboxFilters}
                       totalCount={value.totalCount}
                       value={value.name}
                     />

@@ -1,26 +1,20 @@
-import { Appliance } from "@/interfaces/Appliances";
+
 import { useState, useEffect, useCallback } from "react";
-import { DateRange } from "@mui/x-date-pickers-pro";
-import { Dayjs } from "dayjs";
-import {
-  CheckboxFilters,
-  CheckboxProviderProps,
-  FilterCheckbox,
-} from "./interfaces";
+
 import { filtersDictionary } from "@/context/filterUtils";
 import { AppContext } from "@/context/AppContext";
 
 import config from "@config";
 
-export const CheckboxProvider = ({ children }: CheckboxProviderProps) => {
+export const CheckboxProvider = ({ children }) => {
 
   let filters = {};
 
-  const [appliances, setAppliances] = useState<Appliance[] | undefined>(
+  const [appliances, setAppliances] = useState(
     undefined,
   );
   const [contextFilters, setContextFilters] =
-    useState<CheckboxFilters>(filters);
+    useState(filters);
 
   Object.entries(config.filters).map(([filterName, isFilterActive]) => {
     if (isFilterActive && filterName !== "Date Interval") {
@@ -52,15 +46,15 @@ export const CheckboxProvider = ({ children }: CheckboxProviderProps) => {
    * Load data from appliances to use in the filters
    */
   const loadFilters = useCallback(
-    (filter: keyof CheckboxFilters): Map<string, FilterCheckbox> => {
-      const filterMap = new Map<string, FilterCheckbox>();
+    (filter) => {
+      const filterMap = new Map();
 
-      appliances?.forEach((appliance: Appliance) => {
+      appliances?.forEach((appliance) => {
 
         // Date interval no load data from appliances
         if (filter === "Date Interval") return;
         
-        const key: keyof Appliance = filtersDictionary[filter].name;
+        const key = filtersDictionary[filter].name;
         let filterValues;
 
         // Filter for OpenNebula versions
@@ -110,7 +104,7 @@ export const CheckboxProvider = ({ children }: CheckboxProviderProps) => {
   useEffect(() => {
     Object.entries(config.filters).map(([key, value]) => {
       if (value && key !== "Date Interval") {
-        const mapFilters = loadFilters(key as keyof CheckboxFilters);
+        const mapFilters = loadFilters(key);
         setContextFilters((prev) => ({
           ...prev,
           [key]: Array.from(mapFilters.values()).sort((a, b) =>
@@ -121,18 +115,18 @@ export const CheckboxProvider = ({ children }: CheckboxProviderProps) => {
     });
   }, [appliances, loadFilters]);
 
-  const toggleCheckbox = (group: keyof CheckboxFilters, name: string) => {
+  const toggleCheckbox = (group, name) => {
     setContextFilters((prevState) => ({
       ...prevState,
       [group]: Array.isArray(prevState[group])
-        ? (prevState[group] as FilterCheckbox[]).map((item) =>
+        ? (prevState[group]).map((item) =>
             item.name === name ? { ...item, value: !item.value } : item,
           )
         : prevState[group],
     }));
   };
 
-  const setDateInterval = (date: DateRange<Dayjs>) => {
+  const setDateInterval = (date) => {
     setContextFilters((prevState) => ({
       ...prevState,
       "Date Interval": date,

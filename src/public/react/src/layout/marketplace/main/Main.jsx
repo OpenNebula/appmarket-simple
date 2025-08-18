@@ -1,31 +1,17 @@
-import Grid from "@mui/material/Grid";
-
-import FilterCard from "@/layout/marketplace/filters/FilterCard";
-import { useAppContext } from "@/context/useAppContext";
+// MUI imports
 import {
   Box,
   CircularProgress,
-  SelectChangeEvent,
   Typography,
   Drawer,
   Stack,
 } from "@mui/material";
-import { useState } from "react";
-import { Appliance } from "@/interfaces/Appliances";
-import Search from "@/components/search";
-import WindowIcon from "@mui/icons-material/Window";
-import TableRowsIcon from "@mui/icons-material/TableRows";
-import Sort from "@/components/sort";
-import dayjs, { Dayjs } from "dayjs";
-import { DateRange } from "@mui/x-date-pickers-pro";
-import Paper from '@mui/material/Paper';
 
-// Material
-import { Button } from "@mui/material"; 
 
 // Marketplace components
 import Toolbar from "@/components/toolbar";
 import Table from "@/components/table";
+import FilterCard from "@/layout/marketplace/filters/FilterCard";
 
 // Component styles
 import { useTheme } from '@mui/material/styles';
@@ -48,28 +34,22 @@ const Main = () => {
   // Get appliances
   const { appliances } = useAppliances();
 
-  const [search, setSearch] = useState<string>("");
-  //const [view, setView] = useState("list");
+  // const handleCategoryChange = (
+  //   event
+  // ) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setActiveCategory(typeof value === "string" ? value.split(",") : value);
+  // };
 
-  const [activeCategory, setActiveCategory] = useState<string[]>(["name"]);
-  const [activeOrder, setOrder] = useState<string[]>(["Asc"]);
+  // const handleOrder = (event: SelectChangeEvent<typeof activeOrder>) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
 
-  const handleCategoryChange = (
-    event: SelectChangeEvent<typeof activeCategory>,
-  ) => {
-    const {
-      target: { value },
-    } = event;
-    setActiveCategory(typeof value === "string" ? value.split(",") : value);
-  };
-
-  const handleOrder = (event: SelectChangeEvent<typeof activeOrder>) => {
-    const {
-      target: { value },
-    } = event;
-
-    setOrder(typeof value === "string" ? value.split(",") : value);
-  };
+  //   setOrder(typeof value === "string" ? value.split(",") : value);
+  // };
 
   // const handleToggleView = (
   //   _: React.MouseEvent<HTMLElement>,
@@ -285,9 +265,7 @@ const Main = () => {
                 <CircularProgress />
               </Box>
             ) : (
-              <Grid xs={12} className={marketplaceStyles.table}>
-                <Table appliances={appliances} />
-              </Grid>
+              <Table appliances={appliances} />
             ) 
           }
 

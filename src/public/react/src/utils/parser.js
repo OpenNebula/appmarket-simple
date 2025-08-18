@@ -1,7 +1,6 @@
-type JsonObject = { [key: string]: unknown };
 
-const parseToOpenNebulaFormat = (obj: JsonObject): string => {
-  const parseValue = (value: unknown): string => {
+const parseToOpenNebulaFormat = (obj) => {
+  const parseValue = (value) => {
     if (typeof value === "object" && !Array.isArray(value) && value !== null) {
       return `[
       ${Object.entries(value)

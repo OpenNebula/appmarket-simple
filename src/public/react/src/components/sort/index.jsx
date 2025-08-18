@@ -55,8 +55,8 @@ const Sort = () => {
   const [activeCategory, setActiveCategory] = useState("");
 
   // Function to sort appliances by category
-  const handleSort = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const selected = event.target.value as string;
+  const handleSort = (event) => {
+    const selected = event.target.value;
     setActiveCategory(selected);
     setSorting(selected.toLowerCase(), sortOrder);
   };
@@ -65,7 +65,7 @@ const Sort = () => {
   const [sortOrder, setSortOrder] = useState("asc");
 
   // Change order to sort by between asc and desc
-  const handleSortOrder = (_: React.MouseEvent<HTMLElement>, sortOrder: string ) => {
+  const handleSortOrder = (_, sortOrder) => {
 
     // Show warning message
     if (!activeCategory) {
@@ -120,7 +120,7 @@ const Sort = () => {
             return selected.charAt(0).toUpperCase() + selected.slice(1);
           }}
         >
-          {orderValues.map((value: string) => (
+          {orderValues.map((value) => (
             <MenuItem key={value} value={value.toLowerCase()}>
               {value}
             </MenuItem>

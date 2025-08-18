@@ -18,7 +18,7 @@ const Toolbar = () => {
       <Grid item xs={12} md={5}>
         <Search
           handler={(
-            e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+            e,
           ) => setSearch(e.target.value)}
         />
       </Grid>

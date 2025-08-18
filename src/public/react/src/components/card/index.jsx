@@ -45,9 +45,9 @@ const ApplianceCard = ({ appliance }) => {
   const cardStyles = styles(theme)
 
   // Card menu controls
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleCloseMenu = () => {

@@ -1,6 +1,6 @@
 // React
 import { Outlet } from "react-router";
-import React from "react";
+import { useState, useMemo } from "react";
 
 // Material
 import { ThemeProvider } from "@mui/material/styles";
@@ -14,35 +14,6 @@ import AppBar from "@/components/navbar/Navbar";
 import "./App.css";
 import { theme } from '@/theme'
 
-
-
-// /**
-//  * Define theme TODO -> In a different file
-//  * @param {string} mode - Dark or light
-//  * @returns {object} - Theme
-//  */
-// const opennebulaTheme = (mode: "light" | "dark") => {
-  
-//   // Get colors depending of the mode
-//   const baseTokens = getDesignTokens(mode);
-  
-//   return {
-//     typography: {
-//       fontFamily: ['Inter'],      
-//       h1: {
-//         fontSize: '40px',
-//         fontStyle: 'normal',
-//         fontWeight: 600,
-//         lineHeight: '48px', 
-//         color: baseTokens.palette.text.headings,
-//       },
-//     },
-
-//     components: {
-//     },
-//   };
-// };
-
 /**
  * Return the App component.
  * @returns {JSX.Element} The rendered App component.
@@ -50,7 +21,7 @@ import { theme } from '@/theme'
 function App() {
 
   // Define state for mode
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
+  const [mode, setMode] = useState("light");
 
   // Event to change mode
   const toggleColorMode = () => {
@@ -58,7 +29,7 @@ function App() {
   };
 
   // Create them using mode
-  const marketplaceTheme = React.useMemo(() => createTheme(theme(mode)), [mode]);
+  const marketplaceTheme = useMemo(() => createTheme(theme(mode)), [mode]);
 
   // Return App component
   return (

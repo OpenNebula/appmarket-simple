@@ -3,11 +3,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import { NavLink } from "react-router-dom";
 
-interface BreadcumbInterface {
-  name: string | undefined;
-}
-
-const Breadcumb = ({ name }: BreadcumbInterface) => {
+const Breadcumb = ({ name }) => {
   return (
     <Breadcrumbs sx={{ mb: 4 }} aria-label="breadcrumb">
     <Link

@@ -4,11 +4,10 @@ import DetailCard from "@/components/detail/DetailCard";
 import Breadcumb from "@/components/breadcumb/Breadcumb";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Appliance } from "@/interfaces/Appliances";
 
 const Detail = () => {
   const params = useParams();
-  const [appliance, setAppliance] = useState<Appliance>();
+  const [appliance, setAppliance] = useState();
 
   useEffect(() => {
     fetch(`/appliance/${params.id}`, {

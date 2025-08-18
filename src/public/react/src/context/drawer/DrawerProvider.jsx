@@ -1,7 +1,6 @@
 // React imports
 import { useState } from "react";
 
-
 // Import context
 import { DrawerContext } from '@/context/drawer/DrawerContext';
 
@@ -13,7 +12,7 @@ import { DrawerContext } from '@/context/drawer/DrawerContext';
  * @param {ReactNode} props.children - The part of the React component tree that should have access to the drawer context.
  * @returns {JSX.Element} The provider component that wraps its children with drawer context.
  */
-export const DrawerProvider = ({ children }: { children: ReactNode }) => {
+export const DrawerProvider = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const openDrawer = () => setDrawerOpen(true);

@@ -12,7 +12,7 @@ import { borderRadius, fontStyle, fontWeight, height, textTransform, width } fro
  * @param {string} mode - Dark or light
  * @returns {object} - Theme
  */
-const theme = (mode: "light" | "dark") => {
+const theme = (mode) => {
   
   // Get colors depending of the mode
   const baseTokens = mode === 'light' ? light : dark;

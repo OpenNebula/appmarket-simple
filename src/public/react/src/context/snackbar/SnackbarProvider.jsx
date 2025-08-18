@@ -34,13 +34,13 @@ export const SnackbarProvider = ({ children }) => {
   const [message, setMessage] = useState("");
 
   // Action to show a message
-  const showMessage = useCallback((msg: string) => {
+  const showMessage = useCallback((msg) => {
     setMessage(msg);
     setOpen(true);
   }, []);
 
   // Action to close snackbar
-  const handleClose = (_?: unknown, reason?: string) => {
+  const handleClose = (_, reason) => {
     if (reason === "clickaway") return;
     setOpen(false);
   };

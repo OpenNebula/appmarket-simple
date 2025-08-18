@@ -5,7 +5,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Appliance } from "@/interfaces/Appliances";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -14,23 +13,19 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { parseToOpenNebulaFormat } from "@/utils/parser";
 
-export interface AppliancesTableInterface {
-  appliances: Appliance[] | undefined;
-}
-
 const createData = (
-  name: string | undefined,
-  hypervisor: string | undefined,
-  short_description: string | undefined,
-  os_id: string | undefined,
-  version: string | undefined,
-  button: unknown,
+  name,
+  hypervisor,
+  short_description,
+  os_id,
+  version,
+  button,
 ) => {
   return { name, hypervisor, short_description, os_id, version, button };
 };
 
-const TableList = ({ appliances }: AppliancesTableInterface) => {
-  const [copyTooltip, setCopyTooltip] = useState<string>("Copy template");
+const TableList = ({ appliances }) => {
+  const [copyTooltip, setCopyTooltip] = useState("Copy template");
 
   const handleCopiedTooltip = () => {
     setCopyTooltip("Copied");
@@ -41,7 +36,7 @@ const TableList = ({ appliances }: AppliancesTableInterface) => {
   };
 
   const rows = appliances?.map((appliance) => {
-    const download: string =
+    const download =
       typeof appliance.links?.download.href === "string"
         ? appliance.links?.download.href
         : "";
@@ -114,7 +109,7 @@ const TableList = ({ appliances }: AppliancesTableInterface) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows?.map((row: unknown) => (
+          {rows?.map((row) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

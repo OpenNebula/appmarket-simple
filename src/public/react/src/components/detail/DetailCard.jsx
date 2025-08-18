@@ -2,7 +2,6 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Appliance } from "@/interfaces/Appliances";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
@@ -13,14 +12,10 @@ import { useState } from "react";
 import { parseToOpenNebulaFormat } from "@/utils/parser";
 import Markdown from 'react-markdown'
 
-interface DetailCardProps {
-  appliance: Appliance;
-}
-
-const DetailCard = ({ appliance }: DetailCardProps) => {
+const DetailCard = ({ appliance }) => {
   const [copyTooltip, setCopyTooltip] = useState<string>("Copy template");
 
-  const download: string =
+  const download =
     typeof appliance.links?.download.href === "string"
       ? appliance.links?.download.href
       : "";

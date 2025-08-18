@@ -36,7 +36,7 @@ const Table = ({ appliances }) => {
   const [view, setView] = useState("list");
 
   // Modify table view
-  const handleToggleView = (_: React.MouseEvent<HTMLElement>, nextView: string ) => {
+  const handleToggleView = (_, nextView ) => {
     setView(nextView);
   };
 

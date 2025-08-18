@@ -8,10 +8,6 @@ const BasicAccordion = ({
   name,
   defaultExpanded,
   children,
-}: {
-  name: string;
-  defaultExpanded: boolean;
-  children: React.ReactNode;
 }) => {
   return (
     <Accordion
