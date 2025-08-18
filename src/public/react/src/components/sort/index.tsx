@@ -5,7 +5,6 @@ import {
   MenuItem,
   FormControl,
   Select,
-  Grid,
   Stack,
 } from '@mui/material'
 
@@ -33,6 +32,10 @@ import {
 // Utilities
 import { useSnackbar } from "@/context/snackbar/SnackbarContext";
 
+/**
+ * Component to display a component to sort the appliances. The component is created with a select, to select a category, and the order button, asc or desc.
+ * @returns {JSX.Element} The rendered Sort component.
+ */
 const Sort = () => {
 
   // Hook to display message
@@ -75,7 +78,7 @@ const Sort = () => {
   };
 
   // Use Nav Arrow Down instead the default one
-  const CustomArrowIcon = (props: any) => (
+  const CustomArrowIcon = (props) => (
     <NavArrowDown
       {...props}
       style={{
@@ -89,66 +92,61 @@ const Sort = () => {
   );
 
   return (
-    <Grid container spacing={1}>
 
-      <Grid item xs={12} md={5} >
+    <Stack direction="row" sx={{gap: '8px'}}>
 
-        <FormControl fullWidth>
-          <Select
-            value={activeCategory}
-            onChange={handleSort}
-            displayEmpty
-            input={
-              <OutlinedInput
-                startAdornment={
-                  <InputAdornment position="start">
-                    <SortIcon />
-                  </InputAdornment>
-                }
-              />
-            }
-            IconComponent={CustomArrowIcon}
-            renderValue={(selected) => {
-              if (!selected) {
-                return <Typography className={sortStyles.placeholderText} >Sort by</Typography>;
+      <FormControl fullWidth>
+        <Select
+          value={activeCategory}
+          onChange={handleSort}
+          displayEmpty
+          input={
+            <OutlinedInput
+              startAdornment={
+                <InputAdornment position="start">
+                  <SortIcon />
+                </InputAdornment>
               }
-              return selected.charAt(0).toUpperCase() + selected.slice(1);
-            }}
-          >
-            {orderValues.map((value: string) => (
-              <MenuItem key={value} value={value.toLowerCase()}>
-                {value}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-      </Grid>
-
-      <Grid item xs={12} md={7} >
-
-        <ToggleButtonGroup            
-          value={sortOrder}
-          exclusive
-          onChange={handleSortOrder}          
-          className={sortStyles.switchToggleGroup}
+            />
+          }
+          IconComponent={CustomArrowIcon}
+          renderValue={(selected) => {
+            if (!selected) {
+              return <Typography className={sortStyles.placeholderText} >Sort by</Typography>;
+            }
+            return selected.charAt(0).toUpperCase() + selected.slice(1);
+          }}
         >
-          <ToggleButton value="asc" aria-label="asc" className={clsx(sortStyles.switchToggleButton, sortStyles.switchToggleButtonFirst)}>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <SortUp />
-              <Typography>Ascending</Typography>
-            </Stack>                  
-          </ToggleButton>
-          <ToggleButton value="desc" aria-label="desc" className={sortStyles.switchToggleButton}>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <SortDown />
-              <Typography>Descending</Typography>
-            </Stack>                    
-          </ToggleButton>
-        </ToggleButtonGroup>
+          {orderValues.map((value: string) => (
+            <MenuItem key={value} value={value.toLowerCase()}>
+              {value}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
 
-      </Grid>
-    </Grid>
+      <ToggleButtonGroup            
+        value={sortOrder}
+        exclusive
+        onChange={handleSortOrder}          
+        className={sortStyles.switchToggleGroup}
+      >
+        <ToggleButton value="asc" aria-label="asc" className={clsx(sortStyles.switchToggleButton, sortStyles.switchToggleButtonFirst)}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <SortUp />
+            <Typography>Ascending</Typography>
+          </Stack>                  
+        </ToggleButton>
+        <ToggleButton value="desc" aria-label="desc" className={sortStyles.switchToggleButton}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <SortDown />
+            <Typography>Descending</Typography>
+          </Stack>                    
+        </ToggleButton>
+      </ToggleButtonGroup>
+
+      </Stack>
+
   );
 };
 

@@ -8,6 +8,7 @@ import {
   SelectChangeEvent,
   Typography,
   Drawer,
+  Stack,
 } from "@mui/material";
 import { useState } from "react";
 import { Appliance } from "@/interfaces/Appliances";
@@ -26,15 +27,25 @@ import { Button } from "@mui/material";
 import Toolbar from "@/components/toolbar";
 import Table from "@/components/table";
 
-// Styles
-import styles from './main.module.css'
-import { styled } from '@mui/material/styles';
+// Component styles
+import { useTheme } from '@mui/material/styles';
+import styles from '@/layout/marketplace/main/styles'
 
+// Context imports
 import { useAppliances } from '@/context/appliances/AppliancesContext'
+import { useDrawer } from '@/context/drawer/DrawerContext'
 
 const Main = () => {
   // const { appliances, contextFilters } = useAppContext();
 
+  // Get styles for the component
+  const theme = useTheme();
+  const marketplaceStyles = styles(theme)
+
+  // Get hooks from contexts
+  const { drawerOpen, closeDrawer } = useDrawer();
+
+  // Get appliances
   const { appliances } = useAppliances();
 
   const [search, setSearch] = useState<string>("");
@@ -176,14 +187,9 @@ const Main = () => {
   //   });
 
 
-
-  // Filter panel state
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-
   return (
     <Box sx={{ flexGrow: 1 }}>
-    <Grid container spacing={0}>
+
       {/* Filter */}
       {/* <Grid size={3}>
         <FilterCard />
@@ -254,40 +260,46 @@ const Main = () => {
       </Grid> */}
 
       {/* Render the main layout component */}      
-      <Grid xs={12} className={styles.title}>
-        <Typography variant='h3'>Appliances</Typography>        
-      </Grid>
-      <Grid xs={12} className={styles.toolbar}>
-        <Toolbar></Toolbar>
-      </Grid>
-      <Grid xs={12} className={styles.table}>
+      <Stack direction="column" className={marketplaceStyles.container}>
         
-      {
-        appliances === null ? (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "80vh",
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Grid xs={12} className={styles.table}>
-            <Table appliances={appliances} />
-          </Grid>
-        ) 
-      }
-      </Grid>      
+        <Box className={marketplaceStyles.title}>
+          <Typography variant='h3'>Appliances</Typography>        
+        </Box>
+
+        <Box className={marketplaceStyles.toolbar}>
+          <Toolbar></Toolbar>
+        </Box>
+
+        <Box>
+          
+          {
+            appliances === null ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "80vh",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Grid xs={12} className={marketplaceStyles.table}>
+                <Table appliances={appliances} />
+              </Grid>
+            ) 
+          }
+
+        </Box>      
       
+      </Stack>
 
       {/* Drawer Component */}
       <Drawer
         anchor="right"
         open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        onClose={closeDrawer}
       >
         <Box
           sx={{ width: 350, p: 2 }}
@@ -299,7 +311,7 @@ const Main = () => {
       </Drawer>
 
 
-    </Grid>
+    
     </Box>
   );
 };

@@ -14,7 +14,7 @@ import _ from 'lodash';
  * Wrap your app with this provider to enable access or filter the appliances.
  * 
  * @param {Object} props - The component props.
- * @param {ReactNode} props.children - The part of the React component tree that should have access to the snackbar context.
+ * @param {ReactNode} props.children - The part of the React component tree that should have access to the appliances context.
  * @returns {JSX.Element} The provider component that wraps its children with appliances.
  */
 export const AppliancesProvider = ({ children, appliances }) => {

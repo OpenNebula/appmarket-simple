@@ -5,7 +5,7 @@ import { dark } from '@/theme/colors/themes/dark'
 // Import not colors variables
 import { fontSize, lineHeight, border } from '@/theme/responsive'
 import { scale, type } from '@/theme/brand'
-import { borderRadius, fontStyle, fontWeight } from '@mui/system';
+import { borderRadius, fontStyle, fontWeight, height, textTransform, width } from '@mui/system';
 
 /**
  * Define theme.
@@ -24,7 +24,7 @@ const theme = (mode: "light" | "dark") => {
         fontSize: fontSize.heading.h3.desktop,
         fontStyle: 'normal',
         fontWeight: 600,
-        lineHeight: `${lineHeight.heading.h3.desktop} px`,
+        lineHeight: `${lineHeight.heading.h3.desktop}px`,
         color: baseTokens.text.headings,
       },
     },
@@ -167,6 +167,32 @@ const theme = (mode: "light" | "dark") => {
             border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
             padding: `${scale[200]}px ${scale[400]}px`,
           },
+        }
+      },
+      MuiButton: {
+        styleOverrides: {
+          outlined: {            
+            padding: `${scale[300]}px ${scale[500]}px`,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: `${border.radius.xlg}px`,
+            border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
+            backgroundColor: baseTokens.surface.primary,            
+            '& .MuiTypography-root': {
+              color: baseTokens.text.body,
+              textAlign: 'center',
+              fontSize: `${fontSize.body.sm.desktop}px`,
+              fontStyle: 'normal',
+              fontWeight: 500,
+              lineHeight: `${lineHeight.body.sm.desktop}px`,
+              textTransform: 'none',
+            },
+            '& svg': {
+              height: '16px',
+              width: '16px',
+              color: baseTokens.icon.action,
+            }
+          }
         }
       }
     },
