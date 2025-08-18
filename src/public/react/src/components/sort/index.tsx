@@ -68,7 +68,10 @@ const Sort = () => {
   const handleSortOrder = (_: React.MouseEvent<HTMLElement>, sortOrder: string ) => {
 
     // Show warning message
-    !activeCategory && showMessage('To order, select first a Sort by category')
+    if (!activeCategory) {
+      showMessage('To order, select first a Sort by category');
+    }
+
 
     // Set order
     setSortOrder(sortOrder);
