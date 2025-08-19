@@ -14,6 +14,7 @@ import { useTheme } from '@mui/material/styles';
 // Marketplace components
 import TableList from "@/components/table/card";
 import TableCard from "@/components/table/list";
+import TableFooter from "@/components/table/footer"
 
 // Component styles
 import styles from '@/components/table/styles'
@@ -38,7 +39,15 @@ const Table = ({ appliances }) => {
   // Modify table view
   const handleToggleView = (_, nextView ) => {
     setView(nextView);
-  };
+  }
+
+  // Pagination state
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // Paginate appliances
+  const paginatedAppliances = appliances.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+
 
   return (
     <>
@@ -53,17 +62,28 @@ const Table = ({ appliances }) => {
                 exclusive
                 onChange={handleToggleView}                
               >
-                <ToggleButton size="small" value="list" aria-label="list" className={tableStyles.switchToggleButton}>
+                <ToggleButton size="small" value="table" aria-label="table" className={tableStyles.switchToggleButton}>
                   <ViewGrid />
                 </ToggleButton>
-                <ToggleButton size="small" value="table" aria-label="module" className={tableStyles.switchToggleButton}>
+                <ToggleButton size="small" value="list" aria-label="list" className={tableStyles.switchToggleButton}>
                   <List />
                 </ToggleButton>
               </ToggleButtonGroup>
             </Box>
             {
-              view === 'list' ? <TableList appliances={appliances} /> : <TableCard appliances={appliances} />
+              view === 'table' ? <TableList appliances={paginatedAppliances} /> : <TableCard appliances={paginatedAppliances} />
             }
+
+            <TableFooter
+              count={appliances.length}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              onPageChange={setPage}
+              onRowsPerPageChange={(newSize) => {
+                setRowsPerPage(newSize);
+                setPage(0); // reset to first page when page size changes
+              }}
+            />
           </Stack>
         )
       }

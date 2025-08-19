@@ -17,7 +17,7 @@ const styles = (theme) => {
       color: baseTokens.text.disabled,
       textOverflow: 'ellipsis',
       overflow: 'hidden',
-      fontSize: `${fontSize.body.md.desktop}px`,
+      fontSize: fontSize.body.md.desktop,
       fontStyle: 'normal',
       fontWeight: 400,
       lineHeight: lineHeight.body.md.desktop,
@@ -28,7 +28,7 @@ const styles = (theme) => {
     switchToggleButton: css({
       '&&': {
         color: baseTokens.icon.primary,
-        padding: `${scale[300]}px ${scale[400]}px ${scale[300]}px ${scale[300]}px`,
+        padding: `${scale[300]} ${scale[400]} ${scale[300]} ${scale[300]}`,
         borderRadius: border.radius.xlg,
         border: `1px solid ${baseTokens.border.primary}`,
         '& svg': {
@@ -54,7 +54,7 @@ const styles = (theme) => {
         fontSize: fontSize.body.sm.desktop,
         fontWeight: 500,
         fontStyle: 'normal',
-        lineHeight: `${lineHeight.body.sm.desktop}px`,
+        lineHeight: lineHeight.body.sm.desktop,
         textTransform: 'none',
       }
     }),

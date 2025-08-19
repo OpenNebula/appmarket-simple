@@ -2,30 +2,27 @@
 import { css } from '@emotion/css'
 
 // Import not colors variables
-import { fontSize, lineHeight, border } from '@/theme/responsive'
+import { fontSize, lineHeight } from '@/theme/responsive'
 import { scale } from '@/theme/brand'
 
-// Color definition of modes
 import { light } from '@/theme/colors/themes/light';
 import { dark } from '@/theme/colors/themes/dark';
 
 const styles = (theme) => {
-
   const baseTokens = theme.palette.mode === 'light' ? light : dark;
 
   return {
-    container: css({
-      marginLeft: '44px',
-      marginRight: '44px',
+    containerActions: css({
+      gap: scale[200],
+      justifyContent: 'flex-end',
     }),
-    title: css({
-      marginTop: '28px',
-      marginBottom: '28px',
-    }),
-    toolbar: css({
-      marginBottom: '20px',
+    actionIcon: css({
+      '& svg': {
+        width: '16px',
+        height: '16px',
+      }      
     })
-  }
-}
+  };
+};
 
 export default styles

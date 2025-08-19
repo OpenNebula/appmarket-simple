@@ -24,7 +24,7 @@ const theme = (mode) => {
         fontSize: fontSize.heading.h3.desktop,
         fontStyle: 'normal',
         fontWeight: 600,
-        lineHeight: `${lineHeight.heading.h3.desktop}px`,
+        lineHeight: lineHeight.heading.h3.desktop,
         color: baseTokens.text.headings,
       },
     },
@@ -65,7 +65,7 @@ const theme = (mode) => {
       MuiChip: {
         styleOverrides: {
           root: {
-            padding: `${scale[50]}px ${scale[200]}px`,            
+            padding: `${scale[50]} ${scale[200]}`,            
             borderRadius: border.radius['2xl'],
             border: `1px solid ${baseTokens.border.primary}`,
             backgroundColor: baseTokens.surface.primary,
@@ -140,7 +140,7 @@ const theme = (mode) => {
             fontSize: fontSize.body.md.desktop,
             fontStyle: 'normal',
             fontWeight: 400,
-            lineHeight: `${lineHeight.body.md.desktop}px`,
+            lineHeight: lineHeight.body.md.desktop,
           },
         }
       },
@@ -150,10 +150,10 @@ const theme = (mode) => {
             border: 'none',
           },
           root: {            
-            border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
+            border: `${border.width.sm} solid ${baseTokens.border.primary}`,
             borderRadius: border.radius.xlg,
             background: baseTokens.surface.primary,
-            padding: `${scale[200]}px ${scale[400]}px}`,                    
+            padding: `${scale[200]} ${scale[400]}}`,                    
           },
           input: {
             padding: 0,
@@ -164,27 +164,27 @@ const theme = (mode) => {
         styleOverrides: {
           root: {
             borderRadius: border.radius.xlg,
-            border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
-            padding: `${scale[200]}px ${scale[400]}px`,
+            border: `${border.width.sm} solid ${baseTokens.border.primary}`,
+            padding: `${scale[200]} ${scale[400]}`,
           },
         }
       },
       MuiButton: {
         styleOverrides: {
           outlined: {            
-            padding: `${scale[300]}px ${scale[500]}px`,
+            padding: `${scale[300]} ${scale[500]}`,
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: `${border.radius.xlg}px`,
-            border: `${border.width.sm}px solid ${baseTokens.border.primary}`,
+            borderRadius: `${border.radius.xlg}`,
+            border: `${border.width.sm} solid ${baseTokens.border.primary}`,
             backgroundColor: baseTokens.surface.primary,            
             '& .MuiTypography-root': {
               color: baseTokens.text.body,
               textAlign: 'center',
-              fontSize: `${fontSize.body.sm.desktop}px`,
+              fontSize: fontSize.body.sm.desktop,
               fontStyle: 'normal',
               fontWeight: 500,
-              lineHeight: `${lineHeight.body.sm.desktop}px`,
+              lineHeight: lineHeight.body.sm.desktop,
               textTransform: 'none',
             },
             '& svg': {
@@ -192,6 +192,53 @@ const theme = (mode) => {
               width: '16px',
               color: baseTokens.icon.action,
             }
+          }
+        }
+      },
+      MuiTableContainer: {
+        styleOverrides: {
+          root: {
+            backgroundColor: baseTokens.surface.primary,
+            border: `1px solid ${baseTokens.border.primary}`,
+            borderRadius: '16px',
+            overflow: 'hidden',
+          }
+        }
+      },
+      MuiTableRow: {
+        styleOverrides: {
+          root: {
+            '&:last-child td': {
+              border: `none`,
+            },
+          },
+        },
+      },      
+      MuiTableCell: {
+        styleOverrides: {
+          head: {
+            padding: `${scale[500]} ${scale[600]} ${scale[500]} ${scale[600]}`,
+            color: baseTokens.text.headings,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            fontSize: fontSize.body.sm.desktop,
+            fontStyle: 'normal',
+            fontWeight: 500,
+            lineHeight: lineHeight.body.sm.desktop,
+            borderColor: baseTokens.border.primary,
+          },
+          root: {
+            padding: `${scale[500]} ${scale[600]} ${scale[500]} ${scale[600]}`,
+            color: baseTokens.text.body,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            fontSize: fontSize.body.sm.desktop,
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: lineHeight.body.sm.desktop,
+            borderColor: baseTokens.border.primary, 
           }
         }
       }

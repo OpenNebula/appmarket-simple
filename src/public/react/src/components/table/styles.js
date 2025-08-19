@@ -21,9 +21,9 @@ const styles = (theme) => {
     switchToggleButton: css({
       '&&': {
         color: baseTokens.icon.action,
-        padding: `${scale[200]}px ${scale[500]}px`,
+        padding: `${scale[200]} ${scale[500]}`,
         borderRadius: border.radius.xlg,
-        border: `${border.width.sm}px solid ${baseTokens.border.action2}`,
+        border: `${border.width.sm} solid ${baseTokens.border.action2}`,
         '& svg': {
           width: '16px',
           height: '16px',
@@ -44,7 +44,7 @@ const styles = (theme) => {
         fontSize: fontSize.body.sm.desktop,
         fontWeight: 500,
         fontStyle: 'normal',
-        lineHeight: `${lineHeight.body.sm.desktop}px`,
+        lineHeight: lineHeight.body.sm.desktop,
         textTransform: 'none',
       }
     })

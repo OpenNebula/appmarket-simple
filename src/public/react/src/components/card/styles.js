@@ -43,7 +43,7 @@ const styles = (theme) => {
       fontSize: fontSize.body.caption.desktop,
       fontStyle: 'normal',
       fontWeight: 500,
-      lineHeight: `${lineHeight.body.caption.desktop}px`,      
+      lineHeight: lineHeight.body.caption.desktop,      
     }),
     attributesValue: css({
       color: baseTokens.text.headings,
@@ -51,7 +51,7 @@ const styles = (theme) => {
       fontSize: fontSize.body.md.desktop,
       fontStyle: 'normal',
       fontWeight: 500,
-      lineHeight: `${lineHeight.body.md.desktop}px`,
+      lineHeight: lineHeight.body.md.desktop,
     }),
     menuIcon: css({
       color: baseTokens.icon.primary,
@@ -63,14 +63,14 @@ const styles = (theme) => {
     }),
     menuOption: css({
       display: 'flex',
-      gap: `${scale[200]}px`
+      gap: scale[200],
     }),
     menuOptionText: css({
       color: baseTokens.text.body,      
       fontSize: fontSize.body.sm.desktop,
       fontStyle: 'normal',
       fontWeight: 500,
-      lineHeight: `${lineHeight.body.sm.desktop}px`,
+      lineHeight: lineHeight.body.sm.desktop,
     }),
   };
 };

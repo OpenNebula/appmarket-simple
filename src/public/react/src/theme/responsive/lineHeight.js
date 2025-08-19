@@ -1,59 +1,57 @@
-
-
 export const lineHeight = {
   body: {
     caption: {
-      desktop: 16,
-      tablet: 16,
-      mobile: 16,
+      desktop: '16px',
+      tablet: '16px',
+      mobile: '16px',
     },
     sm: {
-      desktop: 20,
-      tablet: 20,
-      mobile: 20,
+      desktop: '20px',
+      tablet: '20px',
+      mobile: '20px',
     },
     md: {
-      desktop: 24,
-      tablet: 24,
-      mobile: 24,
+      desktop: '24px',
+      tablet: '24px',
+      mobile: '24px',
     },
     lg: {
-      desktop: 32,
-      tablet: 32,
-      mobile: 32,
+      desktop: '32px',
+      tablet: '32px',
+      mobile: '32px',
     },
   },
 
   heading: {
     h1: {
-      desktop: 64,
-      tablet: 56,
-      mobile: 40,
+      desktop: '64px',
+      tablet: '56px',
+      mobile: '40px',
     },
     h2: {
-      desktop: 56,
-      tablet: 48,
-      mobile: 32,
+      desktop: '56px',
+      tablet: '48px',
+      mobile: '32px',
     },
     h3: {
-      desktop: 48,
-      tablet: 40,
-      mobile: 28,
+      desktop: '48px',
+      tablet: '40px',
+      mobile: '28px',
     },
     h4: {
-      desktop: 40,
-      tablet: 32,
-      mobile: 28,
+      desktop: '40px',
+      tablet: '32px',
+      mobile: '28px',
     },
     h5: {
-      desktop: 32,
-      tablet: 28,
-      mobile: 24,
+      desktop: '32px',
+      tablet: '28px',
+      mobile: '24px',
     },
     h6: {
-      desktop: 24,
-      tablet: 24,
-      mobile: 24,
+      desktop: '24px',
+      tablet: '24px',
+      mobile: '24px',
     },
   },
 }

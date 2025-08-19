@@ -30,8 +30,9 @@ import Tags from '@/components/tags'
 // Utilities
 import { format } from 'date-fns';
 import { parseToOpenNebulaFormat } from "@/utils/parser";
-import { useSnackbar } from "@/context/snackbar/SnackbarContext";
 
+// Import contexts
+import { useSnackbar } from "@/context/snackbar/SnackbarContext";
 
 /**
  * Render the appliance data in a card.
@@ -58,13 +59,13 @@ const ApplianceCard = ({ appliance }) => {
   const { showMessage } = useSnackbar();
 
   // Fromat creation date  
-  const creationDate = format(new Date(appliance?.creation_time * 1000), 'dd MMM yyyy');
+  const creationDate = appliance?.creation_time ? format(new Date(appliance?.creation_time * 1000), 'dd MMM yyyy') : undefined
 
   // Get the download link for the appliance
   const downloadLink = typeof appliance?.links?.download.href === "string" ? appliance?.links?.download.href : undefined;
 
   // Get template in OpenNebula format
-  const openNebulaTemplate = parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template))
+  const openNebulaTemplate = appliance?.opennebula_template ? parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template)) : undefined
 
   // Handle the download action
   const handleDownload = () => {

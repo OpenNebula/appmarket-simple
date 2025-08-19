@@ -1,17 +1,31 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Box, IconButton, Tooltip } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+// MUI imports
+import { 
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Stack,
+  IconButton,
+  Tooltip,
+} from "@mui/material"
+
 import { parseToOpenNebulaFormat } from "@/utils/parser";
+
+// Card styles
+import styles from '@/components/table/list/styles'
+import { useTheme } from '@mui/material/styles';
+
+// Import contexts
+import { useSnackbar } from "@/context/snackbar/SnackbarContext";
+
+// Import icons
+import {
+  Copy as CopyIcon,
+  Download as DownloadIcon,
+} from 'iconoir-react'
 
 const createData = (
   name,
@@ -19,71 +33,79 @@ const createData = (
   short_description,
   os_id,
   version,
-  button,
+  actions,
 ) => {
-  return { name, hypervisor, short_description, os_id, version, button };
+  return { name, hypervisor, short_description, os_id, version, actions };
 };
 
+/**
+ * Render a table with appliances in list format.
+ * @param {Array} - List of appliances.
+ * @returns {JSX.Element} The rendered TableList component.
+ */
 const TableList = ({ appliances }) => {
-  const [copyTooltip, setCopyTooltip] = useState("Copy template");
 
-  const handleCopiedTooltip = () => {
-    setCopyTooltip("Copied");
+  // Get styles for the component
+  const theme = useTheme();
+  const listStyles = styles(theme)
 
-    setTimeout(() => {
-      setCopyTooltip("Copy template");
-    }, 1000);
-  };
+  // Hook to display messages
+  const { showMessage } = useSnackbar()
 
+  // Handle the copy template action
+  const handleCopyTemplate = (openNebulaTemplate) => {
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(parseToOpenNebulaFormat(JSON.parse(openNebulaTemplate)))
+
+    // Show copy message
+    showMessage('Template copied to clipboard!')
+  }
+
+  // Handle the download action
+  const handleDownload = (downloadLink) => {
+
+    // Open new tab and download
+    window.open(downloadLink, "_blank"); 
+
+    // Close menu
+    handleCloseMenu();
+  }  
+
+  /**
+   * Create data for each row of the table.
+   */
   const rows = appliances?.map((appliance) => {
-    const download =
-      typeof appliance.links?.download.href === "string"
-        ? appliance.links?.download.href
-        : "";
 
-    const button = () => (
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <Tooltip title={copyTooltip}>
+    // Get the download link for the appliance
+    const downloadLink = typeof appliance?.links?.download.href === "string" ? appliance?.links?.download.href : undefined;
+
+    // Create copy template and download actions
+    const actions = () => (
+      <Stack direction="row" className={listStyles.containerActions} >
+
+        <Tooltip title={'Copy template'}>
+
           <IconButton
-            color="info"
-            aria-label="delete"
-            size="small"
-            onClick={() => {
-              handleCopiedTooltip();
-              if (appliance.opennebula_template) 
-                navigator.clipboard.writeText(
-                    parseToOpenNebulaFormat(
-                      JSON.parse(appliance.opennebula_template),
-                    ),
-                  );
-            }}
+            className={listStyles.actionIcon}
+            sx={{ padding: 0}}
+            onClick={() => handleCopyTemplate(appliance.opennebula_template) }
           >
-            <ContentCopyIcon />
+            <CopyIcon />
           </IconButton>
         </Tooltip>
 
         <Tooltip title="Download">
           <IconButton
-            color="info"
-            aria-label="delete"
-            size="small"
-            onClick={() => window.open(download, "_self")}
+            className={listStyles.actionIcon}
+            sx={{ padding: 0}}
+            onClick={() => handleDownload(downloadLink)}
           >
-            <FileDownloadIcon />
+            <DownloadIcon />
           </IconButton>
         </Tooltip>
 
-        <IconButton
-          sx={{ ml: "auto" }}
-          color="secondary"
-          aria-label="delete"
-          size="small"
-          component={Link}
-          to={`/appliance/${appliance._id.$oid}`}
-        >
-          <ArrowForwardIosIcon />
-        </IconButton>
-      </Box>
+      </Stack>
     );
 
     return createData(
@@ -92,41 +114,41 @@ const TableList = ({ appliances }) => {
       appliance.short_description,
       appliance["os-id"],
       appliance.version,
-      button,
+      actions,
     );
   });
+
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Hypervisor</TableCell>
-            <TableCell>Short description</TableCell>
-            <TableCell>OS</TableCell>
-            <TableCell>Version</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows?.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell>{row.hypervisor}</TableCell>
-              <TableCell>{row.short_description}</TableCell>
-              <TableCell>{row.os_id}</TableCell>
-              <TableCell>{row.version}</TableCell>
-              <TableCell>{row.button()}</TableCell>
+
+      <TableContainer>
+        <Table aria-label="simple table" sx={{ tableLayout: "fixed", width: "100%" }}>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ width: "14%" }}>Name</TableCell>
+              <TableCell sx={{ width: "14%" }}>Hypervisor</TableCell>
+              <TableCell sx={{ width: "30%" }}>Description</TableCell>
+              <TableCell sx={{ width: "14%" }}>OS</TableCell>
+              <TableCell sx={{ width: "14%" }}>Appliance Version</TableCell>
+              <TableCell sx={{ width: "14%" }}></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows?.map((row) => (
+              <TableRow
+                key={row.name}                
+              >
+                <TableCell sx={{ width: "14%" }}>{row.name}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{row.hypervisor}</TableCell>
+                <TableCell sx={{ width: "30%" }}>{row.short_description}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{row.os_id}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{row.version}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{row.actions()}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
   );
 };
 
