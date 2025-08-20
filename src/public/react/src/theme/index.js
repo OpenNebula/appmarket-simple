@@ -18,6 +18,14 @@ const theme = (mode) => {
   const baseTokens = mode === 'light' ? light : dark;
   
   return {
+
+    palette: {
+      mode,
+      background: {
+        default: baseTokens.surface.page,
+      },      
+    },
+
     typography: {
       fontFamily: [type.fontFamily.primary],      
       h3: {

@@ -8,7 +8,7 @@ import { createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
 // Marketplace components
-import AppBar from "@/components/navbar/Navbar";
+import TopBar from "@/components/topbar";
 
 // Styles
 import "./App.css";
@@ -23,11 +23,6 @@ function App() {
   // Define state for mode
   const [mode, setMode] = useState("light");
 
-  // Event to change mode
-  const toggleColorMode = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-  };
-
   // Create them using mode
   const marketplaceTheme = useMemo(() => createTheme(theme(mode)), [mode]);
 
@@ -40,7 +35,7 @@ function App() {
       <CssBaseline />
 
       {/* App top bar */}
-      <AppBar toggle={toggleColorMode} mode={mode} />
+      <TopBar mode={mode} setMode={setMode} />
 
       {/* React router */}
       <Outlet></Outlet>
