@@ -3,6 +3,7 @@ import { CheckboxProvider } from "@/context/Context";
 import { SnackbarProvider } from "@/context/snackbar/SnackbarProvider";
 import { AppliancesProvider } from "@/context/appliances/AppliancesProvider";
 import { DrawerProvider } from "@/context/drawer/DrawerProvider";
+import { FiltersProvider } from "@/context/filters/FiltersProvider";
 
 
 import { useState, useEffect } from "react";
@@ -54,15 +55,17 @@ export const Providers = ({ children }) => {
   }, []);  
 
   return (
-    <CheckboxProvider>
+    // <CheckboxProvider>
       <DrawerProvider>
         <SnackbarProvider>
           <AppliancesProvider appliances={appliances}>
-            {children}
+            <FiltersProvider appliances={appliances}>
+              {children}
+            </FiltersProvider>
           </AppliancesProvider>
         </SnackbarProvider>
       </DrawerProvider>
-    </CheckboxProvider>
+    // </CheckboxProvider>
   );
 };
 

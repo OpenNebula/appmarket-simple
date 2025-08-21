@@ -5,7 +5,8 @@ import { useState, useMemo } from 'react';
 import { AppliancesContext } from '@/context/appliances/AppliancesContext';
 
 // Utilities
-import _ from 'lodash';
+import _ from 'lodash'
+import dayjs from "dayjs"
 
 /**
  * 
@@ -30,12 +31,60 @@ export const AppliancesProvider = ({ children, appliances }) => {
 
     // Apply filters
     Object.keys(filters).forEach((key) => {
-      if (filters[key]) {
-        result = _.filter(result, (item) =>
-          _.includes(_.toLower(String(item[key])), _.toLower(String(filters[key])))
-        );
+
+      // Get filter values
+      const filterValue = filters[key]
+
+      // Skip falsy filters (null/undefined) and empty arrays
+      if (
+        filterValue == null ||
+        (Array.isArray(filterValue) && filterValue.length === 0)
+      ) {
+        return;
       }
-    });
+
+      // Date range object
+      if (
+        typeof filterValue === "object" &&
+        !Array.isArray(filterValue) &&
+        ("start" in filterValue || "end" in filterValue)
+      ) {
+        const startUnix = filterValue.start
+          ? dayjs(filterValue.start).startOf("day").unix()
+          : null;
+        const endUnix = filterValue.end
+          ? dayjs(filterValue.end).endOf("day").unix()
+          : null;
+
+        result = _.filter(result, (item) => {
+          const ts = Number(item[key])
+          if (!Number.isFinite(ts)) return false;
+          if (startUnix != null && ts < startUnix) return false;
+          if (endUnix != null && ts > endUnix) return false;
+          return true;
+        });
+
+        return
+      }
+
+      // Array of strings (multi-select)
+      if (Array.isArray(filterValue)) {
+        result = _.filter(result, (item) => {
+          const itemVal = _.toLower(String(item[key] ?? ""));
+          return filterValue.some((val) =>
+            itemVal.includes(_.toLower(String(val)))
+          );
+        });
+        return;
+      }
+
+      // Single string
+      const f = _.toLower(String(filterValue));
+      result = _.filter(result, (item) =>
+        _.toLower(String(item[key] ?? "")).includes(f)
+      );
+
+    })
 
     // Apply sorting
     if (sortKey) {
@@ -52,8 +101,13 @@ export const AppliancesProvider = ({ children, appliances }) => {
     return result;
   }, [appliances, filters, sortKey, sortOrder]);
 
-  // Function to set and clear fiter
-  const setFilter = (key, value) => setFilters((prev) => ({ ...prev, [key]: value }));
+  // Functions to set and clear fiter
+  const setFilter = (key, value) =>
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value, // can be array|string|{start,end}|null
+    }));
+
   const clearFilter = (key) =>
     setFilters((prev) => {
       const copy = { ...prev };

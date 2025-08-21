@@ -2,7 +2,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+// import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const BasicAccordion = ({
   name,
@@ -17,7 +17,7 @@ const BasicAccordion = ({
     >
       <AccordionSummary
         sx={{ m: 0, p: 0 }}
-        expandIcon={<ArrowDropDownIcon />}
+        // expandIcon={<ArrowDropDownIcon />}
         aria-controls="panel2-content"
         id="panel2-header"
       >

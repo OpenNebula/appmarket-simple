@@ -13,30 +13,52 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
+import { css } from '@emotion/css'
+
+// Import not colors variables
+import { fontSize, lineHeight, border } from '@/theme/responsive'
 import { scale } from '@/theme/brand'
 
-const width = {
-  none: scale[0],
-  sm: scale[25],
-  md: scale[50],
-  lg: scale[100],
-  xlg: scale[200],
+import { light } from '@/theme/colors/themes/light'
+import { dark } from '@/theme/colors/themes/dark'
+
+/**
+ * @param theme
+ */
+const styles = (theme) => {
+  const baseTokens = theme.palette.mode === 'light' ? light : dark
+
+  return {
+    panelContainer: css({
+      height: '100%',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: scale[600],
+    }),
+    filtersContainer: css({    
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      gap: scale[200],
+      alignSelf: 'flex-start',
+      width: '100%',
+    }),    
+    filterButton: css({     
+      width: '100% !important', // We need important because button styles are defined in theme/index.js
+    }),
+    filterContainer: css({
+      gap: scale[100],
+      width: '100%',
+    }),
+    placeholderText: css({
+      color: baseTokens.text.disabled,
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      fontSize: fontSize.body.md.desktop,
+      fontStyle: 'normal',
+      fontWeight: 400,
+      lineHeight: lineHeight.body.md.desktop,
+    }),
+  }
 }
 
-const radius = {
-  none: scale[0],
-  xs: scale[25],
-  md: scale[50],
-  lg: scale[100],
-  xlg: scale[150],
-  '2xl': scale[200],
-  '3xl': scale[400],
-  '4xl': scale[500],
-  '5xl': scale[600],
-  round: scale[1500],
-}
-
-export const border = {
-  width,
-  radius,
-}
+export default styles

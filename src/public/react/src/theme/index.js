@@ -1,33 +1,53 @@
-// Import light and dark themes
+/* ------------------------------------------------------------------------- *
+ * Copyright 2002-2025, OpenNebula Project, OpenNebula Systems               *
+ *                                                                           *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may   *
+ * not use this file except in compliance with the License. You may obtain   *
+ * a copy of the License at                                                  *
+ *                                                                           *
+ * http://www.apache.org/licenses/LICENSE-2.0                                *
+ *                                                                           *
+ * Unless required by applicable law or agreed to in writing, software       *
+ * distributed under the License is distributed on an "AS IS" BASIS,         *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  *
+ * See the License for the specific language governing permissions and       *
+ * limitations under the License.                                            *
+ * ------------------------------------------------------------------------- */
 import { light } from '@/theme/colors/themes/light'
 import { dark } from '@/theme/colors/themes/dark'
 
 // Import not colors variables
 import { fontSize, lineHeight, border } from '@/theme/responsive'
 import { scale, type } from '@/theme/brand'
-import { borderRadius, fontStyle, fontWeight, height, textTransform, width } from '@mui/system';
+import {
+  borderRadius,
+  fontStyle,
+  fontWeight,
+  height,
+  textTransform,
+  width,
+} from '@mui/system'
 
 /**
  * Define theme.
+ *
  * @param {string} mode - Dark or light
  * @returns {object} - Theme
  */
 const theme = (mode) => {
-  
   // Get colors depending of the mode
-  const baseTokens = mode === 'light' ? light : dark;
-  
-  return {
+  const baseTokens = mode === 'light' ? light : dark
 
+  return {
     palette: {
       mode,
       background: {
         default: baseTokens.surface.page,
-      },      
+      },
     },
 
     typography: {
-      fontFamily: [type.fontFamily.primary],      
+      fontFamily: [type.fontFamily.primary],
       h3: {
         fontSize: fontSize.heading.h3.desktop,
         fontStyle: 'normal',
@@ -35,6 +55,20 @@ const theme = (mode) => {
         lineHeight: lineHeight.heading.h3.desktop,
         color: baseTokens.text.headings,
       },
+      h4: {
+        color: baseTokens.text.headings,
+        fontSize: fontSize.body.lg.desktop,
+        fontStyle: 'normal',
+        fontWeight: 600,
+        lineHeight: lineHeight.body.lg.desktop,
+      },
+      h5: {
+        color: baseTokens.text.headings,
+        fontSize: fontSize.body.sm.desktop,
+        fontStyle: 'normal',
+        fontWeight: 500,
+        lineHeight: lineHeight.body.sm.desktop,
+      }
     },
 
     components: {
@@ -45,9 +79,9 @@ const theme = (mode) => {
             border: `1px solid ${baseTokens.border.primary}`,
             background: baseTokens.surface.primary,
             boxShadow: 'none',
-            padding: '24px 24px 12px 24px',              
-          }
-        }
+            padding: '24px 24px 12px 24px',
+          },
+        },
       },
       MuiCardContent: {
         styleOverrides: {
@@ -55,42 +89,42 @@ const theme = (mode) => {
             padding: 0,
             '&:last-child': {
               paddingBottom: 0,
-            }, 
-          }
-        }
+            },
+          },
+        },
       },
       MuiCardHeader: {
-        styleOverrides: {          
+        styleOverrides: {
           root: {
             padding: 0,
             '& svg': {
               width: '24px',
               height: '24px',
-            }, 
-          }
-        }
+            },
+          },
+        },
       },
       MuiChip: {
         styleOverrides: {
           root: {
-            padding: `${scale[50]} ${scale[200]}`,            
+            padding: `${scale[50]} ${scale[200]}`,
             borderRadius: border.radius['2xl'],
             border: `1px solid ${baseTokens.border.primary}`,
             backgroundColor: baseTokens.surface.primary,
-            color: baseTokens.text.body,            
+            color: baseTokens.text.body,
             fontSize: fontSize.body.caption.desktop,
             fontStyle: 'normal',
             fontWeight: 600,
             lineHeight: lineHeight.body.caption.desktop,
-          }
-        }
+          },
+        },
       },
       MuiDivider: {
         styleOverrides: {
           root: {
             backgroundColor: baseTokens.border.primary,
-          }
-        }
+          },
+        },
       },
       MuiMenu: {
         styleOverrides: {
@@ -100,8 +134,8 @@ const theme = (mode) => {
             backgroundColor: baseTokens.surface.primary,
             boxShadow: '0 4px 6px 0 rgba(0, 0, 0, 0.09)',
             padding: scale[100],
-          }
-        }
+          },
+        },
       },
       MuiMenuItem: {
         styleOverrides: {
@@ -110,7 +144,7 @@ const theme = (mode) => {
               width: '16px',
               height: '16px',
             },
-            '&:hover': {              
+            '&:hover': {
               backgroundColor: baseTokens.surface.actionHover4,
               borderRadius: border.radius.xlg,
             },
@@ -119,26 +153,26 @@ const theme = (mode) => {
             },
             '&:hover svg': {
               color: baseTokens.text.actionHover2,
-            }
-          }
-        }
+            },
+          },
+        },
       },
       MuiListItemIcon: {
-        styleOverrides: {          
-          root: {        
-            minWidth: 0,    
+        styleOverrides: {
+          root: {
+            minWidth: 0,
             '.MuiMenuItem-root &': {
               minWidth: 0,
-            }            
-          }
-        }
+            },
+          },
+        },
       },
       MuiList: {
         styleOverrides: {
           root: {
             padding: 0,
-          }
-        }
+          },
+        },
       },
       MuiTextField: {
         styleOverrides: {
@@ -150,22 +184,22 @@ const theme = (mode) => {
             fontWeight: 400,
             lineHeight: lineHeight.body.md.desktop,
           },
-        }
+        },
       },
       MuiOutlinedInput: {
         styleOverrides: {
           notchedOutline: {
             border: 'none',
           },
-          root: {            
+          root: {
             border: `${border.width.sm} solid ${baseTokens.border.primary}`,
             borderRadius: border.radius.xlg,
             background: baseTokens.surface.primary,
-            padding: `${scale[200]} ${scale[400]}}`,                    
+            padding: `${scale[200]} ${scale[400]}}`,
           },
           input: {
             padding: 0,
-          }          
+          },
         },
       },
       MuiSelect: {
@@ -175,17 +209,17 @@ const theme = (mode) => {
             border: `${border.width.sm} solid ${baseTokens.border.primary}`,
             padding: `${scale[200]} ${scale[400]}`,
           },
-        }
+        },
       },
       MuiButton: {
         styleOverrides: {
-          outlined: {            
+          outlined: {
             padding: `${scale[300]} ${scale[500]}`,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: `${border.radius.xlg}`,
             border: `${border.width.sm} solid ${baseTokens.border.primary}`,
-            backgroundColor: baseTokens.surface.primary,            
+            backgroundColor: baseTokens.surface.primary,
             '& .MuiTypography-root': {
               color: baseTokens.text.body,
               textAlign: 'center',
@@ -199,9 +233,25 @@ const theme = (mode) => {
               height: '16px',
               width: '16px',
               color: baseTokens.icon.action,
-            }
+            },
+          },
+          contained: {
+            padding: `${scale[200]} ${scale[500]}`,
+            borderRadius: border.radius.xlg,
+            border: `${border.width.sm} solid ${baseTokens.border.action}`,
+            backgroundColor: baseTokens.surface.action,
+            '& svg': {
+              width: '16px',
+              height: '16px',
+            },
+            color: baseTokens.text.onAction,
+            fontSize: fontSize.body.sm.desktop,
+            fontStyle: 'normal',
+            fontWeight: 500,
+            lineHeight: lineHeight.body.sm.desktop,
+            textTransform: 'none',
           }
-        }
+        },
       },
       MuiTableContainer: {
         styleOverrides: {
@@ -210,8 +260,8 @@ const theme = (mode) => {
             border: `1px solid ${baseTokens.border.primary}`,
             borderRadius: '16px',
             overflow: 'hidden',
-          }
-        }
+          },
+        },
       },
       MuiTableRow: {
         styleOverrides: {
@@ -221,7 +271,7 @@ const theme = (mode) => {
             },
           },
         },
-      },      
+      },
       MuiTableCell: {
         styleOverrides: {
           head: {
@@ -246,12 +296,12 @@ const theme = (mode) => {
             fontStyle: 'normal',
             fontWeight: 400,
             lineHeight: lineHeight.body.sm.desktop,
-            borderColor: baseTokens.border.primary, 
-          }
-        }
-      }
+            borderColor: baseTokens.border.primary,
+          },
+        },
+      },
     },
-  };
-};
+  }
+}
 
 export { theme }

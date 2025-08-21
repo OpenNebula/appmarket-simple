@@ -1,5 +1,5 @@
 // MUI components
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 
 // App components
 import ApplianceCard from "@/components/card";

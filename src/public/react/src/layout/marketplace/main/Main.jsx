@@ -5,13 +5,14 @@ import {
   Typography,
   Drawer,
   Stack,
+  IconButton,
 } from "@mui/material";
 
 
 // Marketplace components
 import Toolbar from "@/components/toolbar";
 import Table from "@/components/table";
-import FilterCard from "@/layout/marketplace/filters/FilterCard";
+import FilterPanel from "@/components/filter/panel";
 
 // Component styles
 import { useTheme } from '@mui/material/styles';
@@ -20,6 +21,9 @@ import styles from '@/layout/marketplace/main/styles'
 // Context imports
 import { useAppliances } from '@/context/appliances/AppliancesContext'
 import { useDrawer } from '@/context/drawer/DrawerContext'
+
+// Icons
+import { Xmark as CloseIcon } from 'iconoir-react'
 
 const Main = () => {
   // const { appliances, contextFilters } = useAppContext();
@@ -279,13 +283,39 @@ const Main = () => {
         open={drawerOpen}
         onClose={closeDrawer}
       >
-        <Box
+        {/* <Box
           sx={{ width: 350, p: 2 }}
           role="presentation"
           onClick={(e) => e.stopPropagation()}
         >
           <FilterCard />
+        </Box> */}
+
+        <Box
+          sx={{
+            width: 350,
+            p: 2,
+            position: "relative", // needed for absolute positioning of the close button
+            height: '100%',
+          }}
+          role="presentation"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Close button */}
+          <IconButton
+            onClick={closeDrawer}
+            className={marketplaceStyles.closePanel}
+            sx={{ position: "absolute", top: 8, right: 8 }}
+          >
+            <CloseIcon />
+          </IconButton>
+
+          {/* Your filter content */}
+          <FilterPanel />
         </Box>
+        
+
+
       </Drawer>
 
 

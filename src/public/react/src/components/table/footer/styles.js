@@ -1,15 +1,32 @@
-// Import emotion to create css classes
+/* ------------------------------------------------------------------------- *
+ * Copyright 2002-2025, OpenNebula Project, OpenNebula Systems               *
+ *                                                                           *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may   *
+ * not use this file except in compliance with the License. You may obtain   *
+ * a copy of the License at                                                  *
+ *                                                                           *
+ * http://www.apache.org/licenses/LICENSE-2.0                                *
+ *                                                                           *
+ * Unless required by applicable law or agreed to in writing, software       *
+ * distributed under the License is distributed on an "AS IS" BASIS,         *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  *
+ * See the License for the specific language governing permissions and       *
+ * limitations under the License.                                            *
+ * ------------------------------------------------------------------------- */
 import { css } from '@emotion/css'
 
 // Import not colors variables
 import { fontSize, lineHeight } from '@/theme/responsive'
 import { scale } from '@/theme/brand'
 
-import { light } from '@/theme/colors/themes/light';
-import { dark } from '@/theme/colors/themes/dark';
+import { light } from '@/theme/colors/themes/light'
+import { dark } from '@/theme/colors/themes/dark'
 
+/**
+ * @param theme
+ */
 const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark;
+  const baseTokens = theme.palette.mode === 'light' ? light : dark
 
   return {
     footerContainer: css({
@@ -22,7 +39,7 @@ const styles = (theme) => {
       '& svg': {
         width: '24px',
         height: '24px',
-      }      
+      },
     }),
     pagesText: css({
       color: baseTokens.text.body,
@@ -46,9 +63,9 @@ const styles = (theme) => {
         fontStyle: 'normal',
         fontWeight: 400,
         lineHeight: lineHeight.body.md,
-      }
-    })
-  };
-};
+      },
+    }),
+  }
+}
 
 export default styles

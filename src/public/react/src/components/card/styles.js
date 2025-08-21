@@ -1,15 +1,32 @@
-// Import emotion to create css classes
+/* ------------------------------------------------------------------------- *
+ * Copyright 2002-2025, OpenNebula Project, OpenNebula Systems               *
+ *                                                                           *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may   *
+ * not use this file except in compliance with the License. You may obtain   *
+ * a copy of the License at                                                  *
+ *                                                                           *
+ * http://www.apache.org/licenses/LICENSE-2.0                                *
+ *                                                                           *
+ * Unless required by applicable law or agreed to in writing, software       *
+ * distributed under the License is distributed on an "AS IS" BASIS,         *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  *
+ * See the License for the specific language governing permissions and       *
+ * limitations under the License.                                            *
+ * ------------------------------------------------------------------------- */
 import { css } from '@emotion/css'
 
 // Import not colors variables
 import { fontSize, lineHeight } from '@/theme/responsive'
 import { scale } from '@/theme/brand'
 
-import { light } from '@/theme/colors/themes/light';
-import { dark } from '@/theme/colors/themes/dark';
+import { light } from '@/theme/colors/themes/light'
+import { dark } from '@/theme/colors/themes/dark'
 
+/**
+ * @param theme
+ */
 const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark;
+  const baseTokens = theme.palette.mode === 'light' ? light : dark
 
   return {
     imageContainer: css({
@@ -20,34 +37,33 @@ const styles = (theme) => {
       borderRadius: '8px',
       border: `1px solid ${baseTokens.border.primary}`,
     }),
-    textContainer: css ({
+    textContainer: css({
       marginBottom: scale[100],
     }),
-    titleApp: css ({
-      color: baseTokens.text.headings,      
+    titleApp: css({
+      color: baseTokens.text.headings,
       fontSize: fontSize.body.lg.desktop,
       fontStyle: 'normal',
       fontWeight: 600,
       lineHeight: lineHeight.body.lg,
     }),
-    descriptionApp: css ({
+    descriptionApp: css({
       color: baseTokens.text.body,
-      fontSize: fontSize.body.sm.desktop,
       fontStyle: 'normal',
       fontWeight: 400,
       lineHeight: lineHeight.body.sm,
     }),
     attributesTitle: css({
       color: baseTokens.text.body,
-      textAlign: 'center',      
+      textAlign: 'center',
       fontSize: fontSize.body.caption.desktop,
       fontStyle: 'normal',
       fontWeight: 500,
-      lineHeight: lineHeight.body.caption.desktop,      
+      lineHeight: lineHeight.body.caption.desktop,
     }),
     attributesValue: css({
       color: baseTokens.text.headings,
-      textAlign: 'center',            
+      textAlign: 'center',
       fontSize: fontSize.body.md.desktop,
       fontStyle: 'normal',
       fontWeight: 500,
@@ -66,13 +82,13 @@ const styles = (theme) => {
       gap: scale[200],
     }),
     menuOptionText: css({
-      color: baseTokens.text.body,      
+      color: baseTokens.text.body,
       fontSize: fontSize.body.sm.desktop,
       fontStyle: 'normal',
       fontWeight: 500,
       lineHeight: lineHeight.body.sm.desktop,
     }),
-  };
-};
+  }
+}
 
 export default styles

@@ -12,8 +12,8 @@ import {
 import { useTheme } from '@mui/material/styles';
 
 // Marketplace components
-import TableList from "@/components/table/card";
-import TableCard from "@/components/table/list";
+import TableList from "@/components/table/list";
+import TableCard from "@/components/table/card";
 import TableFooter from "@/components/table/footer"
 
 // Component styles
@@ -34,7 +34,7 @@ const Table = ({ appliances }) => {
   const tableStyles = styles(theme)
 
   // Table mode view. List by default.
-  const [view, setView] = useState("list");
+  const [view, setView] = useState("card");
 
   // Modify table view
   const handleToggleView = (_, nextView ) => {
@@ -62,7 +62,7 @@ const Table = ({ appliances }) => {
                 exclusive
                 onChange={handleToggleView}                
               >
-                <ToggleButton size="small" value="table" aria-label="table" className={tableStyles.switchToggleButton}>
+                <ToggleButton size="small" value="card" aria-label="card" className={tableStyles.switchToggleButton}>
                   <ViewGrid />
                 </ToggleButton>
                 <ToggleButton size="small" value="list" aria-label="list" className={tableStyles.switchToggleButton}>
@@ -70,8 +70,8 @@ const Table = ({ appliances }) => {
                 </ToggleButton>
               </ToggleButtonGroup>
             </Box>
-            {
-              view === 'table' ? <TableList appliances={paginatedAppliances} /> : <TableCard appliances={paginatedAppliances} />
+            {              
+              view === 'list' ? <TableList appliances={paginatedAppliances} /> : <TableCard appliances={paginatedAppliances} />
             }
 
             <TableFooter
@@ -80,8 +80,8 @@ const Table = ({ appliances }) => {
               rowsPerPage={rowsPerPage}
               onPageChange={setPage}
               onRowsPerPageChange={(newSize) => {
-                setRowsPerPage(newSize);
-                setPage(0); // reset to first page when page size changes
+                setRowsPerPage(newSize)
+                setPage(0)
               }}
             />
           </Stack>

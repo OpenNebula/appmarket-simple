@@ -6,8 +6,8 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { IconButton, Tooltip } from "@mui/material";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
+// import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+// import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { useState } from "react";
 import { parseToOpenNebulaFormat } from "@/utils/parser";
 import Markdown from 'react-markdown'
@@ -153,7 +153,7 @@ const DetailCard = ({ appliance }) => {
                 navigator.clipboard.writeText(parseToOpenNebulaFormat(JSON.parse(appliance.opennebula_template)));
             }}
           >
-            <ContentCopyIcon />
+            {/* <ContentCopyIcon /> */}
           </IconButton>
         </Tooltip>
 
@@ -164,7 +164,7 @@ const DetailCard = ({ appliance }) => {
             size="large"
             onClick={() => window.open(download, "_self")}
           >
-            <FileDownloadIcon />
+            {/* <FileDownloadIcon /> */}
           </IconButton>
         </Tooltip>
       </CardActions>
