@@ -14,9 +14,12 @@
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
 /**
- * @param obj
+ * Parse a JSON template to a OpenNebula template format.
+ *
+ * @param {object} template - JSON template
+ * @returns {string} - OpenNebula template
  */
-const parseToOpenNebulaFormat = (obj) => {
+const parseToOpenNebulaFormat = (template) => {
   const parseValue = (value) => {
     if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
       return `[
@@ -29,7 +32,7 @@ const parseToOpenNebulaFormat = (obj) => {
     return `"${value}"`
   }
 
-  const result = Object.entries(obj)
+  const result = Object.entries(template)
     .map(([key, value]) => `${key}=${parseValue(value)}`)
     .join('\n')
 

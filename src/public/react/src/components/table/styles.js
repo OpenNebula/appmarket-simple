@@ -24,7 +24,10 @@ import { light } from '@/theme/colors/themes/light'
 import { dark } from '@/theme/colors/themes/dark'
 
 /**
- * @param theme
+ * Define styles for the Table component.
+ *
+ * @param {object} theme - Current theme
+ * @returns {object} Styles for the component
  */
 const styles = (theme) => {
   const baseTokens = theme.palette.mode === 'light' ? light : dark

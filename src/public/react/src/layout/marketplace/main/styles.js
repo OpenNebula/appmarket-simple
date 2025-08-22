@@ -15,42 +15,33 @@
  * ------------------------------------------------------------------------- */
 import { css } from '@emotion/css'
 
-// Import not colors variables
-import { fontSize, lineHeight, border } from '@/theme/responsive'
-import { scale } from '@/theme/brand'
-
-// Color definition of modes
-import { light } from '@/theme/colors/themes/light'
-import { dark } from '@/theme/colors/themes/dark'
-
 /**
- * @param theme
+ * Define styles for the Main component.
+ *
+ * @returns {object} Styles for the component
  */
-const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark
-
-  return {
-    container: css({
-      marginLeft: '44px',
-      marginRight: '44px',
-    }),
-    title: css({
-      marginTop: '28px',
-      marginBottom: '28px',
-    }),
-    toolbar: css({
-      marginBottom: '20px',
-    }),
-    closePanel: css({
-      position: 'absolute', 
-      top: 8, 
-      right: 8,
-      '& svg': {
-        height: '16px',
-        width: '16px',
-      }
-    })
-  }
-}
+const styles = () => ({
+  container: css({
+    marginLeft: '44px',
+    marginRight: '44px',
+  }),
+  title: css({
+    marginTop: '28px',
+    marginBottom: '28px',
+  }),
+  toolbar: css({
+    marginBottom: '20px',
+    gap: '15px',
+  }),
+  closePanel: css({
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    '& svg': {
+      height: '16px',
+      width: '16px',
+    },
+  }),
+})
 
 export default styles

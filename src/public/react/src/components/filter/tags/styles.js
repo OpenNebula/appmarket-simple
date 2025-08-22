@@ -16,14 +16,11 @@
 import { css } from '@emotion/css'
 
 // Import not colors variables
-import { fontSize, lineHeight } from '@/theme/responsive'
-import { scale } from '@/theme/brand'
-
 import { light } from '@/theme/colors/themes/light'
 import { dark } from '@/theme/colors/themes/dark'
 
 /**
- * Define styles for the Panel component.
+ * Define styles for the Tags component.
  *
  * @param {object} theme - Current theme
  * @returns {object} Styles for the component
@@ -32,34 +29,10 @@ const styles = (theme) => {
   const baseTokens = theme.palette.mode === 'light' ? light : dark
 
   return {
-    panelContainer: css({
-      height: '100%',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: scale[600],
-    }),
-    filtersContainer: css({
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      gap: scale[200],
-      alignSelf: 'flex-start',
-      width: '100%',
-    }),
-    filterButton: css({
-      width: '100% !important', // We need important because button styles are defined in theme/index.js
-    }),
-    filterContainer: css({
-      gap: scale[100],
-      width: '100%',
-    }),
-    placeholderText: css({
-      color: baseTokens.text.disabled,
-      textOverflow: 'ellipsis',
-      overflow: 'hidden',
-      fontSize: fontSize.body.md.desktop,
-      fontStyle: 'normal',
-      fontWeight: 400,
-      lineHeight: lineHeight.body.md.desktop,
+    filterTag: css({
+      '& .MuiChip-deleteIcon': {
+        color: `${baseTokens.icon.onAction} !important`,
+      },
     }),
   }
 }

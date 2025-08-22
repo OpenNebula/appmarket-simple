@@ -19,14 +19,6 @@ import { dark } from '@/theme/colors/themes/dark'
 // Import not colors variables
 import { fontSize, lineHeight, border } from '@/theme/responsive'
 import { scale, type } from '@/theme/brand'
-import {
-  borderRadius,
-  fontStyle,
-  fontWeight,
-  height,
-  textTransform,
-  width,
-} from '@mui/system'
 
 /**
  * Define theme.
@@ -68,7 +60,7 @@ const theme = (mode) => {
         fontStyle: 'normal',
         fontWeight: 500,
         lineHeight: lineHeight.body.sm.desktop,
-      }
+      },
     },
 
     components: {
@@ -106,12 +98,23 @@ const theme = (mode) => {
       },
       MuiChip: {
         styleOverrides: {
-          root: {
+          outlined: {
             padding: `${scale[50]} ${scale[200]}`,
             borderRadius: border.radius['2xl'],
             border: `1px solid ${baseTokens.border.primary}`,
             backgroundColor: baseTokens.surface.primary,
             color: baseTokens.text.body,
+            fontSize: fontSize.body.caption.desktop,
+            fontStyle: 'normal',
+            fontWeight: 600,
+            lineHeight: lineHeight.body.caption.desktop,
+          },
+          filled: {
+            padding: `${scale[50]} ${scale[200]}`,
+            borderRadius: border.radius['2xl'],
+            border: `${border.radius.xs} solid ${baseTokens.border.primary}`,
+            backgroundColor: baseTokens.surface.action,
+            color: baseTokens.text.onAction,
             fontSize: fontSize.body.caption.desktop,
             fontStyle: 'normal',
             fontWeight: 600,
@@ -250,7 +253,7 @@ const theme = (mode) => {
             fontWeight: 500,
             lineHeight: lineHeight.body.sm.desktop,
             textTransform: 'none',
-          }
+          },
         },
       },
       MuiTableContainer: {

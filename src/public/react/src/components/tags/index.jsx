@@ -81,10 +81,11 @@ const Tags = ({ tags }) => {
           label={tag}
           size="small"
           className="chip-measure"
+          variant="outlined"
         />
       ))}
       {hiddenCount > 0 && (
-        <Chip label={`+${hiddenCount}`} size="small" />
+        <Chip label={`+${hiddenCount}`} size="small" variant="outlined"/>
       )}
     </div>
   );

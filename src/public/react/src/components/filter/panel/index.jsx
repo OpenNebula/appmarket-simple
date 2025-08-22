@@ -1,40 +1,31 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-// import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { Box, Stack, Button, Select, MenuItem } from "@mui/material";
-import BasicAccordion from "@/components/accordion/BasicAccordion";
-import FilterCheckbox from "@/components/filter/checkboxes";
-import { useAppContext } from "@/context/useAppContext";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import dayjs from 'dayjs'
-
 // React imports
 import { useState } from 'react'
 
-// Import contexts
-import { useFilters } from "@/context/filters/FiltersContext";
-import { useAppliances } from "@/context/appliances/AppliancesContext";
+// MUI imports
+import { Stack, Button, Select, MenuItem, Typography } from "@mui/material"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
-// Toolbar styles
+// Import contexts
+import { useFilters } from "@/context/filters/FiltersContext"
+import { useAppliances } from "@/context/appliances/AppliancesContext"
+
+// Filter panel styles
 import styles from '@/components/filter/panel/styles'
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles'
 
 // Icons
-import { FilterList as FilterIcon, NavArrowDown, Calendar } from 'iconoir-react'
+import { FilterList as FilterIcon, NavArrowDown } from 'iconoir-react'
 
 const FilterPanel = () => {
   
   // Get styles for the component
-  const theme = useTheme();
+  const theme = useTheme()
   const panelStyles = styles(theme)
 
   // Get setFilter function: This function will apply the current selected filter to the list of appliances.
-  const { setFilter } = useAppliances();
+  const { setFilter } = useAppliances()
 
   // User filters context: This context will give us the ability to get and modify the filters definition and which values are selected in each filter.
   const { filters, selectedFilters, setFilterValue } = useFilters()
@@ -109,9 +100,9 @@ const FilterPanel = () => {
               IconComponent={CustomArrowIcon}
               renderValue={(selected) => {
                 if (!selected || selected.length === 0) {
-                  return <Typography className={panelStyles.placeholderText}>Select a value</Typography>;
+                  return <Typography className={panelStyles.placeholderText}>Select a value</Typography>
                 }
-                return selected.join(", ");
+                return selected.join(", ")
               }}
             >
               {filter?.values.map((value) => (
@@ -128,7 +119,7 @@ const FilterPanel = () => {
           <>
             <Typography variant="h5">{`Start ${filter?.label}`}</Typography>
             <DatePicker
-              value={currentRange.start}
+              value={currentRange.start ?? null}
               onChange={(newDate) =>
                 handleSelectChange(filter.key, {
                   ...currentRange,
@@ -140,7 +131,7 @@ const FilterPanel = () => {
 
             <Typography variant="h5">{`End ${filter?.label}`}</Typography>
             <DatePicker
-              value={currentRange.end}
+              value={currentRange.end ?? null}
               onChange={(newDate) =>
                 handleSelectChange(filter.key, {
                   ...currentRange,
@@ -180,79 +171,7 @@ const FilterPanel = () => {
       </Button>
 
     </Stack>
-
-
-
-    // <Card sx={{ height: "calc(100vh - 64px)", overflowY: "auto" }}>
-    //   <CardContent>
-    //     <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-    //       {/* <FilterAltIcon sx={{ mr: 2 }} /> */}
-
-    //       <Typography variant="h6">Filters</Typography>
-    //     </Box>
-
-    //     {filters && filters.map({key, label, type, values}) => (
-    //       key !== "Date Interval" ? (
-    //         <BasicAccordion
-    //           defaultExpanded={
-    //             key === "Hypervisors" || key === "OpenNebula Versions"
-    //           }
-    //           key={key}
-    //           name={key}
-    //         >
-    //           {values.map(
-    //             (
-    //               value,
-    //               index,
-    //             ) => {
-    //               return (<div>{value.name}</div>)
-    //               {/* return (
-    //                 <FilterCheckbox
-    //                   key={`${key}-${value}-${index}`}
-    //                   group={key}
-    //                   totalCount={value.totalCount}
-    //                   value={value.name}
-    //                 />
-    //               ); */}
-    //             },
-    //           )}
-    //         </BasicAccordion>
-    //       ) : (
-    //         <BasicAccordion defaultExpanded={false} name={"Date Interval"} key={key}>
-    //           <LocalizationProvider dateAdapter={AdapterDayjs}>
-    //             <DemoContainer components={["DateRangePicker"]}>
-
-    //               <DatePicker
-    //                 label="Init date"
-    //                 value={filters["Date Interval"][0]}
-    //                 onChange={(newStartDate) => {
-    //                   setDateInterval([newStartDate, filters["Date Interval"][1]]);
-    //                 }}
-    //                 slotProps={{
-    //                   field: { clearable: true, onClear: () => setDateInterval([undefined, filters["Date Interval"][1]]) },
-    //                 }}
-    //                 format="DD/MM/YYYY"
-    //               />
-
-    //               <DatePicker
-    //                 label="End date"
-    //                 value={filters["Date Interval"][1]} 
-    //                 onChange={(newEndDate) => {
-    //                   setDateInterval([filters["Date Interval"][0], newEndDate]);
-    //                 }}
-    //                 slotProps={{
-    //                   field: { clearable: true, onClear: () => setDateInterval([undefined, filters["Date Interval"][1]]) },
-    //                 }}                    
-    //                 format="DD/MM/YYYY"
-    //               />
-    //             </DemoContainer>
-    //           </LocalizationProvider>
-    //         </BasicAccordion>
-    //       ),
-    //     )}
-    //   </CardContent>
-    // </Card>
-  );
-};
+  )
+}
 
 export default FilterPanel

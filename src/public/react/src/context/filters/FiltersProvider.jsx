@@ -7,18 +7,8 @@ import { FiltersContext } from '@/context/filters/FiltersContext'
 // Marketplace configuration
 import config from "@config"
 
-
-import { countBy, flatMap, mapValues, uniq } from 'lodash'
-
-
-const filtersDictionary = {
-        Hypervisors: { name: "hypervisor", type: "checkbox" },
-        "OpenNebula Versions": { name: "opennebula_version", type: "checkbox" },
-        Versions: { name: "version", type: "checkbox" },
-        "OS Systems": { name: "os-id", type: "checkbox" },
-        Tags: { name: "tags", type: "checkbox" },
-        DateInterval: { name: "tags", type: "date" },
-      }
+// Utilities
+import { countBy, flatMap, uniq } from 'lodash'
 
 /**
  * 
@@ -66,7 +56,7 @@ export const FiltersProvider = ({ children, appliances }) => {
         return Array.isArray(val)
           ? val.map((v) => v.trim())
           : val.split?.(",").map((v) => v.trim()) || [val.trim()];
-      });
+      })
 
       // Return filter object
       return {
@@ -74,6 +64,7 @@ export const FiltersProvider = ({ children, appliances }) => {
         label: filter.label,
         type: filter.type,
         values: filter.type !== 'date' && uniq(allValues),
+        total: countBy(allValues),
       };
     });
 
