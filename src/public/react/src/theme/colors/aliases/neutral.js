@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { grey, black, white } from '@/theme/colors/variables'
+import { grey, black, white } from "@/theme/colors/variables"
 
 export const neutral = {
   100: grey[100],

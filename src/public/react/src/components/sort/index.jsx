@@ -1,3 +1,6 @@
+// React imports
+import { useState } from "react"
+
 // MUI components
 import {
   ToggleButtonGroup,
@@ -6,79 +9,69 @@ import {
   FormControl,
   Select,
   Stack,
-} from '@mui/material'
+  Typography,
+  InputAdornment,
+  OutlinedInput,
+} from "@mui/material"
 
-import { useAppliances } from "@/context/appliances/AppliancesContext";
-import Typography from "@mui/material/Typography";
-
-import { useState } from 'react'
-
-// MUI components
-import { InputAdornment, OutlinedInput } from "@mui/material";
+// Appliances context
+import { useAppliances } from "@/context/appliances/AppliancesContext"
 
 // Component styles
-import { useTheme } from '@mui/material/styles';
-import styles from '@/components/sort/styles'
-import clsx from 'clsx'
+import { useTheme } from "@mui/material/styles"
+import styles from "@/components/sort/styles"
+import clsx from "clsx"
 
 // Icons
-import { 
-  Sort as SortIcon, 
-  NavArrowDown,
-  SortUp,
-  SortDown,
-} from "iconoir-react";
+import { Sort as SortIcon, NavArrowDown, SortUp, SortDown } from "iconoir-react"
 
 // Utilities
-import { useSnackbar } from "@/context/snackbar/SnackbarContext";
+import { useSnackbar } from "@/context/snackbar/SnackbarContext"
 
 /**
  * Component to display a component to sort the appliances. The component is created with a select, to select a category, and the order button, asc or desc.
  * @returns {JSX.Element} The rendered Sort component.
  */
 const Sort = () => {
-
   // Hook to display message
-  const { showMessage } = useSnackbar();
+  const { showMessage } = useSnackbar()
 
   // Get styles for the component
-  const theme = useTheme();
+  const theme = useTheme()
   const sortStyles = styles(theme)
 
   // Values to order by
-  const orderValues = ["Name", "Hypervisor", "OS Systems"];
+  const orderValues = ["Name", "Hypervisor", "OS Systems"]
 
   // Function to update sort by in appliances
-  const { setSorting } = useAppliances();
+  const { setSorting } = useAppliances()
 
   // Selected category to sort by
-  const [activeCategory, setActiveCategory] = useState("");
+  const [activeCategory, setActiveCategory] = useState("")
 
   // Function to sort appliances by category
   const handleSort = (event) => {
-    const selected = event.target.value;
-    setActiveCategory(selected);
-    setSorting(selected.toLowerCase(), sortOrder);
-  };
+    const selected = event.target.value
+    setActiveCategory(selected)
+    setSorting(selected.toLowerCase(), sortOrder)
+  }
 
   // Set order to sory by
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("asc")
 
   // Change order to sort by between asc and desc
   const handleSortOrder = (_, sortOrder) => {
-
     // Show warning message
     if (!activeCategory) {
-      showMessage('To order, select first a Sort by category');
+      showMessage("To order, select first a Sort by category")
     }
 
-
     // Set order
-    setSortOrder(sortOrder);
+    setSortOrder(sortOrder)
 
     // Call hook to sort
-    setSorting(activeCategory.toLowerCase(), sortOrder);
-  };
+    setSorting(activeCategory.toLowerCase(), sortOrder)
+  }
 
   // Use Nav Arrow Down instead the default one
   const CustomArrowIcon = (props) => (
@@ -92,12 +85,10 @@ const Sort = () => {
         pointerEvents: "none",
       }}
     />
-  );
+  )
 
   return (
-
-    <Stack direction="row" sx={{gap: '8px'}}>
-
+    <Stack direction="row" sx={{ gap: "8px" }}>
       <FormControl fullWidth>
         <Select
           value={activeCategory}
@@ -115,9 +106,13 @@ const Sort = () => {
           IconComponent={CustomArrowIcon}
           renderValue={(selected) => {
             if (!selected) {
-              return <Typography className={sortStyles.placeholderText} >Sort by</Typography>;
+              return (
+                <Typography className={sortStyles.placeholderText}>
+                  Sort by
+                </Typography>
+              )
             }
-            return selected.charAt(0).toUpperCase() + selected.slice(1);
+            return selected.charAt(0).toUpperCase() + selected.slice(1)
           }}
         >
           {orderValues.map((value) => (
@@ -128,29 +123,38 @@ const Sort = () => {
         </Select>
       </FormControl>
 
-      <ToggleButtonGroup            
+      <ToggleButtonGroup
         value={sortOrder}
         exclusive
-        onChange={handleSortOrder}          
+        onChange={handleSortOrder}
         className={sortStyles.switchToggleGroup}
       >
-        <ToggleButton value="asc" aria-label="asc" className={clsx(sortStyles.switchToggleButton, sortStyles.switchToggleButtonFirst)}>
+        <ToggleButton
+          value="asc"
+          aria-label="asc"
+          className={clsx(
+            sortStyles.switchToggleButton,
+            sortStyles.switchToggleButtonFirst,
+          )}
+        >
           <Stack direction="row" spacing={1} alignItems="center">
             <SortUp />
             <Typography>Ascending</Typography>
-          </Stack>                  
+          </Stack>
         </ToggleButton>
-        <ToggleButton value="desc" aria-label="desc" className={sortStyles.switchToggleButton}>
+        <ToggleButton
+          value="desc"
+          aria-label="desc"
+          className={sortStyles.switchToggleButton}
+        >
           <Stack direction="row" spacing={1} alignItems="center">
             <SortDown />
             <Typography>Descending</Typography>
-          </Stack>                    
+          </Stack>
         </ToggleButton>
       </ToggleButtonGroup>
+    </Stack>
+  )
+}
 
-      </Stack>
-
-  );
-};
-
-export default Sort;
+export default Sort

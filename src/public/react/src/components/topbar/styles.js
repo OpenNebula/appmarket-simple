@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { css } from '@emotion/css'
+import { css } from "@emotion/css"
 
 // Import not colors variables
-import { fontSize, lineHeight } from '@/theme/responsive'
-import { scale } from '@/theme/brand'
+import { fontSize, lineHeight } from "@/theme/responsive"
+import { scale } from "@/theme/brand"
 
-import { light } from '@/theme/colors/themes/light'
-import { dark } from '@/theme/colors/themes/dark'
+import { light } from "@/theme/colors/themes/light"
+import { dark } from "@/theme/colors/themes/dark"
 
 /**
  * Define styles for the Topbar component.
@@ -29,29 +29,29 @@ import { dark } from '@/theme/colors/themes/dark'
  * @returns {object} Styles for the component
  */
 const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark
+  const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
     toolbarContainer: css({
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
       padding: `${scale[400]} ${scale[800]} ${scale[400]} ${scale[600]}`,
-      backgroundColor: '#015675',
+      backgroundColor: "#015675",
     }),
     selectMode: css({
-      '& svg': {
-        width: '16px',
-        height: '16px',
+      "& svg": {
+        width: "16px",
+        height: "16px",
       },
-      '& .MuiSelect-select': {
+      "& .MuiSelect-select": {
         color: baseTokens.text.body,
         fontSize: fontSize.body.sm.desktop,
-        fontStyle: 'normal',
+        fontStyle: "normal",
         fontWeight: 500,
         lineHeight: lineHeight.body.sm.desktop,
-        minHeight: '0 !important', // Override minHeight that MUI has by default
-        width: '64px',
+        minHeight: "0 !important", // Override minHeight that MUI has by default
+        width: "64px",
       },
       padding: `${scale[150]} ${scale[200]} ${scale[150]} ${scale[200]} !important`, // Important to override general styles of the app in theme/index.js
     }),

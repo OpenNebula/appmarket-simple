@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { scale } from '@/theme/brand/scale'
-import { type } from '@/theme/brand/type'
+import { scale } from "@/theme/brand/scale"
+import { type } from "@/theme/brand/type"
 
 export { scale, type }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { green } from '@/theme/colors/variables'
+import { green } from "@/theme/colors/variables"
 
 export const success = {
   100: green[100],

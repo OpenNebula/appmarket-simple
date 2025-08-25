@@ -1,8 +1,8 @@
 // React imports
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react"
 
 // Create the context
-export const AppliancesContext = createContext();
+export const AppliancesContext = createContext()
 
 // Use context
-export const useAppliances = () => useContext(AppliancesContext);
+export const useAppliances = () => useContext(AppliancesContext)

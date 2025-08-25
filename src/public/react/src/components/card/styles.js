@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { css } from '@emotion/css'
+import { css } from "@emotion/css"
 
 // Import not colors variables
-import { fontSize, lineHeight, border } from '@/theme/responsive'
-import { scale } from '@/theme/brand'
+import { fontSize, lineHeight, border } from "@/theme/responsive"
+import { scale } from "@/theme/brand"
 
 // Import colors
-import { light } from '@/theme/colors/themes/light'
-import { dark } from '@/theme/colors/themes/dark'
+import { light } from "@/theme/colors/themes/light"
+import { dark } from "@/theme/colors/themes/dark"
 
 /**
  * Define styles for the Card component.
@@ -30,15 +30,15 @@ import { dark } from '@/theme/colors/themes/dark'
  * @returns {object} Styles for the component
  */
 const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark
+  const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
     imageContainer: css({
-      width: '80px',
-      height: '80px',
-      objectFit: 'contain',
-      display: 'block',
-      borderRadius: '8px',
+      width: "80px",
+      height: "80px",
+      objectFit: "contain",
+      display: "block",
+      borderRadius: "8px",
       border: `1px solid ${baseTokens.border.primary}`,
     }),
     textContainer: css({
@@ -47,73 +47,73 @@ const styles = (theme) => {
     titleApp: css({
       color: baseTokens.text.headings,
       fontSize: fontSize.body.lg.desktop,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 600,
       lineHeight: lineHeight.body.lg,
     }),
     descriptionApp: css({
       color: baseTokens.text.body,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 400,
       lineHeight: lineHeight.body.sm,
     }),
     attributesTitle: css({
       color: baseTokens.text.body,
-      textAlign: 'center',
+      textAlign: "center",
       fontSize: fontSize.body.caption.desktop,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 500,
       lineHeight: lineHeight.body.caption.desktop,
     }),
     attributesValue: css({
       color: baseTokens.text.headings,
-      textAlign: 'center',
+      textAlign: "center",
       fontSize: fontSize.body.md.desktop,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 500,
       lineHeight: lineHeight.body.md.desktop,
     }),
     menuIcon: css({
       color: baseTokens.icon.primary,
-      marginTop: '-15px',
-      '& svg': {
-        width: '24px',
-        height: '24px',
+      marginTop: "-15px",
+      "& svg": {
+        width: "24px",
+        height: "24px",
       },
     }),
     menuOption: css({
-      display: 'flex',
+      display: "flex",
       gap: scale[200],
     }),
     menuOptionText: css({
       color: baseTokens.text.body,
       fontSize: fontSize.body.sm.desktop,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 500,
       lineHeight: lineHeight.body.sm.desktop,
     }),
     dialogTitle: css({
-      borderRadius: border.radius['3xl'],
+      borderRadius: border.radius["3xl"],
       borderTop: border.width.sm,
       borderRight: `${border.width.sm} solid ${baseTokens.border.primary}`,
       borderBottom: `${border.width.none} solid ${baseTokens.border.primary}`,
       borderLeft: `${border.width.sm} solid ${baseTokens.border.primary}`,
       background: baseTokens.surface.primary,
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-end",
       padding: `${scale[100]} !important`,
     }),
     dialogContent: css({
-      borderRadius: `${border.radius.none} ${border.radius.none} ${border.radius['3xl']} ${border.radius['3xl']}`,
+      borderRadius: `${border.radius.none} ${border.radius.none} ${border.radius["3xl"]} ${border.radius["3xl"]}`,
       border: `${border.width.sm} solid ${baseTokens.border.primary}`,
       padding: `18px !important`,
     }),
     dialogIcon: css({
       padding: `${scale[150]} !important`,
-      '& svg': {
-        height: '16px',
-        width: '16px',
+      "& svg": {
+        height: "16px",
+        width: "16px",
       },
     }),
   }

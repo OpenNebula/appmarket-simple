@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { border } from '@/theme/colors/themes/light/border'
-import { icon } from '@/theme/colors/themes/light/icon'
-import { surface } from '@/theme/colors/themes/light/surface'
-import { text } from '@/theme/colors/themes/light/text'
+import { border } from "@/theme/colors/themes/light/border"
+import { icon } from "@/theme/colors/themes/light/icon"
+import { surface } from "@/theme/colors/themes/light/surface"
+import { text } from "@/theme/colors/themes/light/text"
 
 export const light = {
   border,

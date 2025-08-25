@@ -6,28 +6,26 @@ import {
   Drawer,
   Stack,
   IconButton,
-} from '@mui/material'
-
+} from "@mui/material"
 
 // Marketplace components
-import Toolbar from '@/components/toolbar'
-import Table from '@/components/table'
-import FilterPanel from '@/components/filter/panel'
-import FilterTags from '@/components/filter/tags'
+import Toolbar from "@/components/toolbar"
+import Table from "@/components/table"
+import FilterPanel from "@/components/filter/panel"
+import FilterTags from "@/components/filter/tags"
 
 // Component styles
-import { useTheme } from '@mui/material/styles'
-import styles from '@/layout/dashboard/styles'
+import { useTheme } from "@mui/material/styles"
+import styles from "@/layout/dashboard/styles"
 
 // Context imports
-import { useAppliances } from '@/context/appliances/AppliancesContext'
-import { useDrawer } from '@/context/drawer/DrawerContext'
+import { useAppliances } from "@/context/appliances/AppliancesContext"
+import { useDrawer } from "@/context/drawer/DrawerContext"
 
 // Icons
-import { Xmark as CloseIcon } from 'iconoir-react'
+import { Xmark as CloseIcon } from "iconoir-react"
 
 const Dashboard = () => {
-
   // Get styles for the component
   const theme = useTheme()
   const marketplaceStyles = styles(theme)
@@ -40,53 +38,43 @@ const Dashboard = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-
-      {/* Render the main layout component */}      
+      {/* Render the main layout component */}
       <Stack direction="column" className={marketplaceStyles.container}>
-        
         <Box className={marketplaceStyles.title}>
-          <Typography variant='h3'>Appliances</Typography>        
+          <Typography variant="h3">Appliances</Typography>
         </Box>
 
         <Stack direction="column" className={marketplaceStyles.toolbar}>
-          <Toolbar/>
-          <FilterTags/>
+          <Toolbar />
+          <FilterTags />
         </Stack>
 
         <Box>
-          {
-            appliances === null ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "80vh",
-                }}
-              >
-                <CircularProgress />
-              </Box>
-            ) : (
-              <Table appliances={appliances} />
-            ) 
-          }
-        </Box>      
-
+          {appliances === null ? (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "80vh",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Table appliances={appliances} />
+          )}
+        </Box>
       </Stack>
 
       {/* Drawer Component */}
-      <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={closeDrawer}
-      >
-
+      <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer}>
         <Box
           sx={{
             width: 350,
             p: 2,
             position: "relative", // needed for absolute positioning of the close button
-            height: '100%',
+            height: "100%",
           }}
           role="presentation"
           onClick={(e) => e.stopPropagation()}
@@ -103,9 +91,7 @@ const Dashboard = () => {
           {/* Your filter content */}
           <FilterPanel />
         </Box>
-
       </Drawer>
-
     </Box>
   )
 }

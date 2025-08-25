@@ -1,40 +1,36 @@
 // React
-import { Outlet } from "react-router";
-import { useState, useMemo } from "react";
+import { Outlet } from "react-router"
+import { useState, useMemo } from "react"
 
 // Material
-import { ThemeProvider } from "@mui/material/styles";
-import { createTheme } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles"
+import { CssBaseline } from "@mui/material"
 
 // Marketplace components
-import TopBar from "@/components/topbar";
+import TopBar from "@/components/topbar"
 
 // Styles
-import "./App.css";
-import { theme } from '@/theme'
+import "./App.css"
+import { theme } from "@/theme"
 
 // Marketplace providers
-import { Providers } from "@/context/Providers";
+import { Providers } from "@/context/Providers"
 
 /**
  * Return the App component.
  * @returns {JSX.Element} The rendered App component.
  */
 function App() {
-
   // Define state for mode
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("light")
 
   // Create them using mode
-  const marketplaceTheme = useMemo(() => createTheme(theme(mode)), [mode]);
+  const marketplaceTheme = useMemo(() => createTheme(theme(mode)), [mode])
 
   // Return App component
   return (
-
     <Providers>
       <ThemeProvider theme={marketplaceTheme}>
-
         {/* Css Baseline component to unify browser styles */}
         <CssBaseline />
 
@@ -43,10 +39,9 @@ function App() {
 
         {/* React router */}
         <Outlet></Outlet>
-
       </ThemeProvider>
     </Providers>
-  );
+  )
 }
 
-export default App;
+export default App

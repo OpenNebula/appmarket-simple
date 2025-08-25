@@ -1,8 +1,8 @@
 // React imports
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react"
 
 // Create the context
-export const SnackbarContext = createContext();
+export const SnackbarContext = createContext()
 
 /**
  * Custom hook for accessing the global snackbar context.
@@ -21,9 +21,9 @@ export const SnackbarContext = createContext();
  * includes methods such as `showSnackbar(message: string, options?: SnackbarOptions)`.
  */
 export const useSnackbar = () => {
-  const context = useContext(SnackbarContext);
+  const context = useContext(SnackbarContext)
   if (!context) {
-    throw new Error("useSnackbar must be used within a SnackbarProvider");
+    throw new Error("useSnackbar must be used within a SnackbarProvider")
   }
-  return context;
-};
+  return context
+}

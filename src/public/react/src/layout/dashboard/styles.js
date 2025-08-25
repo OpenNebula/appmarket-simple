@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { css } from '@emotion/css'
+import { css } from "@emotion/css"
 
 /**
  * Define styles for the Main component.
@@ -22,24 +22,24 @@ import { css } from '@emotion/css'
  */
 const styles = () => ({
   container: css({
-    marginLeft: '44px',
-    marginRight: '44px',
+    marginLeft: "44px",
+    marginRight: "44px",
   }),
   title: css({
-    marginTop: '28px',
-    marginBottom: '28px',
+    marginTop: "28px",
+    marginBottom: "28px",
   }),
   toolbar: css({
-    marginBottom: '20px',
-    gap: '15px',
+    marginBottom: "20px",
+    gap: "15px",
   }),
   closePanel: css({
-    position: 'absolute',
+    position: "absolute",
     top: 8,
     right: 8,
-    '& svg': {
-      height: '16px',
-      width: '16px',
+    "& svg": {
+      height: "16px",
+      width: "16px",
     },
   }),
 })

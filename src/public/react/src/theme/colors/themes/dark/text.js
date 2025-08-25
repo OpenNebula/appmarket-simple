@@ -20,7 +20,7 @@ import {
   primary,
   success,
   warning,
-} from '@/theme/colors/aliases'
+} from "@/theme/colors/aliases"
 
 export const text = {
   headings: neutral[100],

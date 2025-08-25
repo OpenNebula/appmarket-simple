@@ -1,43 +1,42 @@
 // React imports
-import { useState } from "react";
+import { useState } from "react"
 
 // MUI components
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material"
 
 // Icons
-import { Search as SearchIcon } from "iconoir-react";
+import { Search as SearchIcon } from "iconoir-react"
 
 // Appliances context
-import { useAppliances } from "@/context/appliances/AppliancesContext";
+import { useAppliances } from "@/context/appliances/AppliancesContext"
 
 /**
  * Component to display the search bar and perform search by name in the appliances.
  * @returns {JSX.Element} The rendered Search component.
  */
 export default function Search() {
-
   // Get setFilter function
-  const { setFilter } = useAppliances();
+  const { setFilter } = useAppliances()
 
   // Define variable to store query
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("")
 
   /**
    * Set filter when update query
-   * @param e 
+   * @param e
    */
   const handleChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-    setFilter("name", value);
-  };
+    const value = e.target.value
+    setQuery(value)
+    setFilter("name", value)
+  }
 
   return (
     <TextField
       value={query}
       onChange={handleChange}
-      fullWidth    
-      placeholder="Search appliance by name"      
+      fullWidth
+      placeholder="Search appliance by name"
       slotProps={{
         input: {
           startAdornment: (
@@ -49,5 +48,5 @@ export default function Search() {
       }}
       variant="outlined"
     />
-  );
+  )
 }

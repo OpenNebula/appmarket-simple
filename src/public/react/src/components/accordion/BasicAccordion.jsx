@@ -1,14 +1,10 @@
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
+import Accordion from "@mui/material/Accordion"
+import AccordionSummary from "@mui/material/AccordionSummary"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import Typography from "@mui/material/Typography"
 // import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-const BasicAccordion = ({
-  name,
-  defaultExpanded,
-  children,
-}) => {
+const BasicAccordion = ({ name, defaultExpanded, children }) => {
   return (
     <Accordion
       disableGutters
@@ -27,7 +23,7 @@ const BasicAccordion = ({
       </AccordionSummary>
       <AccordionDetails sx={{ pl: 0, pt: 0 }}>{children}</AccordionDetails>
     </Accordion>
-  );
-};
+  )
+}
 
-export default BasicAccordion;
+export default BasicAccordion

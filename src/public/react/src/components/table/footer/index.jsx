@@ -2,22 +2,26 @@
 import { Stack, IconButton, Typography, Select, MenuItem } from "@mui/material"
 
 // Icons
-import { NavArrowLeft, NavArrowRight, NavArrowDown } from 'iconoir-react'
+import { NavArrowLeft, NavArrowRight, NavArrowDown } from "iconoir-react"
 
 // Card styles
-import styles from '@/components/table/footer/styles'
-import { useTheme } from '@mui/material/styles';
-
+import styles from "@/components/table/footer/styles"
+import { useTheme } from "@mui/material/styles"
 
 /**
  * Render the footer table.
  * @param {Array} - List of appliances.
  * @returns {JSX.Element} The rendered TableList component.
  */
-const TableFooter = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
-
+const TableFooter = ({
+  count,
+  page,
+  rowsPerPage,
+  onPageChange,
+  onRowsPerPageChange,
+}) => {
   // Get styles for the component
-  const theme = useTheme();
+  const theme = useTheme()
   const footerStyles = styles(theme)
 
   // Calculate total of pages
@@ -48,23 +52,36 @@ const TableFooter = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChan
   )
 
   return (
-    <Stack direction="row" justifyContent="center" alignItems="center" className={footerStyles.footerContainer}>
-    
+    <Stack
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      className={footerStyles.footerContainer}
+    >
       <Stack direction="row" alignItems="center">
-
-        <IconButton onClick={handleBack} disabled={page === 0} className={footerStyles.footerIcons}>
+        <IconButton
+          onClick={handleBack}
+          disabled={page === 0}
+          className={footerStyles.footerIcons}
+        >
           <NavArrowLeft />
         </IconButton>
-        <Typography className={footerStyles.pagesText}>{`${page + 1} of ${totalPages} pages`}</Typography>
-        <IconButton onClick={handleNext} disabled={page >= totalPages - 1} className={footerStyles.footerIcons}>
+        <Typography
+          className={footerStyles.pagesText}
+        >{`${page + 1} of ${totalPages} pages`}</Typography>
+        <IconButton
+          onClick={handleNext}
+          disabled={page >= totalPages - 1}
+          className={footerStyles.footerIcons}
+        >
           <NavArrowRight />
         </IconButton>
-        
       </Stack>
 
-      <Stack direction="row" alignItems="center" sx={{ gap: '8px' }}>
-        
-        <Typography className={footerStyles.resultsText}>Results per page</Typography>
+      <Stack direction="row" alignItems="center" sx={{ gap: "8px" }}>
+        <Typography className={footerStyles.resultsText}>
+          Results per page
+        </Typography>
         <Select
           value={rowsPerPage}
           onChange={(e) => onRowsPerPageChange(Number(e.target.value))}
@@ -73,12 +90,12 @@ const TableFooter = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChan
           className={footerStyles.sizePageText}
         >
           {[5, 10, 25, 50].map((num) => (
-            <MenuItem key={num} value={num}>{num}</MenuItem>
+            <MenuItem key={num} value={num}>
+              {num}
+            </MenuItem>
           ))}
         </Select>
-        
       </Stack>
-
     </Stack>
   )
 }

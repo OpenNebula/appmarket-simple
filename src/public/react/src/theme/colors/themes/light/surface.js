@@ -20,7 +20,7 @@ import {
   primary,
   warning,
   success,
-} from '@/theme/colors/aliases'
+} from "@/theme/colors/aliases"
 
 export const surface = {
   page: neutral.white,

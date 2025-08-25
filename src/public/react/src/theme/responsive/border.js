@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { scale } from '@/theme/brand'
+import { scale } from "@/theme/brand"
 
 const width = {
   none: scale[0],
@@ -29,10 +29,10 @@ const radius = {
   md: scale[50],
   lg: scale[100],
   xlg: scale[150],
-  '2xl': scale[200],
-  '3xl': scale[400],
-  '4xl': scale[500],
-  '5xl': scale[600],
+  "2xl": scale[200],
+  "3xl": scale[400],
+  "4xl": scale[500],
+  "5xl": scale[600],
   round: scale[1500],
 }
 

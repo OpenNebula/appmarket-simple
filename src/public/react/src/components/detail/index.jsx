@@ -2,21 +2,29 @@
 import { useMemo } from "react"
 
 // MUI components
-import { Box, Typography, Stack, Button } from "@mui/material"
+import {
+  Stack,
+  Typography,
+  Box,
+  Button,
+} from "@mui/material"
 
 // Card styles
-import styles from "@/components/card/detail/styles"
 import { useTheme } from "@mui/material/styles"
+import { split } from "lodash"
+import styles from "@/components/detail/styles"
 
 // Marketplace components
 import Tags from "@/components/tags"
 
 // Import icons
-import { Download as DownloadIcon, Copy as CopyIcon } from "iconoir-react"
+import {
+  Xmark as CopyIcon,
+  Download as DownloadIcon,
+} from "iconoir-react"
 
 // Utilities
-import Markdown from "react-markdown"
-import { split } from "lodash"
+import Markdown from 'react-markdown'
 
 /**
  * Render the appliance details.
@@ -68,13 +76,13 @@ const ApplianceDetails = ({
               </Typography>
               <Markdown
                 components={{
-                  p: ({ _node, ...props }) => (
+                  p: ({ _, ...props }) => (
                     <Typography
                       className={detailsStyles.applianceDescription}
                       {...props}
                     />
                   ),
-                  a: ({ _node, ...props }) => (
+                  a: ({ _, ...props }) => (
                     <a className={detailsStyles.applianceRef} {...props} />
                   ),
                 }}

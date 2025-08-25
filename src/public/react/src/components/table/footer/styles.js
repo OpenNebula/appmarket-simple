@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { css } from '@emotion/css'
+import { css } from "@emotion/css"
 
 // Import not colors variables
-import { fontSize, lineHeight } from '@/theme/responsive'
-import { scale } from '@/theme/brand'
+import { fontSize, lineHeight } from "@/theme/responsive"
+import { scale } from "@/theme/brand"
 
-import { light } from '@/theme/colors/themes/light'
-import { dark } from '@/theme/colors/themes/dark'
+import { light } from "@/theme/colors/themes/light"
+import { dark } from "@/theme/colors/themes/dark"
 
 /**
  * Define styles for the Footer component.
@@ -29,7 +29,7 @@ import { dark } from '@/theme/colors/themes/dark'
  * @returns {object} Styles for the component
  */
 const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark
+  const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
     footerContainer: css({
@@ -39,31 +39,31 @@ const styles = (theme) => {
       flexGrow: 1,
     }),
     footerIcons: css({
-      '& svg': {
-        width: '24px',
-        height: '24px',
+      "& svg": {
+        width: "24px",
+        height: "24px",
       },
     }),
     pagesText: css({
       color: baseTokens.text.body,
       fontSize: fontSize.body.md.desktop,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 400,
       lineHeight: lineHeight.body.md,
     }),
     resultsText: css({
       color: baseTokens.text.action,
-      textAlign: 'center',
+      textAlign: "center",
       fontSize: fontSize.body.sm.desktop,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 500,
       lineHeight: lineHeight.body.sm,
     }),
     sizePageText: css({
-      '& .MuiSelect-select': {
+      "& .MuiSelect-select": {
         color: baseTokens.text.disabled,
         fontSize: fontSize.body.md.desktop,
-        fontStyle: 'normal',
+        fontStyle: "normal",
         fontWeight: 400,
         lineHeight: lineHeight.body.md,
       },

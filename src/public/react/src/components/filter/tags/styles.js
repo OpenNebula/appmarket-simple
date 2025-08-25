@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { css } from '@emotion/css'
+import { css } from "@emotion/css"
 
 // Import not colors variables
-import { light } from '@/theme/colors/themes/light'
-import { dark } from '@/theme/colors/themes/dark'
+import { light } from "@/theme/colors/themes/light"
+import { dark } from "@/theme/colors/themes/dark"
 
 /**
  * Define styles for the Tags component.
@@ -26,11 +26,11 @@ import { dark } from '@/theme/colors/themes/dark'
  * @returns {object} Styles for the component
  */
 const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark
+  const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
     filterTag: css({
-      '& .MuiChip-deleteIcon': {
+      "& .MuiChip-deleteIcon": {
         color: `${baseTokens.icon.onAction} !important`,
       },
     }),

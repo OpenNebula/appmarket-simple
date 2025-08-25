@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { fontSize } from '@/theme/responsive/fontSize'
-import { paragraphSpacing } from '@/theme/responsive/paragraphSpacing'
-import { lineHeight } from '@/theme/responsive/lineHeight'
-import { breakpoints } from '@/theme/responsive/breakpoints'
-import { border } from '@/theme/responsive/border'
+import { fontSize } from "@/theme/responsive/fontSize"
+import { paragraphSpacing } from "@/theme/responsive/paragraphSpacing"
+import { lineHeight } from "@/theme/responsive/lineHeight"
+import { breakpoints } from "@/theme/responsive/breakpoints"
+import { border } from "@/theme/responsive/border"
 
 export { fontSize, paragraphSpacing, lineHeight, breakpoints, border }

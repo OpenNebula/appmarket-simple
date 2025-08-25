@@ -1,14 +1,14 @@
 // React imports
-import { useState, useCallback } from "react";
+import { useState, useCallback } from "react"
 
 // MUI components
-import { Snackbar, IconButton } from "@mui/material";
+import { Snackbar, IconButton } from "@mui/material"
 
 // Import context
-import { SnackbarContext } from '@/context/snackbar/SnackbarContext';
+import { SnackbarContext } from "@/context/snackbar/SnackbarContext"
 
 // Icons
-import { Xmark } from "iconoir-react";
+import { Xmark } from "iconoir-react"
 
 /**
  * Provides a global snackbar notification system for the application.
@@ -26,24 +26,23 @@ import { Xmark } from "iconoir-react";
  * @returns {JSX.Element} The provider component that wraps its children with snackbar capabilities.
  */
 export const SnackbarProvider = ({ children }) => {
-
   // State for open the snackbar
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   // Message to show
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("")
 
   // Action to show a message
   const showMessage = useCallback((msg) => {
-    setMessage(msg);
-    setOpen(true);
-  }, []);
+    setMessage(msg)
+    setOpen(true)
+  }, [])
 
   // Action to close snackbar
   const handleClose = (_, reason) => {
-    if (reason === "clickaway") return;
-    setOpen(false);
-  };
+    if (reason === "clickaway") return
+    setOpen(false)
+  }
 
   return (
     <SnackbarContext.Provider value={{ showMessage }}>
@@ -55,11 +54,16 @@ export const SnackbarProvider = ({ children }) => {
         onClose={() => setOpen(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         action={
-          <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
             <Xmark />
           </IconButton>
         }
       />
     </SnackbarContext.Provider>
-  );
-};
+  )
+}

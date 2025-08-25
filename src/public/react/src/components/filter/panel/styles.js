@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { css } from '@emotion/css'
+import { css } from "@emotion/css"
 
 // Import not colors variables
-import { fontSize, lineHeight } from '@/theme/responsive'
-import { scale } from '@/theme/brand'
+import { fontSize, lineHeight } from "@/theme/responsive"
+import { scale } from "@/theme/brand"
 
-import { light } from '@/theme/colors/themes/light'
-import { dark } from '@/theme/colors/themes/dark'
+import { light } from "@/theme/colors/themes/light"
+import { dark } from "@/theme/colors/themes/dark"
 
 /**
  * Define styles for the Panel component.
@@ -29,35 +29,35 @@ import { dark } from '@/theme/colors/themes/dark'
  * @returns {object} Styles for the component
  */
 const styles = (theme) => {
-  const baseTokens = theme.palette.mode === 'light' ? light : dark
+  const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
     panelContainer: css({
-      height: '100%',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      height: "100%",
+      justifyContent: "space-between",
+      alignItems: "center",
       padding: scale[600],
     }),
     filtersContainer: css({
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
       gap: scale[200],
-      alignSelf: 'flex-start',
-      width: '100%',
+      alignSelf: "flex-start",
+      width: "100%",
     }),
     filterButton: css({
-      width: '100% !important', // We need important because button styles are defined in theme/index.js
+      width: "100% !important", // We need important because button styles are defined in theme/index.js
     }),
     filterContainer: css({
       gap: scale[100],
-      width: '100%',
+      width: "100%",
     }),
     placeholderText: css({
       color: baseTokens.text.disabled,
-      textOverflow: 'ellipsis',
-      overflow: 'hidden',
+      textOverflow: "ellipsis",
+      overflow: "hidden",
       fontSize: fontSize.body.md.desktop,
-      fontStyle: 'normal',
+      fontStyle: "normal",
       fontWeight: 400,
       lineHeight: lineHeight.body.md.desktop,
     }),

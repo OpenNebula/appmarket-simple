@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { red } from '@/theme/colors/variables'
+import { red } from "@/theme/colors/variables"
 
 export const error = {
   100: red[100],

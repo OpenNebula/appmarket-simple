@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
-import { blue } from '@/theme/colors/variables'
+import { blue } from "@/theme/colors/variables"
 
 export const information = {
   100: blue[100],

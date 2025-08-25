@@ -21,11 +21,11 @@
  */
 const parseToOpenNebulaFormat = (template) => {
   const parseValue = (value) => {
-    if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+    if (typeof value === "object" && !Array.isArray(value) && value !== null) {
       return `[
       ${Object.entries(value)
         .map(([k, v]) => `${k}="${v}"`)
-        .join(',\n  ')}
+        .join(",\n  ")}
     ]`
     }
 
@@ -34,9 +34,9 @@ const parseToOpenNebulaFormat = (template) => {
 
   const result = Object.entries(template)
     .map(([key, value]) => `${key}=${parseValue(value)}`)
-    .join('\n')
+    .join("\n")
 
-  return result.replace(/""/g, '')
+  return result.replace(/""/g, "")
 }
 
 export { parseToOpenNebulaFormat }

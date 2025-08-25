@@ -1,8 +1,8 @@
 // React imports
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react"
 
 // Create the context
-export const FiltersContext = createContext();
+export const FiltersContext = createContext()
 
 // Use context
-export const useFilters = () => useContext(FiltersContext);
+export const useFilters = () => useContext(FiltersContext)

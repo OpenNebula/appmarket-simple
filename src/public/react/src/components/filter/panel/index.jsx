@@ -1,25 +1,24 @@
 // React imports
-import { useState } from 'react'
+import { useState } from "react"
 
 // MUI imports
 import { Stack, Button, Select, MenuItem, Typography } from "@mui/material"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 
 // Import contexts
 import { useFilters } from "@/context/filters/FiltersContext"
 import { useAppliances } from "@/context/appliances/AppliancesContext"
 
 // Filter panel styles
-import styles from '@/components/filter/panel/styles'
-import { useTheme } from '@mui/material/styles'
+import styles from "@/components/filter/panel/styles"
+import { useTheme } from "@mui/material/styles"
 
 // Icons
-import { FilterList as FilterIcon, NavArrowDown } from 'iconoir-react'
+import { FilterList as FilterIcon, NavArrowDown } from "iconoir-react"
 
 const FilterPanel = () => {
-  
   // Get styles for the component
   const theme = useTheme()
   const panelStyles = styles(theme)
@@ -44,7 +43,6 @@ const FilterPanel = () => {
   // Apply button commits tempSelections to context
   const applyFilters = () => {
     Object.entries(tempSelections).forEach(([key, values]) => {
-
       // Store the selected value
       setFilterValue(key, values)
 
@@ -85,14 +83,12 @@ const FilterPanel = () => {
    * @returns {JSX.Element} The rendered filter component.
    */
   const renderFilterInput = (filter) => {
-
     switch (filter?.type) {
-      
-      case "select": 
+      case "select":
         return (
           <>
             <Typography variant="h6">{filter?.label}</Typography>
-            <Select                    
+            <Select
               multiple
               displayEmpty
               value={tempSelections[filter.key] || []}
@@ -100,21 +96,30 @@ const FilterPanel = () => {
               IconComponent={CustomArrowIcon}
               renderValue={(selected) => {
                 if (!selected || selected.length === 0) {
-                  return <Typography className={panelStyles.placeholderText}>Select a value</Typography>
+                  return (
+                    <Typography className={panelStyles.placeholderText}>
+                      Select a value
+                    </Typography>
+                  )
                 }
                 return selected.join(", ")
               }}
             >
               {filter?.values.map((value) => (
-                <MenuItem key={value} value={value}>{value}</MenuItem>
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
               ))}
             </Select>
           </>
-      )
+        )
 
-      case 'date': {
-        const currentRange = tempSelections[filter.key] || { start: null, end: null }
-        
+      case "date": {
+        const currentRange = tempSelections[filter.key] || {
+          start: null,
+          end: null,
+        }
+
         return (
           <>
             <Typography variant="h6">{`Start ${filter?.label}`}</Typography>
@@ -140,35 +145,41 @@ const FilterPanel = () => {
               }
               format="DD/MM/YYYY"
             />
-          </>          
+          </>
         )
       }
     }
   }
 
   return (
-    
-    <Stack direction="column" className={panelStyles.panelContainer} >
-
+    <Stack direction="column" className={panelStyles.panelContainer}>
       <Stack direction="column" className={panelStyles.filtersContainer}>
-        <Typography variant="h4" className={panelStyles.titleText}>Filters</Typography>
-        {
-          filters?.map((filter) => {
-            return (
-              <Stack key={`stack-${filter.key}`} direction="column" className={panelStyles.filterContainer}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  {renderFilterInput(filter)}
-                </LocalizationProvider>
-              </Stack>
-            )
-          })
-        }
+        <Typography variant="h4" className={panelStyles.titleText}>
+          Filters
+        </Typography>
+        {filters?.map((filter) => {
+          return (
+            <Stack
+              key={`stack-${filter.key}`}
+              direction="column"
+              className={panelStyles.filterContainer}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                {renderFilterInput(filter)}
+              </LocalizationProvider>
+            </Stack>
+          )
+        })}
       </Stack>
 
-      <Button variant="contained" startIcon={<FilterIcon />} className={panelStyles.filterButton} onClick={applyFilters}>
+      <Button
+        variant="contained"
+        startIcon={<FilterIcon />}
+        className={panelStyles.filterButton}
+        onClick={applyFilters}
+      >
         Apply Filters
       </Button>
-
     </Stack>
   )
 }

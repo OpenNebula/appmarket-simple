@@ -1,29 +1,29 @@
 // Material
-import {
-  Grid,
-} from "@mui/material";
+import { Grid } from "@mui/material"
 
 // Marketpace components
-import Search from "@/components/search";
-import Sort from "@/components/sort";
+import Search from "@/components/search"
+import Sort from "@/components/sort"
 import Filter from "@/components/filter/action"
+
+// Appliances context
+import { useAppliances } from "@/context/appliances/AppliancesContext"
 
 /**
  * Component to display the toolbar in the main layout. The toolbar will contain search, sort and filter buttons.
  * @returns {JSX.Element} The rendered Toolbar component.
  */
 const Toolbar = () => {
+  // Get setFilter function: This function will apply the current selected filter to the list of appliances.
+  const { setFilter } = useAppliances()
+
   return (
     <Grid container spacing={1}>
-      <Grid size={{ xs: 12, md: 5 }} >
-        <Search
-          handler={(
-            e,
-          ) => setSearch(e.target.value)}
-        />
+      <Grid size={{ xs: 12, md: 5 }}>
+        <Search handler={(e) => setFilter("name", e.target.value)} />
       </Grid>
       <Grid size={{ xs: 12, md: 6 }}>
-        <Sort/>
+        <Sort />
       </Grid>
       <Grid size={{ xs: 12, md: 1 }} container justifyContent="flex-end">
         <Filter />
@@ -32,4 +32,4 @@ const Toolbar = () => {
   )
 }
 
-export default Toolbar;
+export default Toolbar

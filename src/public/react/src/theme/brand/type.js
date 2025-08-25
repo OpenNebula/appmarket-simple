@@ -14,15 +14,15 @@
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
 const fontFamily = {
-  primary: 'Inter',
+  primary: "Inter",
 }
 
 const fontWeight = {
-  light: 'light',
-  medium: 'medium',
-  regular: 'regular',
-  semibold: 'semibold',
-  bold: 'bold',
+  light: "light",
+  medium: "medium",
+  regular: "regular",
+  semibold: "semibold",
+  bold: "bold",
 }
 
 export const type = {
