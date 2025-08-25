@@ -4,9 +4,10 @@ import { Chip } from '@mui/material';
 /**
  * Render the tags that fit the width of the container.
  * @param {Array} - List of tags. 
+ * @param {boolean} hideOverflow - Whether to hide overflowing tags (default: true).
  * @returns {JSX.Element} The rendered ApplianceCard component.
  */
-const Tags = ({ tags }) => {
+const Tags = ({ tags, hideOverflow = true }) => {
 
   // Use ref to get the container
   const containerRef = useRef(null);
@@ -16,6 +17,12 @@ const Tags = ({ tags }) => {
 
   // Effect to create a resize observer that change the tags everytime the size changes
   useEffect(() => {
+
+    // If all tags should be visible
+    if (!hideOverflow) {
+      setVisibleCount(tags.length);
+      return;
+    }
 
     // Create the observer
     const observer = new ResizeObserver(() => {

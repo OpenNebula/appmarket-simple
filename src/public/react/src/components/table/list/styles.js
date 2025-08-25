@@ -17,23 +17,57 @@ import { css } from '@emotion/css'
 
 // Import not colors variables
 import { scale } from '@/theme/brand'
+import { border } from '@/theme/responsive'
+
+// Import colors
+import { light } from '@/theme/colors/themes/light'
+import { dark } from '@/theme/colors/themes/dark'
 
 /**
  * Define styles for the List component.
  *
+ * @param {object} theme - Current theme
  * @returns {object} Styles for the component
  */
-const styles = () => ({
-  containerActions: css({
-    gap: scale[200],
-    justifyContent: 'flex-end',
-  }),
-  actionIcon: css({
-    '& svg': {
-      width: '16px',
-      height: '16px',
-    },
-  }),
-})
+const styles = (theme) => {
+  const baseTokens = theme.palette.mode === 'light' ? light : dark
+
+  return {
+    containerActions: css({
+      gap: scale[200],
+      justifyContent: 'flex-end',
+    }),
+    actionIcon: css({
+      '& svg': {
+        width: '16px',
+        height: '16px',
+      },
+    }),
+    dialogTitle: css({
+      borderRadius: border.radius['3xl'],
+      borderTop: border.width.sm,
+      borderRight: `${border.width.sm} solid ${baseTokens.border.primary}`,
+      borderBottom: `${border.width.none} solid ${baseTokens.border.primary}`,
+      borderLeft: `${border.width.sm} solid ${baseTokens.border.primary}`,
+      background: baseTokens.surface.primary,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      padding: `${scale[100]} !important`,
+    }),
+    dialogContent: css({
+      borderRadius: `${border.radius.none} ${border.radius.none} ${border.radius['3xl']} ${border.radius['3xl']}`,
+      border: `${border.width.sm} solid ${baseTokens.border.primary}`,
+      padding: `18px !important`,
+    }),
+    dialogIcon: css({
+      padding: `${scale[150]} !important`,
+      '& svg': {
+        height: '16px',
+        width: '16px',
+      },
+    }),
+  }
+}
 
 export default styles

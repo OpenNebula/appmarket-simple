@@ -1,5 +1,4 @@
 // Import Marketplace context providers
-import { CheckboxProvider } from "@/context/Context";
 import { SnackbarProvider } from "@/context/snackbar/SnackbarProvider";
 import { AppliancesProvider } from "@/context/appliances/AppliancesProvider";
 import { DrawerProvider } from "@/context/drawer/DrawerProvider";
@@ -55,7 +54,6 @@ export const Providers = ({ children }) => {
   }, []);  
 
   return (
-    // <CheckboxProvider>
       <DrawerProvider>
         <SnackbarProvider>
           <AppliancesProvider appliances={appliances}>
@@ -65,7 +63,6 @@ export const Providers = ({ children }) => {
           </AppliancesProvider>
         </SnackbarProvider>
       </DrawerProvider>
-    // </CheckboxProvider>
   );
 };
 

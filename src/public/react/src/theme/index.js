@@ -56,6 +56,13 @@ const theme = (mode) => {
       },
       h5: {
         color: baseTokens.text.headings,
+        fontSize: fontSize.heading.h5.desktop,
+        fontStyle: 'normal',
+        fontWeight: 600,
+        lineHeight: lineHeight.heading.h5.desktop,
+      },
+      h6: {
+        color: baseTokens.text.headings,
         fontSize: fontSize.body.sm.desktop,
         fontStyle: 'normal',
         fontWeight: 500,
@@ -72,6 +79,10 @@ const theme = (mode) => {
             background: baseTokens.surface.primary,
             boxShadow: 'none',
             padding: '24px 24px 12px 24px',
+            cursor: 'pointer',
+            '&.Mui-selected': {
+              border: `1px solid ${baseTokens.border.actionHover}`,
+            },
           },
         },
       },

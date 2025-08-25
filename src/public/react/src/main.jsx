@@ -4,8 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Marketplace
 import App from "@/App";
-import MarketPlace from "@/layout/marketplace/Marketplace";
-import Detail from "@/layout/detail/Detail";
+import Dashboard from "@/layout/dashboard";
 import config from "@config";
 
 // Styles
@@ -18,8 +17,12 @@ createRoot(document.getElementById("app")).render(
   <BrowserRouter>
     <Routes>
       <Route element={<App />}>
-        <Route path="/" element={<MarketPlace />} />
-        <Route path="/appliance/:id" element={<Detail />} />
+        <Route 
+          path="/" 
+          element={
+            <Dashboard />
+          } 
+        />
       </Route>
     </Routes>
   </BrowserRouter>,

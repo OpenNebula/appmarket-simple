@@ -1,12 +1,12 @@
 {
     "logo":"/assets/logo-opennebula.svg",
     "title":"OpenNebula Marketplace",
-    "filters": {
-        "Hypervisors": true,
-        "OpenNebula Versions": true,
-        "Versions": true,
-        "Tags": true,
-        "OS Systems": true,
-        "Date Interval": true
-    }
+    "filters": [
+      { "key": "hypervisor", "type": "select", "label": "Hypervisors" },
+      { "key": "opennebula_version", "type": "select", "label": "OpenNebula Versions" },
+      { "key": "version", "type": "select", "label": "Versions" },
+      { "key": "os-id", "type": "select", "label": "OS" },
+      { "key": "tags", "type": "select", "label": "Tags" },
+      { "key": "creation_time", "type": "date", "label": "Creation Date" }
+    ]
 }

@@ -17,7 +17,7 @@ import FilterTags from '@/components/filter/tags'
 
 // Component styles
 import { useTheme } from '@mui/material/styles'
-import styles from '@/layout/marketplace/main/styles'
+import styles from '@/layout/dashboard/styles'
 
 // Context imports
 import { useAppliances } from '@/context/appliances/AppliancesContext'
@@ -26,7 +26,7 @@ import { useDrawer } from '@/context/drawer/DrawerContext'
 // Icons
 import { Xmark as CloseIcon } from 'iconoir-react'
 
-const Main = () => {
+const Dashboard = () => {
 
   // Get styles for the component
   const theme = useTheme()
@@ -110,4 +110,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Dashboard

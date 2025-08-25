@@ -16,9 +16,10 @@
 import { css } from '@emotion/css'
 
 // Import not colors variables
-import { fontSize, lineHeight } from '@/theme/responsive'
+import { fontSize, lineHeight, border } from '@/theme/responsive'
 import { scale } from '@/theme/brand'
 
+// Import colors
 import { light } from '@/theme/colors/themes/light'
 import { dark } from '@/theme/colors/themes/dark'
 
@@ -90,6 +91,30 @@ const styles = (theme) => {
       fontStyle: 'normal',
       fontWeight: 500,
       lineHeight: lineHeight.body.sm.desktop,
+    }),
+    dialogTitle: css({
+      borderRadius: border.radius['3xl'],
+      borderTop: border.width.sm,
+      borderRight: `${border.width.sm} solid ${baseTokens.border.primary}`,
+      borderBottom: `${border.width.none} solid ${baseTokens.border.primary}`,
+      borderLeft: `${border.width.sm} solid ${baseTokens.border.primary}`,
+      background: baseTokens.surface.primary,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      padding: `${scale[100]} !important`,
+    }),
+    dialogContent: css({
+      borderRadius: `${border.radius.none} ${border.radius.none} ${border.radius['3xl']} ${border.radius['3xl']}`,
+      border: `${border.width.sm} solid ${baseTokens.border.primary}`,
+      padding: `18px !important`,
+    }),
+    dialogIcon: css({
+      padding: `${scale[150]} !important`,
+      '& svg': {
+        height: '16px',
+        width: '16px',
+      },
     }),
   }
 }

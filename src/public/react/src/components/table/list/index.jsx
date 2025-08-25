@@ -1,3 +1,6 @@
+// React imports
+import { useState } from "react"
+
 // MUI imports
 import { 
   Table,
@@ -6,25 +9,31 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Stack,
   IconButton,
   Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material"
 
-import { parseToOpenNebulaFormat } from "@/utils/parser";
+import { parseToOpenNebulaFormat } from "@/utils/parser"
 
 // Card styles
 import styles from '@/components/table/list/styles'
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles'
 
 // Import contexts
-import { useSnackbar } from "@/context/snackbar/SnackbarContext";
+import { useSnackbar } from "@/context/snackbar/SnackbarContext"
+
+// Marketplace components
+import ApplianceDetails from '@/components/card/detail'
 
 // Import icons
 import {
   Copy as CopyIcon,
   Download as DownloadIcon,
+  Xmark as CloseIcon,
 } from 'iconoir-react'
 
 const createData = (
@@ -35,8 +44,8 @@ const createData = (
   version,
   actions,
 ) => {
-  return { name, hypervisor, short_description, os_id, version, actions };
-};
+  return { name, hypervisor, short_description, os_id, version, actions }
+}
 
 /**
  * Render a table with appliances in list format.
@@ -46,79 +55,37 @@ const createData = (
 const TableList = ({ appliances }) => {
 
   // Get styles for the component
-  const theme = useTheme();
+  const theme = useTheme()
   const listStyles = styles(theme)
+
+  // State for selected appliance
+  const [selected, setSelected] = useState(null)
 
   // Hook to display messages
   const { showMessage } = useSnackbar()
 
   // Handle the copy template action
-  const handleCopyTemplate = (openNebulaTemplate) => {
+  const handleCopyTemplate = (appliance) => {
 
     // Copy to clipboard
-    navigator.clipboard.writeText(parseToOpenNebulaFormat(JSON.parse(openNebulaTemplate)))
+    navigator.clipboard.writeText(parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template)))
 
     // Show copy message
     showMessage('Template copied to clipboard!')
   }
 
   // Handle the download action
-  const handleDownload = (downloadLink) => {
-
-    // Open new tab and download
-    window.open(downloadLink, "_blank"); 
-
-    // Close menu
-    handleCloseMenu();
-  }  
-
-  /**
-   * Create data for each row of the table.
-   */
-  const rows = appliances?.map((appliance) => {
+  const handleDownload = (appliance) => {
 
     // Get the download link for the appliance
-    const downloadLink = typeof appliance?.links?.download.href === "string" ? appliance?.links?.download.href : undefined;
+    const downloadLink = typeof appliance?.links?.download.href === "string" ? appliance?.links?.download.href : undefined
 
-    // Create copy template and download actions
-    const actions = () => (
-      <Stack direction="row" className={listStyles.containerActions} >
-
-        <Tooltip title={'Copy template'}>
-
-          <IconButton
-            className={listStyles.actionIcon}
-            sx={{ padding: 0}}
-            onClick={() => handleCopyTemplate(appliance.opennebula_template) }
-          >
-            <CopyIcon />
-          </IconButton>
-        </Tooltip>
-
-        <Tooltip title="Download">
-          <IconButton
-            className={listStyles.actionIcon}
-            sx={{ padding: 0}}
-            onClick={() => handleDownload(downloadLink)}
-          >
-            <DownloadIcon />
-          </IconButton>
-        </Tooltip>
-
-      </Stack>
-    );
-
-    return createData(
-      appliance.name,
-      appliance.hypervisor,
-      appliance.short_description,
-      appliance["os-id"],
-      appliance.version,
-      actions,
-    );
-  });
+    // Open new tab and download
+    window.open(downloadLink, "_blank")
+  }  
 
   return (
+    <>
 
       <TableContainer>
         <Table aria-label="simple table" sx={{ tableLayout: "fixed", width: "100%" }}>
@@ -133,23 +100,76 @@ const TableList = ({ appliances }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows?.map((row) => (
+            {appliances?.map((appliance) => (
               <TableRow
-                key={row.name}                
+                key={appliance.name}
+                onClick={() => setSelected(appliance)}
+                sx={{ cursor: 'pointer'}}       
               >
-                <TableCell sx={{ width: "14%" }}>{row.name}</TableCell>
-                <TableCell sx={{ width: "14%" }}>{row.hypervisor}</TableCell>
-                <TableCell sx={{ width: "30%" }}>{row.short_description}</TableCell>
-                <TableCell sx={{ width: "14%" }}>{row.os_id}</TableCell>
-                <TableCell sx={{ width: "14%" }}>{row.version}</TableCell>
-                <TableCell sx={{ width: "14%" }}>{row.actions()}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{appliance.name}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{appliance.hypervisor}</TableCell>
+                <TableCell sx={{ width: "30%" }}>{appliance.short_description}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{appliance['os-id']}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{appliance.version}</TableCell>
+                <TableCell sx={{ width: "14%" }} onClick={(e) => e.stopPropagation()}>
+                  
+                  <Stack direction="row" className={listStyles.containerActions} >
+                    <Tooltip title={'Copy template'}>
+                      <IconButton
+                        className={listStyles.actionIcon}
+                        sx={{ padding: 0}}
+                        onClick={() => handleCopyTemplate(appliance) }
+                      >
+                        <CopyIcon />
+                      </IconButton>
+                    </Tooltip>
+
+                    <Tooltip title="Download">
+                      <IconButton
+                        className={listStyles.actionIcon}
+                        sx={{ padding: 0}}
+                        onClick={() => handleDownload(appliance)}
+                      >
+                        <DownloadIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Stack>
+
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
 
-  );
-};
+      <Dialog 
+        open={!!selected} 
+        onClose={() => setSelected(null)} 
+        fullWidth 
+        maxWidth='md'
+      >
+        <DialogTitle className={listStyles.dialogTitle}>
+          <IconButton
+            onClick={() => setSelected(null)}
+            className={listStyles.dialogIcon}            
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent className={listStyles.dialogContent}>
+          { selected && 
+            <ApplianceDetails
+              appliance={selected}
+              handleDownload={() => handleDownload(selected)}
+              handleCopyTemplate={() => handleCopyTemplate(selected)}
+            />
+          }          
+        </DialogContent>
+      </Dialog> 
+      
+    </>
 
-export default TableList;
+  )
+}
+
+export default TableList

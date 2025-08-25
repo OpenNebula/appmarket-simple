@@ -1,6 +1,7 @@
-import react from '@vitejs/plugin-react';
-import path from 'path';
-import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import { defineConfig } from 'vite'
+import https from "https"
 
 
 export default defineConfig(({mode}) => {
@@ -15,7 +16,12 @@ export default defineConfig(({mode}) => {
   const pathAPIDevelopmentMode = appType === "community" ? "https://community-marketplace.opennebula.io" : "https://marketplace.opennebula.io"
 
   // API routes to avoid CORS and proxy to an API
-  const proxyRoutes = ["/appliance", "/logos"];
+  const proxyRoutes = ["/appliance", "/logos"]
+
+  const keepAliveAgent = new https.Agent({
+    keepAlive: true,
+    timeout: 30000,
+  })
 
   // Proxy config to avoid CORS when calling the API
   const proxyConfig =
@@ -29,7 +35,6 @@ export default defineConfig(({mode}) => {
               secure: false,
               proxyTimeout: 30000,
               timeout: 30000,
-              // agent: keepAliveAgent,
               bypass: (req) => {
                 const acceptHeader = req.headers.accept || ''
                 if (acceptHeader.includes('text/html')) {
@@ -38,6 +43,7 @@ export default defineConfig(({mode}) => {
                 }
               },
               configure: (proxy) => {
+                proxy.options.agent = keepAliveAgent
                 proxy.on('proxyReq', (proxyReq) => {
                   proxyReq.setHeader('Referer', pathAPIDevelopmentMode)
                 })

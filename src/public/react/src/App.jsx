@@ -14,6 +14,9 @@ import TopBar from "@/components/topbar";
 import "./App.css";
 import { theme } from '@/theme'
 
+// Marketplace providers
+import { Providers } from "@/context/Providers";
+
 /**
  * Return the App component.
  * @returns {JSX.Element} The rendered App component.
@@ -29,18 +32,20 @@ function App() {
   // Return App component
   return (
 
-    <ThemeProvider theme={marketplaceTheme}>
+    <Providers>
+      <ThemeProvider theme={marketplaceTheme}>
 
-      {/* Css Baseline component to unify browser styles */}
-      <CssBaseline />
+        {/* Css Baseline component to unify browser styles */}
+        <CssBaseline />
 
-      {/* App top bar */}
-      <TopBar mode={mode} setMode={setMode} />
+        {/* App top bar */}
+        <TopBar mode={mode} setMode={setMode} />
 
-      {/* React router */}
-      <Outlet></Outlet>
+        {/* React router */}
+        <Outlet></Outlet>
 
-    </ThemeProvider>
+      </ThemeProvider>
+    </Providers>
   );
 }
 

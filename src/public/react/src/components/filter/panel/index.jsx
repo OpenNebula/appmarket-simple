@@ -91,7 +91,7 @@ const FilterPanel = () => {
       case "select": 
         return (
           <>
-            <Typography variant="h5">{filter?.label}</Typography>
+            <Typography variant="h6">{filter?.label}</Typography>
             <Select                    
               multiple
               displayEmpty
@@ -117,7 +117,7 @@ const FilterPanel = () => {
         
         return (
           <>
-            <Typography variant="h5">{`Start ${filter?.label}`}</Typography>
+            <Typography variant="h6">{`Start ${filter?.label}`}</Typography>
             <DatePicker
               value={currentRange.start ?? null}
               onChange={(newDate) =>
@@ -129,7 +129,7 @@ const FilterPanel = () => {
               format="DD/MM/YYYY"
             />
 
-            <Typography variant="h5">{`End ${filter?.label}`}</Typography>
+            <Typography variant="h6">{`End ${filter?.label}`}</Typography>
             <DatePicker
               value={currentRange.end ?? null}
               onChange={(newDate) =>
@@ -156,7 +156,6 @@ const FilterPanel = () => {
           filters?.map((filter) => {
             return (
               <Stack key={`stack-${filter.key}`} direction="column" className={panelStyles.filterContainer}>
-                {/* <Typography variant="h5">{filter?.label}</Typography> */}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   {renderFilterInput(filter)}
                 </LocalizationProvider>
