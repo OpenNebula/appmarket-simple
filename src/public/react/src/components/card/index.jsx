@@ -29,7 +29,7 @@ import { useTheme } from "@mui/material/styles"
 
 // Marketplace components
 import Tags from "@/components/tags"
-import ApplianceDetails from "@/components/card/detail"
+import ApplianceDetails from "@/components/detail"
 
 // Utilities
 import { format } from "date-fns"

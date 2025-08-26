@@ -27,7 +27,7 @@ import { useTheme } from "@mui/material/styles"
 import { useSnackbar } from "@/context/snackbar/SnackbarContext"
 
 // Marketplace components
-import ApplianceDetails from "@/components/card/detail"
+import ApplianceDetails from "@/components/detail"
 
 // Import icons
 import {

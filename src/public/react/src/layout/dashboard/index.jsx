@@ -1,3 +1,6 @@
+// React
+import { useState } from "react"
+
 // MUI imports
 import {
   Box,
@@ -36,6 +39,9 @@ const Dashboard = () => {
   // Get appliances
   const { appliances } = useAppliances()
 
+  // Table mode view. Card by default.
+  const [view, setView] = useState("card")
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* Render the main layout component */}
@@ -45,7 +51,7 @@ const Dashboard = () => {
         </Box>
 
         <Stack direction="column" className={marketplaceStyles.toolbar}>
-          <Toolbar />
+          <Toolbar view={view} setView={setView} />
           <FilterTags />
         </Stack>
 
@@ -62,7 +68,7 @@ const Dashboard = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <Table appliances={appliances} />
+            <Table appliances={appliances} view={view} />
           )}
         </Box>
       </Stack>

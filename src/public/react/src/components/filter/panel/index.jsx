@@ -2,7 +2,13 @@
 import { useState } from "react"
 
 // MUI imports
-import { Stack, Button, Select, MenuItem, Typography } from "@mui/material"
+import {
+  Stack,
+  Button,
+  Typography,
+  Autocomplete,
+  TextField,
+} from "@mui/material"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
@@ -63,20 +69,6 @@ const FilterPanel = () => {
     })
   }
 
-  // Use Nav Arrow Down instead the default one
-  const CustomArrowIcon = (props) => (
-    <NavArrowDown
-      {...props}
-      style={{
-        position: "absolute",
-        right: 8,
-        top: "50%",
-        transform: "translateY(-50%)",
-        pointerEvents: "none",
-      }}
-    />
-  )
-
   /**
    * Render a filter as different components. Now, select and date are available.
    * @param {Object} filter - The filter data
@@ -88,29 +80,30 @@ const FilterPanel = () => {
         return (
           <>
             <Typography variant="h6">{filter?.label}</Typography>
-            <Select
+            <Autocomplete
               multiple
-              displayEmpty
+              options={filter.values || []}
               value={tempSelections[filter.key] || []}
-              onChange={(e) => handleSelectChange(filter.key, e.target.value)}
-              IconComponent={CustomArrowIcon}
-              renderValue={(selected) => {
-                if (!selected || selected.length === 0) {
-                  return (
-                    <Typography className={panelStyles.placeholderText}>
-                      Select a value
-                    </Typography>
-                  )
-                }
-                return selected.join(", ")
-              }}
-            >
-              {filter?.values.map((value) => (
-                <MenuItem key={value} value={value}>
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
+              onChange={(e, newValue) =>
+                handleSelectChange(filter.key, newValue)
+              }
+              disableCloseOnSelect
+              disableClearable
+              popupIcon={<NavArrowDown />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder={
+                    !tempSelections[filter.key] ||
+                    tempSelections[filter.key].length === 0
+                      ? "Select values"
+                      : ""
+                  }
+                  variant="outlined"
+                />
+              )}
+              renderValue={(values) => values.join(",")}
+            />
           </>
         )
 

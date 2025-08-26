@@ -225,6 +225,21 @@ const theme = (mode) => {
           },
         },
       },
+      MuiAutocomplete: {
+        styleOverrides: {
+          root: {
+            "& svg": {
+              width: "24px",
+              height: "24px",
+            },
+            "& .MuiChip-root svg": {
+              width: "16px",
+              height: "16px",
+              color: `${baseTokens.icon.onAction}`,
+            },
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           outlined: {

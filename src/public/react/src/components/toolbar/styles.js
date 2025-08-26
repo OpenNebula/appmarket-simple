@@ -16,14 +16,15 @@
 import { css } from "@emotion/css"
 
 // Import not colors variables
-import { fontSize, lineHeight } from "@/theme/responsive"
+import { fontSize, lineHeight, border } from "@/theme/responsive"
 import { scale } from "@/theme/brand"
 
+// Color definition of modes
 import { light } from "@/theme/colors/themes/light"
 import { dark } from "@/theme/colors/themes/dark"
 
 /**
- * Define styles for the Footer component.
+ * Define styles for the Table component.
  *
  * @param {object} theme - Current theme
  * @returns {object} Styles for the component
@@ -32,40 +33,38 @@ const styles = (theme) => {
   const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
-    footerContainer: css({
-      paddingTop: scale[100],
-      paddingBottom: scale[300],
-      gap: scale[200],
-      flexGrow: 1,
+    switchView: css({
+      alignSelf: "flex-end",
+      marginBottom: "10px",
     }),
-    footerIcons: css({
-      "& svg": {
-        width: "24px",
-        height: "24px",
+    switchToggleButton: css({
+      "&&": {
+        color: baseTokens.icon.action,
+        padding: `11px ${scale[500]}`,
+        borderRadius: border.radius.xlg,
+        border: `${border.width.sm} solid ${baseTokens.border.action2}`,
+        "& svg": {
+          width: "16px",
+          height: "16px",
+        },
+        "&:hover": {
+          backgroundColor: "transparent",
+        },
       },
-    }),
-    pagesText: css({
-      color: baseTokens.text.body,
-      fontSize: fontSize.body.md.desktop,
-      fontStyle: "normal",
-      fontWeight: 400,
-      lineHeight: lineHeight.body.md,
-    }),
-    resultsText: css({
-      color: baseTokens.text.action,
-      textAlign: "center",
-      fontSize: fontSize.body.sm.desktop,
-      fontStyle: "normal",
-      fontWeight: 500,
-      lineHeight: lineHeight.body.sm,
-    }),
-    sizePageText: css({
-      "& .MuiSelect-select": {
-        color: baseTokens.text.disabled,
-        fontSize: fontSize.body.md.desktop,
+      "&&.Mui-selected": {
+        backgroundColor: baseTokens.surface.focus2,
+        color: baseTokens.icon.focus,
+        "&:hover": {
+          backgroundColor: baseTokens.surface.focus,
+        },
+      },
+      "&& .MuiTypography-root": {
+        color: baseTokens.text.body,
+        fontSize: fontSize.body.sm.desktop,
+        fontWeight: 500,
         fontStyle: "normal",
-        fontWeight: 400,
-        lineHeight: lineHeight.body.md,
+        lineHeight: lineHeight.body.sm.desktop,
+        textTransform: "none",
       },
     }),
   }

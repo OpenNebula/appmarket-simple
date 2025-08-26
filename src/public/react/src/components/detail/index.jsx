@@ -74,7 +74,7 @@ const ApplianceDetails = ({ appliance }) => {
   }
 
   return (
-    <Stack direction="column" sx={{ gap: "16px", width: "50%" }}>
+    <Stack direction="column" sx={{ gap: "16px", width: "100%" }}>
       <Stack direction="row" sx={{ gap: "16px" }}>
         <Stack
           direction="column"
@@ -145,6 +145,20 @@ const ApplianceDetails = ({ appliance }) => {
                 {appliance?.publisher}
               </Typography>
             </Stack>
+            {appliance?.publisher_email && (
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                className={detailsStyles.applianceAttributes}
+              >
+                <Typography className={detailsStyles.applianceAttributesTitle}>
+                  Publisher
+                </Typography>
+                <Typography className={detailsStyles.applianceAttributesText}>
+                  {appliance?.publisher}
+                </Typography>
+              </Stack>
+            )}
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -222,6 +236,20 @@ const ApplianceDetails = ({ appliance }) => {
               {appliance?.["os-arch"]}
             </Typography>
           </Stack>
+          {appliance?.["one-apps_version"] && (
+            <Stack
+              direction="column"
+              justifyContent="space-between"
+              sx={{ gap: "11px" }}
+            >
+              <Typography className={detailsStyles.otherAttributeTitle}>
+                OneApps Version
+              </Typography>
+              <Typography className={detailsStyles.otherAttributeText}>
+                {appliance?.["apps_version"]}
+              </Typography>
+            </Stack>
+          )}
         </Stack>
       </Stack>
       <Stack direction="row" justifyContent="flex-end" sx={{ gap: "16px" }}>

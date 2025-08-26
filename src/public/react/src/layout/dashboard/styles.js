@@ -30,7 +30,7 @@ const styles = () => ({
     marginBottom: "28px",
   }),
   toolbar: css({
-    marginBottom: "20px",
+    marginBottom: "10px",
     gap: "15px",
   }),
   closePanel: css({

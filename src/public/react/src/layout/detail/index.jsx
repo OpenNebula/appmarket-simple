@@ -48,7 +48,11 @@ const Detail = () => {
       </Box>
 
       {/* Centered horizontally */}
-      <Box display="flex" justifyContent="center" flexGrow={1}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        sx={{ marginLeft: "200px", marginRight: "200px" }}
+      >
         {appliance ? (
           <ApplianceDetails
             sx={{ alignSelf: "center" }}
