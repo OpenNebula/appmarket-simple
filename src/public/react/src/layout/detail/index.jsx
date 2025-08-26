@@ -1,8 +1,8 @@
 // React imports
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 // Import MUI
-import { Stack, CircularProgress } from "@mui/material"
+import { Stack, CircularProgress, Button, Box } from "@mui/material"
 
 // Import context provider
 import { useAppliances } from "@/context/appliances/AppliancesContext"
@@ -10,12 +10,16 @@ import { useAppliances } from "@/context/appliances/AppliancesContext"
 // Marketplace components
 import ApplianceDetails from "@/components/detail"
 
+// Icons
+import { ArrowLeft as BackIcon } from "iconoir-react"
+
 // Utilities
 import { find } from "lodash"
 
 const Detail = () => {
-  // Get params from request
+  // Hooks from router
   const params = useParams()
+  const navigate = useNavigate()
 
   // Get appliance id
   const applianceId = params?.id
@@ -28,16 +32,32 @@ const Detail = () => {
 
   return (
     <Stack
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      sx={{ padding: "20px", flexGrow: 1, width: '100%' }}
+      direction="column"
+      sx={{ minHeight: "100vh" }} // full screen height if you want vertical centering
     >
-      {appliance ? (
-        <ApplianceDetails appliance={appliance} />
-      ) : (
-        <CircularProgress />
-      )}
+      {/* Top-left aligned */}
+      <Box display="flex" justifyContent="flex-start">
+        <Button
+          variant="filled"
+          startIcon={<BackIcon />}
+          sx={{ margin: "30px" }}
+          onClick={() => navigate("/")}
+        >
+          Back to appliances
+        </Button>
+      </Box>
+
+      {/* Centered horizontally */}
+      <Box display="flex" justifyContent="center" flexGrow={1}>
+        {appliance ? (
+          <ApplianceDetails
+            sx={{ alignSelf: "center" }}
+            appliance={appliance}
+          />
+        ) : (
+          <CircularProgress />
+        )}
+      </Box>
     </Stack>
   )
 }

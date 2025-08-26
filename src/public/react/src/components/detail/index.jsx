@@ -2,12 +2,7 @@
 import { useMemo } from "react"
 
 // MUI components
-import {
-  Stack,
-  Typography,
-  Box,
-  Button,
-} from "@mui/material"
+import { Stack, Typography, Box, Button } from "@mui/material"
 
 // Card styles
 import { useTheme } from "@mui/material/styles"
@@ -17,28 +12,28 @@ import styles from "@/components/detail/styles"
 // Marketplace components
 import Tags from "@/components/tags"
 
+// Marketplace contexts
+import { useSnackbar } from "@/context/snackbar/SnackbarContext"
+
 // Import icons
-import {
-  Xmark as CopyIcon,
-  Download as DownloadIcon,
-} from "iconoir-react"
+import { Xmark as CopyIcon, Download as DownloadIcon } from "iconoir-react"
 
 // Utilities
-import Markdown from 'react-markdown'
+import Markdown from "react-markdown"
+import { parseToOpenNebulaFormat } from "@/utils/parser"
 
 /**
  * Render the appliance details.
  * @param {object} - Appliance to render.
  * @returns {JSX.Element} The rendered ApplianceDetails component.
  */
-const ApplianceDetails = ({
-  appliance,
-  handleDownload,
-  handleCopyTemplate,
-}) => {
+const ApplianceDetails = ({ appliance }) => {
   // Get styles for the component
   const theme = useTheme()
   const detailsStyles = styles(theme)
+
+  // Hook to display messages
+  const { showMessage } = useSnackbar()
 
   // Transform opennebula_version string into array
   const opennebulaVersions = useMemo(
@@ -52,8 +47,34 @@ const ApplianceDetails = ({
     [appliance?.hypervisor],
   )
 
+  // Get the download link for the appliance
+  const downloadLink =
+    typeof appliance?.links?.download.href === "string"
+      ? appliance?.links?.download.href
+      : undefined
+
+  // Get template in OpenNebula format
+  const openNebulaTemplate = appliance?.opennebula_template
+    ? parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template))
+    : undefined
+
+  // Handle the download action
+  const handleDownload = () => {
+    // Open new tab and download
+    window.open(downloadLink, "_blank")
+  }
+
+  // Handle the copy template action
+  const handleCopyTemplate = () => {
+    // Copy to clipboard
+    navigator.clipboard.writeText(openNebulaTemplate)
+
+    // Show copy message
+    showMessage("Template copied to clipboard!")
+  }
+
   return (
-    <Stack direction="column" sx={{ gap: "16px" }}>
+    <Stack direction="column" sx={{ gap: "16px", width: "50%" }}>
       <Stack direction="row" sx={{ gap: "16px" }}>
         <Stack
           direction="column"

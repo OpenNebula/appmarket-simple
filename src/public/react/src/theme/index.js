@@ -265,6 +265,19 @@ const theme = (mode) => {
             lineHeight: lineHeight.body.sm.desktop,
             textTransform: "none",
           },
+          filled: {
+            padding: `${scale[200]} ${scale[500]}`,
+            borderRadius: border.radius.xlg,
+            "& svg": {
+              width: "16px",
+              height: "16px",
+            },
+            fontSize: fontSize.body.sm.desktop,
+            fontStyle: "normal",
+            fontWeight: 500,
+            lineHeight: lineHeight.body.sm.desktop,
+            textTransform: "none",
+          },
         },
       },
       MuiTableContainer: {
