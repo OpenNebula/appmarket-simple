@@ -238,6 +238,21 @@ const theme = (mode) => {
               color: `${baseTokens.icon.onAction}`,
             },
           },
+          inputRoot: {
+            padding: `${scale[200]} ${scale[400]}`,
+            fontSize: fontSize.body.md.desktop,
+            fontStyle: "normal",
+            fontWeight: 400,
+            lineHeight: lineHeight.body.md.desktop,
+            "& .MuiInputBase-input": {
+              padding: "0px",
+              color: baseTokens.text.disabled,
+              fontSize: fontSize.body.md.desktop,
+              fontStyle: "normal",
+              fontWeight: 400,
+              lineHeight: lineHeight.body.md.desktop,
+            },
+          },
         },
       },
       MuiButton: {

@@ -106,13 +106,15 @@ const ApplianceCard = ({ appliance }) => {
       <Card
         onClick={() => !open && setOpenDetails(true)}
         className={clsx(openDetails && "Mui-selected")}
+        sx={{ height: "100%" }}
       >
-        <CardContent>
+        <CardContent sx={{ height: "100%" }}>
           <Stack
             direction="column"
             useFlexGap
             spacing={"32px"}
-            divider={<Divider orientation="horizontal" flexItem />}
+            justifyContent="space-between"
+            sx={{ height: "100%" }}
           >
             <Stack direction="column" useFlexGap spacing={"16px"}>
               <Stack direction="row" useFlexGap spacing={"15px"}>
@@ -206,31 +208,33 @@ const ApplianceCard = ({ appliance }) => {
                 <Tags tags={appliance?.tags}></Tags>
               </Stack>
             </Stack>
-
-            <Stack direction="column" useFlexGap spacing={"8px"}>
-              <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-                <Typography className={cardStyles.attributesTitle}>
-                  HYPERVISOR
-                </Typography>
-                <Typography className={cardStyles.attributesValue}>
-                  {appliance?.hypervisor}
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-                <Typography className={cardStyles.attributesTitle}>
-                  VERSION
-                </Typography>
-                <Typography className={cardStyles.attributesValue}>
-                  {appliance?.version}
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-                <Typography className={cardStyles.attributesTitle}>
-                  CREATED
-                </Typography>
-                <Typography className={cardStyles.attributesValue}>
-                  {creationDate}
-                </Typography>
+            <Stack direction="column" useFlexGap spacing={"16px"}>
+              <Divider orientation="horizontal" flexItem />
+              <Stack direction="column" useFlexGap spacing={"8px"}>
+                <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+                  <Typography className={cardStyles.attributesTitle}>
+                    HYPERVISOR
+                  </Typography>
+                  <Typography className={cardStyles.attributesValue}>
+                    {appliance?.hypervisor}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+                  <Typography className={cardStyles.attributesTitle}>
+                    VERSION
+                  </Typography>
+                  <Typography className={cardStyles.attributesValue}>
+                    {appliance?.version}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+                  <Typography className={cardStyles.attributesTitle}>
+                    CREATED
+                  </Typography>
+                  <Typography className={cardStyles.attributesValue}>
+                    {creationDate}
+                  </Typography>
+                </Stack>
               </Stack>
             </Stack>
           </Stack>
