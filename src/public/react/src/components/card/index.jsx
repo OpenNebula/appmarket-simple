@@ -33,7 +33,7 @@ import ApplianceDetails from "@/components/detail"
 
 // Utilities
 import { format } from "date-fns"
-import { parseToOpenNebulaFormat } from "@/utils/parser"
+import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
 
 // Import contexts
 import { useSnackbar } from "@/context/snackbar/SnackbarContext"
@@ -68,38 +68,6 @@ const ApplianceCard = ({ appliance }) => {
   const creationDate = appliance?.creation_time
     ? format(new Date(appliance?.creation_time * 1000), "dd MMM yyyy")
     : undefined
-
-  // Get the download link for the appliance
-  const downloadLink =
-    typeof appliance?.links?.download.href === "string"
-      ? appliance?.links?.download.href
-      : undefined
-
-  // Get template in OpenNebula format
-  const openNebulaTemplate = appliance?.opennebula_template
-    ? parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template))
-    : undefined
-
-  // Handle the download action
-  const handleDownload = () => {
-    // Open new tab and download
-    window.open(downloadLink, "_blank")
-
-    // Close menu
-    handleCloseMenu()
-  }
-
-  // Handle the copy template action
-  const handleCopyTemplate = () => {
-    // Copy to clipboard
-    navigator.clipboard.writeText(openNebulaTemplate)
-
-    // Show copy message
-    showMessage("Template copied to clipboard!")
-
-    // Close menu
-    handleCloseMenu()
-  }
 
   return appliance ? (
     <>
@@ -164,7 +132,11 @@ const ApplianceCard = ({ appliance }) => {
                     }}
                   >
                     <Tooltip
-                      title={downloadLink ? "" : "No download available"}
+                      title={
+                        appliance?.links?.download.href
+                          ? ""
+                          : "No download available"
+                      }
                       disableInteractive
                     >
                       <span>
@@ -173,9 +145,9 @@ const ApplianceCard = ({ appliance }) => {
                         <MenuItem
                           onClick={(event) => {
                             event.stopPropagation()
-                            handleDownload()
+                            handleDownload(appliance)
                           }}
-                          disabled={!downloadLink}
+                          disabled={!appliance?.links?.download.href}
                           className={cardStyles.menuOption}
                         >
                           <ListItemIcon>
@@ -190,7 +162,7 @@ const ApplianceCard = ({ appliance }) => {
                     <MenuItem
                       onClick={(event) => {
                         event.stopPropagation()
-                        handleCopyTemplate()
+                        handleCopyTemplate(appliance, showMessage)
                       }}
                       className={cardStyles.menuOption}
                     >

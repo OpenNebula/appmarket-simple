@@ -20,7 +20,7 @@ import { Xmark as CopyIcon, Download as DownloadIcon } from "iconoir-react"
 
 // Utilities
 import Markdown from "react-markdown"
-import { parseToOpenNebulaFormat } from "@/utils/parser"
+import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
 
 /**
  * Render the appliance details.
@@ -46,32 +46,6 @@ const ApplianceDetails = ({ appliance }) => {
     () => split(appliance?.hypervisor || "", ",").filter(Boolean),
     [appliance?.hypervisor],
   )
-
-  // Get the download link for the appliance
-  const downloadLink =
-    typeof appliance?.links?.download.href === "string"
-      ? appliance?.links?.download.href
-      : undefined
-
-  // Get template in OpenNebula format
-  const openNebulaTemplate = appliance?.opennebula_template
-    ? parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template))
-    : undefined
-
-  // Handle the download action
-  const handleDownload = () => {
-    // Open new tab and download
-    window.open(downloadLink, "_blank")
-  }
-
-  // Handle the copy template action
-  const handleCopyTemplate = () => {
-    // Copy to clipboard
-    navigator.clipboard.writeText(openNebulaTemplate)
-
-    // Show copy message
-    showMessage("Template copied to clipboard!")
-  }
 
   return (
     <Stack direction="column" sx={{ gap: "16px", width: "100%" }}>
@@ -257,7 +231,7 @@ const ApplianceDetails = ({ appliance }) => {
           variant="contained"
           endIcon={<DownloadIcon />}
           className={detailsStyles.filterButton}
-          onClick={handleDownload}
+          onClick={() => handleDownload(appliance)}
         >
           Download
         </Button>
@@ -265,7 +239,7 @@ const ApplianceDetails = ({ appliance }) => {
           variant="contained"
           endIcon={<CopyIcon />}
           className={detailsStyles.filterButton}
-          onClick={handleCopyTemplate}
+          onClick={() => handleCopyTemplate(appliance, showMessage)}
         >
           Copy Template
         </Button>

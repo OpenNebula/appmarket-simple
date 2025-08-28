@@ -17,8 +17,6 @@ import {
   DialogContent,
 } from "@mui/material"
 
-import { parseToOpenNebulaFormat } from "@/utils/parser"
-
 // Card styles
 import styles from "@/components/table/list/styles"
 import { useTheme } from "@mui/material/styles"
@@ -28,6 +26,9 @@ import { useSnackbar } from "@/context/snackbar/SnackbarContext"
 
 // Marketplace components
 import ApplianceDetails from "@/components/detail"
+
+// Utilities
+import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
 
 // Import icons
 import {
@@ -51,29 +52,6 @@ const TableList = ({ appliances }) => {
 
   // Hook to display messages
   const { showMessage } = useSnackbar()
-
-  // Handle the copy template action
-  const handleCopyTemplate = (appliance) => {
-    // Copy to clipboard
-    navigator.clipboard.writeText(
-      parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template)),
-    )
-
-    // Show copy message
-    showMessage("Template copied to clipboard!")
-  }
-
-  // Handle the download action
-  const handleDownload = (appliance) => {
-    // Get the download link for the appliance
-    const downloadLink =
-      typeof appliance?.links?.download.href === "string"
-        ? appliance?.links?.download.href
-        : undefined
-
-    // Open new tab and download
-    window.open(downloadLink, "_blank")
-  }
 
   return (
     <>
@@ -99,17 +77,19 @@ const TableList = ({ appliances }) => {
                 onClick={() => setSelected(appliance)}
                 sx={{ cursor: "pointer" }}
               >
-                <TableCell sx={{ width: "14%" }}>{appliance.name}</TableCell>
+                <TableCell sx={{ width: "14%" }}>{appliance?.name}</TableCell>
                 <TableCell sx={{ width: "14%" }}>
-                  {appliance.hypervisor}
+                  {appliance?.hypervisor}
                 </TableCell>
                 <TableCell sx={{ width: "30%" }}>
-                  {appliance.short_description}
+                  {appliance?.short_description}
                 </TableCell>
                 <TableCell sx={{ width: "14%" }}>
-                  {appliance["os-id"]}
+                  {appliance?.["os-id"]}
                 </TableCell>
-                <TableCell sx={{ width: "14%" }}>{appliance.version}</TableCell>
+                <TableCell sx={{ width: "14%" }}>
+                  {appliance?.version}
+                </TableCell>
                 <TableCell
                   sx={{ width: "14%" }}
                   onClick={(e) => e.stopPropagation()}
@@ -122,7 +102,9 @@ const TableList = ({ appliances }) => {
                       <IconButton
                         className={listStyles.actionIcon}
                         sx={{ padding: 0 }}
-                        onClick={() => handleCopyTemplate(appliance)}
+                        onClick={() =>
+                          handleCopyTemplate(appliance, showMessage)
+                        }
                       >
                         <CopyIcon />
                       </IconButton>
@@ -164,7 +146,9 @@ const TableList = ({ appliances }) => {
             <ApplianceDetails
               appliance={selected}
               handleDownload={() => handleDownload(selected)}
-              handleCopyTemplate={() => handleCopyTemplate(selected)}
+              handleCopyTemplate={() =>
+                handleCopyTemplate(selected, showMessage)
+              }
             />
           )}
         </DialogContent>
