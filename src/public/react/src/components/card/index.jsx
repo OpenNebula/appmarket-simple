@@ -1,5 +1,5 @@
 // React imports
-import { useState } from "react"
+import { useState, useCallback } from "react"
 
 // MUI components
 import {
@@ -33,10 +33,18 @@ import ApplianceDetails from "@/components/detail"
 
 // Utilities
 import { format } from "date-fns"
-import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
+import { handleCopyTemplate, handleDownload, fallbackCopyText } from "@/utils/cardActions"
+import { parseToOpenNebulaFormat } from "@/utils/parser"
 
 // Import contexts
 import { useSnackbar } from "@/context/snackbar/SnackbarContext"
+
+import { useClipboard } from "@/hooks"
+
+const callAll =
+  (...fns) =>
+  (...args) =>
+    fns.forEach((fn) => fn && fn?.(...args))
 
 /**
  * Render the appliance data in a card.
@@ -47,6 +55,18 @@ const ApplianceCard = ({ appliance }) => {
   // Get styles for the component
   const theme = useTheme()
   const cardStyles = styles(theme)
+
+  const { copy, isCopied } = useClipboard()
+
+  const handleCopy = useCallback(
+    (evt) => {
+      const textToCopy = "david"//appliance?.opennebula_template
+
+      !isCopied && copy(textToCopy)
+      evt.stopPropagation()
+    },
+    [appliance, copy]
+  )
 
   // Card menu controls
   const [anchorEl, setAnchorEl] = useState(null)
@@ -160,10 +180,7 @@ const ApplianceCard = ({ appliance }) => {
                       </span>
                     </Tooltip>
                     <MenuItem
-                      onClick={(event) => {
-                        event.stopPropagation()
-                        handleCopyTemplate(appliance, showMessage)
-                      }}
+                      onClick={callAll(handleCopy)}
                       className={cardStyles.menuOption}
                     >
                       <ListItemIcon>

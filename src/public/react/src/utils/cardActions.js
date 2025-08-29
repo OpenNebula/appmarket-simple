@@ -3,49 +3,63 @@ import { parseToOpenNebulaFormat } from "@/utils/parser"
 
 // Handle the copy template action
 const handleCopyTemplate = async (appliance, showMessage) => {
+  // Check if the appliance has a template
+  if (!appliance?.opennebula_template) {
+    showMessage("There is no template for the selected appliance")
+    return
+  }
+
   // Get template in OpenNebula format
-  const openNebulaTemplate = appliance?.opennebula_template
-    ? parseToOpenNebulaFormat(JSON.parse(appliance?.opennebula_template))
-    : undefined
+  const openNebulaTemplate = parseToOpenNebulaFormat(
+    JSON.parse(appliance.opennebula_template)
+  )
+  const text = String(openNebulaTemplate ?? "")
 
-  const text = openNebulaTemplate
+  const isSecure = window.isSecureContext // true if HTTPS or localhost
 
-  if (navigator?.clipboard) {
-    // Modern API (works in secure contexts)
+  if (navigator?.clipboard && isSecure) {
     try {
       await navigator.clipboard.writeText(text)
       showMessage("Template copied to clipboard!")
-    } catch {
-      fallbackCopyText(text, showMessage)
+      return
+    } catch (err) {
+      console.log("Clipboard API failed, falling back:", err)
     }
-  } else {
-    // Fallback for HTTP / older browsers
-    fallbackCopyText(text, showMessage)
   }
+
+  // If not secure or Clipboard API failed → return false
+  return false
 }
 
-// Fallback copy function using execCommand
 const fallbackCopyText = (text, showMessage) => {
-  const textarea = document.createElement("textarea")
-  textarea.value = text
-  textarea.setAttribute("readonly", "")
-  textarea.style.position = "absolute"
-  textarea.style.left = "-9999px"
-  document.body.appendChild(textarea)
-  textarea.select()
-
   try {
+    const textarea = document.createElement("textarea")
+    textarea.value = String(text ?? "")
+    textarea.style.opacity = "0" // hidden but focusable
+    textarea.style.position = "fixed"
+    textarea.style.top = "0"
+    textarea.style.left = "0"
+
+    document.body.appendChild(textarea)
+
+    textarea.focus()
+    textarea.select()
+
     const successful = document.execCommand("copy")
+    document.body.removeChild(textarea)
+
+    console.log("Fallback copy result:", successful)
     if (successful) {
       showMessage("Template copied to clipboard!")
     } else {
-      showMessage("Failed to copy template.")
+      showMessage("Failed to copy template")
     }
-  } catch {
-    showMessage("Failed to copy template.")
+    return successful
+  } catch (err) {
+    console.error("Fallback copy error:", err)
+    showMessage("Failed to copy template")
+    return false
   }
-
-  document.body.removeChild(textarea)
 }
 
 // Handle the download action
@@ -60,4 +74,4 @@ const handleDownload = (appliance) => {
   window.open(downloadLink, "_blank")
 }
 
-export { handleCopyTemplate, handleDownload }
+export { handleCopyTemplate, fallbackCopyText, handleDownload }
