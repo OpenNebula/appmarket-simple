@@ -24,10 +24,12 @@ import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
 
 /**
  * Render the appliance details.
- * @param {object} - Appliance to render.
+ * @param {object} props - Appliance details component props.
+ * @param {object} props.appliance - Appliance to render.
+ * @param {object} props.dialogRef - Ref to the dialog content.
  * @returns {JSX.Element} The rendered ApplianceDetails component.
  */
-const ApplianceDetails = ({ appliance }) => {
+const ApplianceDetails = ({ appliance, dialogRef }) => {
   // Get styles for the component
   const theme = useTheme()
   const detailsStyles = styles(theme)
@@ -239,7 +241,7 @@ const ApplianceDetails = ({ appliance }) => {
           variant="contained"
           endIcon={<CopyIcon />}
           className={detailsStyles.filterButton}
-          onClick={() => handleCopyTemplate(appliance, showMessage)}
+          onClick={() => handleCopyTemplate(appliance, showMessage, dialogRef)}
         >
           Copy Template
         </Button>

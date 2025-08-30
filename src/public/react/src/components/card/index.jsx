@@ -1,5 +1,5 @@
 // React imports
-import { useState, useCallback } from "react"
+import { useState, useRef } from "react"
 
 // MUI components
 import {
@@ -33,18 +33,10 @@ import ApplianceDetails from "@/components/detail"
 
 // Utilities
 import { format } from "date-fns"
-import { handleCopyTemplate, handleDownload, fallbackCopyText } from "@/utils/cardActions"
-import { parseToOpenNebulaFormat } from "@/utils/parser"
+import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
 
 // Import contexts
 import { useSnackbar } from "@/context/snackbar/SnackbarContext"
-
-import { useClipboard } from "@/hooks"
-
-const callAll =
-  (...fns) =>
-  (...args) =>
-    fns.forEach((fn) => fn && fn?.(...args))
 
 /**
  * Render the appliance data in a card.
@@ -56,18 +48,6 @@ const ApplianceCard = ({ appliance }) => {
   const theme = useTheme()
   const cardStyles = styles(theme)
 
-  const { copy, isCopied } = useClipboard()
-
-  const handleCopy = useCallback(
-    (evt) => {
-      const textToCopy = "david"//appliance?.opennebula_template
-
-      !isCopied && copy(textToCopy)
-      evt.stopPropagation()
-    },
-    [appliance, copy]
-  )
-
   // Card menu controls
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -77,6 +57,12 @@ const ApplianceCard = ({ appliance }) => {
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
+
+  // Set ref to the dialog
+  const dialogRef = useRef(null)
+
+  // Set ref to the menuItem
+  const menuItemRef = useRef(null)
 
   // State for open appliance details
   const [openDetails, setOpenDetails] = useState(false)
@@ -160,12 +146,10 @@ const ApplianceCard = ({ appliance }) => {
                       disableInteractive
                     >
                       <span>
-                        {" "}
-                        {/* Wrapping in span so Tooltip works when MenuItem is disabled */}
                         <MenuItem
-                          onClick={(event) => {
-                            event.stopPropagation()
+                          onClick={() => {
                             handleDownload(appliance)
+                            handleCloseMenu()
                           }}
                           disabled={!appliance?.links?.download.href}
                           className={cardStyles.menuOption}
@@ -180,7 +164,12 @@ const ApplianceCard = ({ appliance }) => {
                       </span>
                     </Tooltip>
                     <MenuItem
-                      onClick={callAll(handleCopy)}
+                      ref={menuItemRef}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => {
+                        handleCopyTemplate(appliance, showMessage, menuItemRef)
+                        handleCloseMenu()
+                      }}
                       className={cardStyles.menuOption}
                     >
                       <ListItemIcon>
@@ -244,11 +233,12 @@ const ApplianceCard = ({ appliance }) => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent className={cardStyles.dialogContent}>
+        <DialogContent ref={dialogRef} className={cardStyles.dialogContent}>
           <ApplianceDetails
             appliance={appliance}
             handleDownload={handleDownload}
             handleCopyTemplate={handleCopyTemplate}
+            dialogRef={dialogRef}
           />
         </DialogContent>
       </Dialog>

@@ -1,14 +1,14 @@
-import babelParser from "@babel/eslint-parser"
-import globals from "globals"
-import unusedImports from "eslint-plugin-unused-imports"
-import react from "eslint-plugin-react"
-import reactHooks from "eslint-plugin-react-hooks"
-import jsxA11y from "eslint-plugin-jsx-a11y"
-import importPlugin from "eslint-plugin-import"
-import prettier from "eslint-plugin-prettier"
-import js from "@eslint/js"
+const babelParser = require("@babel/eslint-parser")
+const globals = require("globals")
+const unusedImports = require("eslint-plugin-unused-imports")
+const react = require("eslint-plugin-react")
+const reactHooks = require("eslint-plugin-react-hooks")
+const jsxA11y = require("eslint-plugin-jsx-a11y")
+const importPlugin = require("eslint-plugin-import")
+const prettier = require("eslint-plugin-prettier")
+const js = require("@eslint/js")
 
-export default [
+module.exports = [
   {
     files: ["src/**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
@@ -52,7 +52,7 @@ export default [
 
       "react/jsx-uses-vars": "warn", 
 
-      "prettier/prettier": ["warn", { "semi": false }],
+      "prettier/prettier": ["warn", { semi: false }],
     },
   },
 ]

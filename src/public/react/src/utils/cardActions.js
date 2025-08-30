@@ -2,7 +2,7 @@
 import { parseToOpenNebulaFormat } from "@/utils/parser"
 
 // Handle the copy template action
-const handleCopyTemplate = async (appliance, showMessage) => {
+const handleCopyTemplate = async (appliance, showMessage, dialogRef) => {
   // Check if the appliance has a template
   if (!appliance?.opennebula_template) {
     showMessage("There is no template for the selected appliance")
@@ -11,7 +11,7 @@ const handleCopyTemplate = async (appliance, showMessage) => {
 
   // Get template in OpenNebula format
   const openNebulaTemplate = parseToOpenNebulaFormat(
-    JSON.parse(appliance.opennebula_template)
+    JSON.parse(appliance.opennebula_template),
   )
   const text = String(openNebulaTemplate ?? "")
 
@@ -24,29 +24,39 @@ const handleCopyTemplate = async (appliance, showMessage) => {
       return
     } catch (err) {
       console.log("Clipboard API failed, falling back:", err)
+      fallbackCopyText(text, showMessage)
     }
   }
+
+  console.log("No clipboard available or insecure protocol, falling back:")
+  fallbackCopyText(text, showMessage, dialogRef)
 
   // If not secure or Clipboard API failed → return false
   return false
 }
 
-const fallbackCopyText = (text, showMessage) => {
+// Copy when there is no clipboard
+const fallbackCopyText = (text, showMessage, dialogRef) => {
   try {
     const textarea = document.createElement("textarea")
     textarea.value = String(text ?? "")
-    textarea.style.opacity = "0" // hidden but focusable
+    textarea.style.opacity = "0"
     textarea.style.position = "fixed"
     textarea.style.top = "0"
     textarea.style.left = "0"
 
-    document.body.appendChild(textarea)
+    dialogRef
+      ? dialogRef.current.appendChild(textarea)
+      : document.body.appendChild(textarea)
 
     textarea.focus()
     textarea.select()
 
     const successful = document.execCommand("copy")
-    document.body.removeChild(textarea)
+
+    dialogRef
+      ? dialogRef.current.removeChild(textarea)
+      : document.body.removeChild(textarea)
 
     console.log("Fallback copy result:", successful)
     if (successful) {
@@ -74,4 +84,4 @@ const handleDownload = (appliance) => {
   window.open(downloadLink, "_blank")
 }
 
-export { handleCopyTemplate, fallbackCopyText, handleDownload }
+export { handleCopyTemplate, handleDownload }

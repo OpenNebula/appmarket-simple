@@ -1,5 +1,5 @@
 // React imports
-import { useState } from "react"
+import { useState, useRef } from "react"
 
 // MUI imports
 import {
@@ -46,6 +46,9 @@ const TableList = ({ appliances }) => {
   // Get styles for the component
   const theme = useTheme()
   const listStyles = styles(theme)
+
+  // Set ref to the dialog
+  const dialogRef = useRef(null)
 
   // State for selected appliance
   const [selected, setSelected] = useState(null)
@@ -141,7 +144,7 @@ const TableList = ({ appliances }) => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent className={listStyles.dialogContent}>
+        <DialogContent ref={dialogRef} className={listStyles.dialogContent}>
           {selected && (
             <ApplianceDetails
               appliance={selected}
@@ -149,6 +152,7 @@ const TableList = ({ appliances }) => {
               handleCopyTemplate={() =>
                 handleCopyTemplate(selected, showMessage)
               }
+              dialogRef={dialogRef}
             />
           )}
         </DialogContent>
