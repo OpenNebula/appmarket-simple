@@ -1,34 +1,34 @@
-const path = require("path");
-const webpack = require("webpack");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const https = require("https");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path")
+const webpack = require("webpack")
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const https = require("https")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 
 // Determine app type (community or opennebula)
-const appType = process.env.APP_TYPE || "community";
+const appType = process.env.APP_TYPE || "community"
 
 // Config file alias
 const configFile =
   appType === "community"
     ? "config.community.json"
-    : "config.opennebula.json";
+    : "config.opennebula.json"
 
 // API base URL for dev proxy
 const pathAPIDevelopmentMode =
   appType === "community"
-    ? "https://community-marketplace.opennebula.io"
-    : "https://marketplace.opennebula.io";
+    ? "http://172.20.0.22:9292"
+    : "https://marketplace.opennebula.io"
 
 // Routes to proxy
-const proxyRoutes = ["/appliance", "/logos"];
+const proxyRoutes = ["/appliance", "/logos"]
 
 // Keep-alive agent
-const keepAliveAgent = new https.Agent({
-  keepAlive: true,
-  timeout: 30000,
-})
+const keepAliveHttpAgent = new (require("http").Agent)({ keepAlive: true, timeout: 30000 })
+const keepAliveHttpsAgent = new https.Agent({ keepAlive: true, timeout: 30000 })
+const getKeepAliveAgent = (target) =>
+  target.startsWith("https") ? keepAliveHttpsAgent : keepAliveHttpAgent
 
 // Check dev or prod mode
 const isDevelopment = process.env.NODE_ENV !== "production"
@@ -121,18 +121,12 @@ const config = {
       secure: false,
       proxyTimeout: 30000,
       timeout: 30000,
-      agent: keepAliveAgent,   // keep-alive agent
+      agent: getKeepAliveAgent(pathAPIDevelopmentMode),
       onProxyReq: (proxyReq) => {
-        proxyReq.setHeader("Referer", pathAPIDevelopmentMode);
-      },
-      bypass: (req, res, proxyOptions) => {
-        const acceptHeader = req.headers.accept || "";
-        if (acceptHeader.includes("text/html")) {
-          return "/index.html";  // bypass API proxy for browser navigation
-        }
+        proxyReq.setHeader("Referer", pathAPIDevelopmentMode)
       },
     })),
   },
-};
+}
 
-module.exports = config;
+module.exports = config

@@ -128,10 +128,10 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
                 className={detailsStyles.applianceAttributes}
               >
                 <Typography className={detailsStyles.applianceAttributesTitle}>
-                  Publisher
+                  Publisher Email
                 </Typography>
                 <Typography className={detailsStyles.applianceAttributesText}>
-                  {appliance?.publisher}
+                  {appliance?.publisher_email}
                 </Typography>
               </Stack>
             )}
@@ -222,7 +222,7 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
                 OneApps Version
               </Typography>
               <Typography className={detailsStyles.otherAttributeText}>
-                {appliance?.["apps_version"]}
+                {appliance?.["one-apps_version"]}
               </Typography>
             </Stack>
           )}
