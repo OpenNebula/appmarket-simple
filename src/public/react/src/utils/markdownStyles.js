@@ -16,11 +16,13 @@
 import { css } from "@emotion/css"
 
 // Import not colors variables
+import { fontSize, lineHeight } from "@/theme/responsive"
+
 import { light } from "@/theme/colors/themes/light"
 import { dark } from "@/theme/colors/themes/dark"
 
 /**
- * Define styles for the Tags component.
+ * Define styles for the Card component.
  *
  * @param {object} theme - Current theme
  * @returns {object} Styles for the component
@@ -29,11 +31,25 @@ const styles = (theme) => {
   const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
-    filterTag: css({
-      "& .MuiChip-deleteIcon": {
-        color: `${baseTokens.icon.onAction} !important`,
-        marginLeft: "4px !important",
-      },
+    applianceDescription: css({
+      color: baseTokens.text.body,
+      fontSize: `${fontSize.body.sm.desktop} !important`,
+      fontStyle: "normal",
+      fontWeight: 400,
+      lineHeight: lineHeight.body.sm.desktop,
+    }),
+    applianceRef: css({
+      color: baseTokens.text.action,
+      fontSize: `${fontSize.body.sm.desktop} !important`,
+      fontStyle: "normal",
+      fontWeight: 400,
+      lineHeight: lineHeight.body.sm.desktop,
+      textDecorationLine: "underline",
+      textDecorationStyle: "solid",
+      textDecorationSkipInk: "auto",
+      textDecorationThickness: "auto",
+      textUnderlineOffset: "auto",
+      textUnderlinePosition: "from-font",
     }),
   }
 }

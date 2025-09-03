@@ -35,4 +35,5 @@ export const icon = {
   onDisabled: neutral[700],
   action: primary[500],
   focus: primary[400],
+  selected: primary[900],
 }

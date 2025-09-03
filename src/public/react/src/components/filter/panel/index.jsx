@@ -1,5 +1,5 @@
 // React imports
-import { useState } from "react"
+import { useState, useMemo } from "react"
 
 // MUI imports
 import {
@@ -23,6 +23,9 @@ import { useTheme } from "@mui/material/styles"
 
 // Icons
 import { FilterList as FilterIcon, NavArrowDown } from "iconoir-react"
+
+// Utilities
+import { sum, map, isArray, isObject, isNil } from "lodash"
 
 const FilterPanel = () => {
   // Get styles for the component
@@ -69,17 +72,37 @@ const FilterPanel = () => {
     })
   }
 
+  const validValuesCount = useMemo(() => {
+    return sum(
+      map(tempSelections, (value) => {
+        if (isArray(value)) {
+          return value.length > 0 ? 1 : 0
+        } else if (isObject(value)) {
+          let count = 0
+          if (!isNil(value.start)) count++
+          if (!isNil(value.end)) count++
+          return count
+        }
+        return 0
+      }),
+    )
+  }, [tempSelections])
+
   /**
    * Render a filter as different components. Now, select and date are available.
    * @param {Object} filter - The filter data
    * @returns {JSX.Element} The rendered filter component.
    */
   const renderFilterInput = (filter) => {
+    const limit = filter?.key === "version" ? 1 : 2
+
     switch (filter?.type) {
       case "select":
         return (
           <>
-            <Typography variant="h6">{filter?.label}</Typography>
+            <Typography variant="bodysm" className={panelStyles.title}>
+              {filter?.label}
+            </Typography>
             <Autocomplete
               multiple
               options={filter.values || []}
@@ -102,7 +125,17 @@ const FilterPanel = () => {
                   variant="outlined"
                 />
               )}
-              renderValue={(values) => values.join(",")}
+              renderValue={(values) => {
+                // Render a limit list of tags
+                if (values?.length > limit) {
+                  const visibleTags = values?.slice(0, limit)
+                  const hiddenCountTags = values?.length - limit
+
+                  return `${visibleTags.join(", ")} +${hiddenCountTags}`
+                }
+
+                return values.join(",")
+              }}
             />
           </>
         )
@@ -115,7 +148,10 @@ const FilterPanel = () => {
 
         return (
           <>
-            <Typography variant="h6">{`Start ${filter?.label}`}</Typography>
+            <Typography
+              variant="bodysm"
+              className={panelStyles.title}
+            >{`Start ${filter?.label}`}</Typography>
             <DatePicker
               value={currentRange.start ?? null}
               onChange={(newDate) =>
@@ -127,7 +163,10 @@ const FilterPanel = () => {
               format="DD/MM/YYYY"
             />
 
-            <Typography variant="h6">{`End ${filter?.label}`}</Typography>
+            <Typography
+              variant="bodysm"
+              className={panelStyles.title}
+            >{`End ${filter?.label}`}</Typography>
             <DatePicker
               value={currentRange.end ?? null}
               onChange={(newDate) =>
@@ -171,7 +210,7 @@ const FilterPanel = () => {
         className={panelStyles.filterButton}
         onClick={applyFilters}
       >
-        Apply Filters
+        Apply Filters ({validValuesCount})
       </Button>
     </Stack>
   )

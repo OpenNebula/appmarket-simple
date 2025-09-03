@@ -103,10 +103,11 @@ const ApplianceCard = ({ appliance }) => {
                 />
                 <Stack direction="column">
                   <Typography
-                    className={clsx(
-                      cardStyles.textContainer,
-                      cardStyles.titleApp,
-                    )}
+                    // className={clsx(
+                    //   cardStyles.textContainer,
+                    //   cardStyles.titleApp,
+                    // )}
+                    variant="h4"
                   >
                     {appliance.name}
                   </Typography>

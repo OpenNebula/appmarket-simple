@@ -43,7 +43,7 @@ const Dashboard = () => {
   const [view, setView] = useState("card")
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, backgroundColor: "background.default" }}>
       {/* Render the main layout component */}
       <Stack direction="column" className={marketplaceStyles.container}>
         <Box className={marketplaceStyles.title}>
@@ -81,6 +81,7 @@ const Dashboard = () => {
             p: 2,
             position: "relative", // needed for absolute positioning of the close button
             height: "100%",
+            padding: 0,
           }}
           role="presentation"
           onClick={(e) => e.stopPropagation()}

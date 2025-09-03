@@ -18,7 +18,7 @@ const configFile =
 // API base URL for dev proxy
 const pathAPIDevelopmentMode =
   appType === "community"
-    ? "http://172.20.0.22:9292"
+    ? "https://community-marketplace.opennebula.io"
     : "https://marketplace.opennebula.io"
 
 // Routes to proxy
@@ -115,7 +115,14 @@ const config = {
     hot: true,
     historyApiFallback: true,
     proxy: proxyRoutes.map((route) => ({
-      context: route,          // which requests to proxy
+      context: (pathname) => {
+        if (route === "/appliance") {
+          // Only proxy the exact /appliance path
+          return pathname === "/appliance";
+        }
+        // For other routes (like /logos), proxy normally
+        return pathname.startsWith(route);
+      },
       target: pathAPIDevelopmentMode,
       changeOrigin: true,
       secure: false,

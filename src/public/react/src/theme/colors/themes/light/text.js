@@ -38,4 +38,5 @@ export const text = {
   actionHover2: primary[700],
   focus: primary[700],
   disabled: neutral[400],
+  selected: primary.default,
 }

@@ -47,7 +47,7 @@ const styles = (theme) => {
     }),
     switchToggleButton: css({
       "&&": {
-        color: baseTokens.icon.primary,
+        color: baseTokens.icon.action,
         padding: `${scale[300]} ${scale[400]} ${scale[300]} ${scale[300]}`,
         borderRadius: border.radius.xlg,
         border: `1px solid ${baseTokens.border.primary}`,
@@ -56,21 +56,28 @@ const styles = (theme) => {
           height: "16px",
         },
         "&:hover": {
-          backgroundColor: "transparent",
+          backgroundColor: baseTokens.surface.actionHover4,
+          "& .MuiTypography-root": {
+            color: baseTokens.text.actionHover2,
+          },
         },
       },
       "&&.Mui-selected": {
-        backgroundColor: "transparent",
-        color: baseTokens.icon.action,
+        backgroundColor: baseTokens.surface.focus,
+        color: baseTokens.icon.selected,
         "&:hover": {
-          backgroundColor: baseTokens.surface.focus,
+          backgroundColor: baseTokens.surface.actionHover4,
+          color: baseTokens.text.actionHover2,
+          "& .MuiTypography-root": {
+            color: baseTokens.text.actionHover2,
+          },
         },
         "& .MuiTypography-root": {
-          color: baseTokens.text.action,
+          color: baseTokens.text.selected,
         },
       },
       "&& .MuiTypography-root": {
-        color: baseTokens.text.body,
+        color: baseTokens.text.action,
         fontSize: fontSize.body.sm.desktop,
         fontWeight: 500,
         fontStyle: "normal",

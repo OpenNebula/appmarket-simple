@@ -35,4 +35,5 @@ export const icon = {
   action: primary.default,
   actionHover: primary[700],
   focus: primary[700],
+  selected: primary.default,
 }

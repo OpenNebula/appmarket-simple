@@ -34,23 +34,19 @@ const Tags = ({ tags, hideOverflow = true }) => {
       let usedWidth = 0
       let count = 0
 
-      // Get all the tags in chip format
+      // Always measure ALL chips (they exist but are hidden off-screen)
       const chipElements =
         containerRef.current.querySelectorAll(".chip-measure")
 
-      // Iterate over all chips
       chipElements.forEach((chip) => {
-        // Gett the width of the chip (margin of 8)
         const chipWidth = chip.offsetWidth + 4
-
-        // Check if the chip can be showed or not
         if (usedWidth + chipWidth <= containerWidth) {
           usedWidth += chipWidth
           count++
         }
       })
 
-      // Reserve space for "+X" chip if needed
+      // +X chip
       if (count < tags.length) {
         const overflowChipWidth = 40
         while (count > 0 && usedWidth + overflowChipWidth > containerWidth) {
@@ -64,31 +60,34 @@ const Tags = ({ tags, hideOverflow = true }) => {
     })
 
     // If exists ref, add the observer
-    if (containerRef.current) {
-      observer.observe(containerRef.current)
-    }
+    if (containerRef.current) observer.observe(containerRef.current)
 
     return () => observer.disconnect()
   }, [tags, hideOverflow])
 
-  // Get only the visible tags
-  const visibleTags = tags.slice(0, visibleCount)
-
-  // Number of tags hidden
   const hiddenCount = tags.length - visibleCount
 
   return (
     <div
       ref={containerRef}
-      style={{ display: "flex", gap: "4px", overflow: "hidden" }}
+      style={{
+        display: "flex",
+        gap: "4px",
+        overflow: "hidden",
+        position: "relative",
+      }}
     >
-      {visibleTags.map((tag, index) => (
+      {/* Render ALL tags but hide the extra ones */}
+      {tags.map((tag, index) => (
         <Chip
           key={index}
           label={tag}
           size="small"
           className="chip-measure"
           variant="outlined"
+          style={{
+            display: index < visibleCount ? "inline-flex" : "none",
+          }}
         />
       ))}
       {hiddenCount > 0 && (

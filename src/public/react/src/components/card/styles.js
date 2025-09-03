@@ -16,7 +16,7 @@
 import { css } from "@emotion/css"
 
 // Import not colors variables
-import { fontSize, lineHeight, border } from "@/theme/responsive"
+import { fontSize, lineHeight } from "@/theme/responsive"
 import { scale } from "@/theme/brand"
 
 // Import colors
@@ -41,15 +41,8 @@ const styles = (theme) => {
       borderRadius: "8px",
       border: `1px solid ${baseTokens.border.primary}`,
     }),
-    textContainer: css({
-      marginBottom: scale[100],
-    }),
     titleApp: css({
-      color: baseTokens.text.headings,
-      fontSize: fontSize.body.lg.desktop,
-      fontStyle: "normal",
-      fontWeight: 600,
-      lineHeight: lineHeight.body.lg,
+      marginBottom: scale[100],
     }),
     descriptionApp: css({
       color: baseTokens.text.body,
@@ -93,20 +86,12 @@ const styles = (theme) => {
       lineHeight: lineHeight.body.sm.desktop,
     }),
     dialogTitle: css({
-      borderRadius: border.radius["3xl"],
-      borderTop: border.width.sm,
-      borderRight: `${border.width.sm} solid ${baseTokens.border.primary}`,
-      borderBottom: `${border.width.none} solid ${baseTokens.border.primary}`,
-      borderLeft: `${border.width.sm} solid ${baseTokens.border.primary}`,
-      background: baseTokens.surface.primary,
       display: "flex",
       flexDirection: "row",
       justifyContent: "flex-end",
       padding: `${scale[100]} !important`,
     }),
     dialogContent: css({
-      borderRadius: `${border.radius.none} ${border.radius.none} ${border.radius["3xl"]} ${border.radius["3xl"]}`,
-      border: `${border.width.sm} solid ${baseTokens.border.primary}`,
       padding: `18px !important`,
     }),
     dialogIcon: css({

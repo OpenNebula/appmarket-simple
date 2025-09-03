@@ -21,6 +21,7 @@ import { Xmark as CopyIcon, Download as DownloadIcon } from "iconoir-react"
 // Utilities
 import Markdown from "react-markdown"
 import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
+import markdownComponents from "@/utils/markdown"
 
 /**
  * Render the appliance details.
@@ -71,19 +72,7 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
               <Typography variant="h5" className={detailsStyles.applianceTitle}>
                 {appliance.name}
               </Typography>
-              <Markdown
-                components={{
-                  p: ({ _, ...props }) => (
-                    <Typography
-                      className={detailsStyles.applianceDescription}
-                      {...props}
-                    />
-                  ),
-                  a: ({ _, ...props }) => (
-                    <a className={detailsStyles.applianceRef} {...props} />
-                  ),
-                }}
-              >
+              <Markdown components={markdownComponents(theme)}>
                 {appliance.description}
               </Markdown>
             </Stack>

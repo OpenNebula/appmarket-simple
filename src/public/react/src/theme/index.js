@@ -40,6 +40,20 @@ const theme = (mode) => {
 
     typography: {
       fontFamily: [type.fontFamily.primary],
+      h1: {
+        fontSize: fontSize.heading.h1.desktop,
+        fontStyle: "normal",
+        fontWeight: 600,
+        lineHeight: lineHeight.heading.h1.desktop,
+        color: baseTokens.text.headings,
+      },
+      h2: {
+        fontSize: fontSize.heading.h2.desktop,
+        fontStyle: "normal",
+        fontWeight: 600,
+        lineHeight: lineHeight.heading.h2.desktop,
+        color: baseTokens.text.headings,
+      },
       h3: {
         fontSize: fontSize.heading.h3.desktop,
         fontStyle: "normal",
@@ -48,11 +62,11 @@ const theme = (mode) => {
         color: baseTokens.text.headings,
       },
       h4: {
-        color: baseTokens.text.headings,
+        color: baseTokens.text.headings.h4,
         fontSize: fontSize.body.lg.desktop,
         fontStyle: "normal",
         fontWeight: 600,
-        lineHeight: lineHeight.body.lg.desktop,
+        lineHeight: lineHeight.heading.h4.desktop,
       },
       h5: {
         color: baseTokens.text.headings,
@@ -63,10 +77,24 @@ const theme = (mode) => {
       },
       h6: {
         color: baseTokens.text.headings,
-        fontSize: fontSize.body.sm.desktop,
+        fontSize: fontSize.heading.h6.desktop,
         fontStyle: "normal",
         fontWeight: 500,
-        lineHeight: lineHeight.body.sm.desktop,
+        lineHeight: lineHeight.heading.h6.desktop,
+      },
+      body1: {
+        color: baseTokens.text.body,
+        fontSize: fontSize.body.sm.desktop,
+        fontStyle: "normal",
+        fontWeight: 400,
+        lineHeight: lineHeight.body.sm,
+      },
+      bodysm: {
+        color: baseTokens.text.body,
+        fontSize: fontSize.body.sm.desktop,
+        fontStyle: "normal",
+        fontWeight: 400,
+        lineHeight: lineHeight.body.sm,
       },
     },
 
@@ -115,10 +143,7 @@ const theme = (mode) => {
             border: `1px solid ${baseTokens.border.primary}`,
             backgroundColor: baseTokens.surface.primary,
             color: baseTokens.text.body,
-            fontSize: fontSize.body.caption.desktop,
-            fontStyle: "normal",
-            fontWeight: 600,
-            lineHeight: lineHeight.body.caption.desktop,
+            height: "20px",
           },
           filled: {
             padding: `${scale[50]} ${scale[200]}`,
@@ -126,6 +151,10 @@ const theme = (mode) => {
             border: `${border.radius.xs} solid ${baseTokens.border.primary}`,
             backgroundColor: baseTokens.surface.action,
             color: baseTokens.text.onAction,
+            height: "20px",
+          },
+          label: {
+            padding: 0,
             fontSize: fontSize.body.caption.desktop,
             fontStyle: "normal",
             fontWeight: 600,
@@ -288,6 +317,10 @@ const theme = (mode) => {
               width: "16px",
               height: "16px",
             },
+            "&:hover": {
+              backgroundColor: baseTokens.surface.actionHover,
+              boxShadow: "none",
+            },
             color: baseTokens.text.onAction,
             fontSize: fontSize.body.sm.desktop,
             fontStyle: "normal",
@@ -354,6 +387,34 @@ const theme = (mode) => {
             fontWeight: 400,
             lineHeight: lineHeight.body.sm.desktop,
             borderColor: baseTokens.border.primary,
+          },
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            backgroundColor: "transparent",
+          },
+        },
+      },
+      MuiDialogTitle: {
+        styleOverrides: {
+          root: {
+            borderRadius: `${border.radius["3xl"]} ${border.radius["3xl"]} ${border.radius.none} ${border.radius.none}`,
+            borderTop: border.width.sm,
+            borderRight: `${border.width.sm} solid ${baseTokens.border.primary}`,
+            borderBottom: `${border.width.none} solid ${baseTokens.border.primary}`,
+            borderLeft: `${border.width.sm} solid ${baseTokens.border.primary}`,
+            background: baseTokens.surface.primary,
+          },
+        },
+      },
+      MuiDialogContent: {
+        styleOverrides: {
+          root: {
+            borderRadius: `${border.radius.none} ${border.radius.none} ${border.radius["3xl"]} ${border.radius["3xl"]}`,
+            border: `${border.width.sm} solid ${baseTokens.border.primary}`,
+            background: baseTokens.surface.primary,
           },
         },
       },

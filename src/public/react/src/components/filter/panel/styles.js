@@ -37,6 +37,7 @@ const styles = (theme) => {
       justifyContent: "space-between",
       alignItems: "center",
       padding: scale[600],
+      backgroundColor: baseTokens.surface.primary,
     }),
     filtersContainer: css({
       justifyContent: "flex-start",
@@ -60,6 +61,9 @@ const styles = (theme) => {
       fontStyle: "normal",
       fontWeight: 400,
       lineHeight: lineHeight.body.md.desktop,
+    }),
+    title: css({
+      fontWeight: "500 !important",
     }),
   }
 }
