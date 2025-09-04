@@ -27,6 +27,9 @@ import { FilterList as FilterIcon, NavArrowDown } from "iconoir-react"
 // Utilities
 import { sum, map, isArray, isObject, isNil } from "lodash"
 
+// Context imports
+import { useDrawer } from "@/context/drawer/DrawerContext"
+
 const FilterPanel = () => {
   // Get styles for the component
   const theme = useTheme()
@@ -34,6 +37,9 @@ const FilterPanel = () => {
 
   // Get setFilter function: This function will apply the current selected filter to the list of appliances.
   const { setFilter } = useAppliances()
+
+  // Get hook to open the drawer
+  const { closeDrawer } = useDrawer()
 
   // User filters context: This context will give us the ability to get and modify the filters definition and which values are selected in each filter.
   const { filters, selectedFilters, setFilterValue } = useFilters()
@@ -70,6 +76,9 @@ const FilterPanel = () => {
         setFilter(key, values)
       }
     })
+
+    // Close panel
+    closeDrawer()
   }
 
   const validValuesCount = useMemo(() => {

@@ -319,6 +319,7 @@ const theme = (mode) => {
             },
             "&:hover": {
               backgroundColor: baseTokens.surface.actionHover,
+              color: baseTokens.text.onAction2,
               boxShadow: "none",
             },
             color: baseTokens.text.onAction,
@@ -394,6 +395,8 @@ const theme = (mode) => {
         styleOverrides: {
           paper: {
             backgroundColor: "transparent",
+            backgroundImage: "none",
+            boxShadow: "none",
           },
         },
       },

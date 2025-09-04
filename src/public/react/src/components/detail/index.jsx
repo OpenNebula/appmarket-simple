@@ -221,7 +221,6 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
         <Button
           variant="contained"
           endIcon={<DownloadIcon />}
-          className={detailsStyles.filterButton}
           onClick={() => handleDownload(appliance)}
         >
           Download
@@ -229,7 +228,6 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
         <Button
           variant="contained"
           endIcon={<CopyIcon />}
-          className={detailsStyles.filterButton}
           onClick={() => handleCopyTemplate(appliance, showMessage, dialogRef)}
         >
           Copy Template
