@@ -25,6 +25,9 @@ import styles from "@/layout/dashboard/styles"
 import { useAppliances } from "@/context/appliances/AppliancesContext"
 import { useDrawer } from "@/context/drawer/DrawerContext"
 
+// Config
+import config from "@config"
+
 // Icons
 import { Xmark as CloseIcon } from "iconoir-react"
 
@@ -47,7 +50,7 @@ const Dashboard = () => {
       {/* Render the main layout component */}
       <Stack direction="column" className={marketplaceStyles.container}>
         <Box className={marketplaceStyles.title}>
-          <Typography variant="h3">Appliances</Typography>
+          <Typography variant="h3">{config?.title}</Typography>
         </Box>
 
         <Stack direction="column" className={marketplaceStyles.toolbar}>
