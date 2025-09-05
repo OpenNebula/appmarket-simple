@@ -150,8 +150,9 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
         </Stack>
         <Stack
           direction="column"
-          justifyContent="space-between"
+          justifyContent="flex-start"
           className={detailsStyles.containerDetails2}
+          sx={{ gap: "24px" }}
         >
           <Stack
             direction="column"
@@ -183,7 +184,7 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
             sx={{ gap: "11px" }}
           >
             <Typography className={detailsStyles.otherAttributeTitle}>
-              OS Release
+              OS RELEASE
             </Typography>
             <Typography className={detailsStyles.otherAttributeText}>
               {appliance?.["os-release"]}
@@ -195,7 +196,7 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
             sx={{ gap: "11px" }}
           >
             <Typography className={detailsStyles.otherAttributeTitle}>
-              OS arch
+              OS ARCH
             </Typography>
             <Typography className={detailsStyles.otherAttributeText}>
               {appliance?.["os-arch"]}

@@ -37,9 +37,10 @@ const styles = (theme) => {
       border: `1px solid ${baseTokens.border.primary}`,
     }),
     containerDetails2: css({
-      padding: "16px 60px 10px 16px",
+      padding: "16px 16px 16px 16px",
       borderRadius: border.radius["3xl"],
       border: `1px solid ${baseTokens.border.primary}`,
+      minWidth: "160px",
     }),
     logoAppliance: css({
       width: "100px",

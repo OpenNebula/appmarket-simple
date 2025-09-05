@@ -57,13 +57,14 @@ const Sort = () => {
   }
 
   // Set order to sory by
-  const [sortOrder, setSortOrder] = useState("asc")
+  const [sortOrder, setSortOrder] = useState(null)
 
   // Change order to sort by between asc and desc
   const handleSortOrder = (_, sortOrder) => {
     // Show warning message
     if (!activeCategory) {
       showMessage("To order, select first a Sort by category")
+      return
     }
 
     // Set order
