@@ -1,28 +1,58 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+const babelParser = require("@babel/eslint-parser")
+const globals = require("globals")
+const unusedImports = require("eslint-plugin-unused-imports")
+const react = require("eslint-plugin-react")
+const reactHooks = require("eslint-plugin-react-hooks")
+const jsxA11y = require("eslint-plugin-jsx-a11y")
+const importPlugin = require("eslint-plugin-import")
+const prettier = require("eslint-plugin-prettier")
+const js = require("@eslint/js")
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+module.exports = [
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    files: ["src/**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
+      parser: babelParser,
+      parserOptions: {
+        requireConfigFile: false,           // don’t require a babel config
+        babelOptions: {
+          presets: ["@babel/preset-react"], // enables JSX parsing
+        },
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },        // explicitly enable JSX
+      },
       globals: globals.browser,
     },
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      react,
+      "react-hooks": reactHooks,
+      "jsx-a11y": jsxA11y,
+      import: importPlugin,
+      "unused-imports": unusedImports,
+      prettier,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
+      ...js.configs.recommended.rules,
+
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+
+      "import/order": "off",
+      "import/no-duplicates": "error",
+
+      "no-unused-vars": "off",                  // disable ESLint core
+      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        { vars: "all", args: "after-used", argsIgnorePattern: "^_" },
       ],
+
+      "react/jsx-uses-vars": "warn", 
+
+      "prettier/prettier": ["warn", { semi: false }],
     },
   },
-)
+]

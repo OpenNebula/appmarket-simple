@@ -4,9 +4,9 @@ require 'appliance/image'
 require 'securerandom'
 
 class Appliance
-    attr_reader :id, :name, :version, :publisher, :description
+    attr_reader :id, :name, :version, :publisher, :publisher_email, :description
     attr_reader :tags, :creation_time, :opennebula_template
-    attr_reader :images, :opennebula_version, :creation_time
+    attr_reader :images, :opennebula_version, :one_apps_version, :creation_time
     attr_reader :os_id, :os_release, :os_arch, :format, :hypervisor, :logo, :type, :roles, :disks
 
     def initialize(file=nil)
@@ -14,12 +14,14 @@ class Appliance
         @name = nil
         @version = nil
         @publisher = nil
+        @publisher_email = nil
         @description = nil
         @short_description = nil
         @tags = nil
         @creation_time = nil
         @opennebula_template = nil
         @opennebula_version = nil
+        @one_apps_version = nil
         @os_id = nil
         @os_release = nil
         @os_arch = nil
@@ -48,6 +50,10 @@ class Appliance
     def publisher=(value)
         @publisher = strip_or_nil(value)
     end
+
+    def publisher_email=(value)
+        @publisher_email = strip_or_nil(value)
+    end    
 
     def description=(value)
         @description = strip_or_nil(value)
@@ -109,6 +115,10 @@ class Appliance
         @opennebula_version = strip_or_nil(value)
     end
 
+    def one_apps_version=(value)
+        @one_apps_version = strip_or_nil(value)
+    end
+
     def os_id=(value)
         @os_id = strip_or_nil(value)
     end
@@ -133,8 +143,8 @@ class Appliance
 
     ###
 
-    KEYS = %w(id name version publisher description short_description tags format
-              creation_time opennebula_template opennebula_version
+    KEYS = %w(id name version publisher publisher_email description short_description tags format
+              creation_time opennebula_template opennebula_version one-apps_version
               os-id os-release os-arch hypervisor logo type roles disks)
 
     def from_options(options)
@@ -215,6 +225,7 @@ class Appliance
             'name'                => @name,
             'version'             => @version,
             'publisher'           => @publisher,
+            'publisher_email'     => @publisher_email,
             'description'         => @description,
             'short_description'   => @short_description,
             'tags'                => @tags,
@@ -225,6 +236,7 @@ class Appliance
             'os-arch'             => @os_arch,
             'hypervisor'          => @hypervisor,
             'opennebula_version'  => @opennebula_version,
+            'one-apps_version'    => @one_apps_version,
             'opennebula_template' => template,
             'logo'                => @logo,
             'type'                => @type,
