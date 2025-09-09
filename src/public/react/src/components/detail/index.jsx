@@ -219,13 +219,15 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
         </Stack>
       </Stack>
       <Stack direction="row" justifyContent="flex-end" sx={{ gap: "16px" }}>
-        <Button
-          variant="contained"
-          endIcon={<DownloadIcon />}
-          onClick={() => handleDownload(appliance)}
-        >
-          Download
-        </Button>
+        {appliance?.files?.length === 1 && (
+          <Button
+            variant="contained"
+            endIcon={<DownloadIcon />}
+            onClick={() => handleDownload(appliance)}
+          >
+            Download
+          </Button>
+        )}
         <Button
           variant="contained"
           endIcon={<CopyIcon />}
