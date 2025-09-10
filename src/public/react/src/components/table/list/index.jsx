@@ -101,6 +101,18 @@ const TableList = ({ appliances }) => {
                     direction="row"
                     className={listStyles.containerActions}
                   >
+                    {appliance?.files?.length === 1 && (
+                      <Tooltip title="Download">
+                        <IconButton
+                          className={listStyles.actionIcon}
+                          sx={{ padding: 0 }}
+                          onClick={() => handleDownload(appliance)}
+                        >
+                          <DownloadIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+
                     <Tooltip title={"Copy template"}>
                       <IconButton
                         className={listStyles.actionIcon}
@@ -110,16 +122,6 @@ const TableList = ({ appliances }) => {
                         }
                       >
                         <CopyIcon />
-                      </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Download">
-                      <IconButton
-                        className={listStyles.actionIcon}
-                        sx={{ padding: 0 }}
-                        onClick={() => handleDownload(appliance)}
-                      >
-                        <DownloadIcon />
                       </IconButton>
                     </Tooltip>
                   </Stack>

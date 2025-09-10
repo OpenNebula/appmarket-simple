@@ -102,15 +102,7 @@ const ApplianceCard = ({ appliance }) => {
                   className={cardStyles.imageContainer}
                 />
                 <Stack direction="column">
-                  <Typography
-                    // className={clsx(
-                    //   cardStyles.textContainer,
-                    //   cardStyles.titleApp,
-                    // )}
-                    variant="h4"
-                  >
-                    {appliance.name}
-                  </Typography>
+                  <Typography variant="h4">{appliance.name}</Typography>
                   <Typography className={cardStyles.descriptionApp}>
                     {appliance.short_description}
                   </Typography>
@@ -147,21 +139,23 @@ const ApplianceCard = ({ appliance }) => {
                       disableInteractive
                     >
                       <span>
-                        <MenuItem
-                          onClick={() => {
-                            handleDownload(appliance)
-                            handleCloseMenu()
-                          }}
-                          disabled={!appliance?.links?.download.href}
-                          className={cardStyles.menuOption}
-                        >
-                          <ListItemIcon>
-                            <Download />
-                          </ListItemIcon>
-                          <Typography className={cardStyles.menuOptionText}>
-                            Download
-                          </Typography>
-                        </MenuItem>
+                        {appliance?.files?.length === 1 && (
+                          <MenuItem
+                            onClick={() => {
+                              handleDownload(appliance)
+                              handleCloseMenu()
+                            }}
+                            disabled={appliance?.files?.length !== 1}
+                            className={cardStyles.menuOption}
+                          >
+                            <ListItemIcon>
+                              <Download />
+                            </ListItemIcon>
+                            <Typography className={cardStyles.menuOptionText}>
+                              Download
+                            </Typography>
+                          </MenuItem>
+                        )}
                       </span>
                     </Tooltip>
                     <MenuItem
