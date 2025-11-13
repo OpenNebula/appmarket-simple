@@ -21,7 +21,7 @@ class AppCli < Thor
             :required => mandatory
 
         method_option :publisher_email,
-            :desc     => "Publisher email",            
+            :desc     => "Publisher email"        
 
         method_option :description,
             :desc     => "Description",
@@ -96,7 +96,7 @@ class AppCli < Thor
         method_option :opennebula_version,
             :desc     => "OpenNebula version"
 
-        method_option :one-apps_version,
+        method_option :one_apps_version,
             :desc     => "ONE Apps version"
     end
 end
