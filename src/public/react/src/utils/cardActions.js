@@ -35,6 +35,40 @@ const handleCopyTemplate = async (appliance, showMessage, dialogRef) => {
   return false
 }
 
+// Handle the copy link action
+const handleCopyLink = async (appliance, showMessage, dialogRef) => {
+  // Check if the appliance has id
+  if (!appliance || !appliance["_id"] || !appliance["_id"]["$oid"]) {
+    showMessage("There is no id for the selected appliance")
+    return
+  }
+
+  // Get appliance id
+  const idAppliance = appliance["_id"]["$oid"]
+
+  // Create URL to copy
+  const fullUrl = `${window.location.origin}/appliance/${idAppliance}`
+
+  const isSecure = window.isSecureContext // true if HTTPS or localhost
+
+  if (navigator?.clipboard && isSecure) {
+    try {
+      await navigator.clipboard.writeText(fullUrl)
+      showMessage("URL link copied to clipboard!")
+      return
+    } catch (err) {
+      console.log("Clipboard API failed, falling back:", err)
+      fallbackCopyText(fullUrl, showMessage)
+    }
+  }
+
+  console.log("No clipboard available or insecure protocol, falling back:")
+  fallbackCopyText(fullUrl, showMessage, dialogRef)
+
+  // If not secure or Clipboard API failed → return false
+  return false
+}
+
 // Copy when there is no clipboard
 const fallbackCopyText = (text, showMessage, dialogRef) => {
   try {
@@ -84,4 +118,4 @@ const handleDownload = (appliance) => {
   window.open(downloadLink, "_blank")
 }
 
-export { handleCopyTemplate, handleDownload }
+export { handleCopyTemplate, handleDownload, handleCopyLink }

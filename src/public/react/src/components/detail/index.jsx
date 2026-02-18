@@ -16,11 +16,19 @@ import Tags from "@/components/tags"
 import { useSnackbar } from "@/context/snackbar/SnackbarContext"
 
 // Import icons
-import { Xmark as CopyIcon, Download as DownloadIcon } from "iconoir-react"
+import {
+  Xmark as CopyIcon,
+  Download as DownloadIcon,
+  Link as LinkIcon,
+} from "iconoir-react"
 
 // Utilities
 import Markdown from "react-markdown"
-import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
+import {
+  handleCopyTemplate,
+  handleDownload,
+  handleCopyLink,
+} from "@/utils/cardActions"
 import markdownComponents from "@/utils/markdown"
 
 /**
@@ -234,6 +242,13 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
           onClick={() => handleCopyTemplate(appliance, showMessage, dialogRef)}
         >
           Copy Template
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<LinkIcon />}
+          onClick={() => handleCopyLink(appliance, showMessage, dialogRef)}
+        >
+          Copy URL Link
         </Button>
       </Stack>
     </Stack>

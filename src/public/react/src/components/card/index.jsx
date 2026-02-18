@@ -20,7 +20,13 @@ import {
 } from "@mui/material"
 
 // Icons
-import { MoreVert, Download, Copy, Xmark as CloseIcon } from "iconoir-react"
+import {
+  MoreVert,
+  Download,
+  Copy,
+  Xmark as CloseIcon,
+  Link,
+} from "iconoir-react"
 
 // Card styles
 import styles from "@/components/card/styles"
@@ -33,7 +39,11 @@ import ApplianceDetails from "@/components/detail"
 
 // Utilities
 import { format } from "date-fns"
-import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
+import {
+  handleCopyTemplate,
+  handleDownload,
+  handleCopyLink,
+} from "@/utils/cardActions"
 
 // Import contexts
 import { useSnackbar } from "@/context/snackbar/SnackbarContext"
@@ -172,6 +182,23 @@ const ApplianceCard = ({ appliance }) => {
                       </ListItemIcon>
                       <Typography className={cardStyles.menuOptionText}>
                         Copy Template
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem
+                      ref={menuItemRef}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => {
+                        console.log("New op")
+                        handleCopyLink(appliance, showMessage, menuItemRef)
+                        handleCloseMenu()
+                      }}
+                      className={cardStyles.menuOption}
+                    >
+                      <ListItemIcon>
+                        <Link />
+                      </ListItemIcon>
+                      <Typography className={cardStyles.menuOptionText}>
+                        Copy URL Link
                       </Typography>
                     </MenuItem>
                   </Menu>

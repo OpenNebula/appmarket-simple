@@ -2,7 +2,7 @@
 import { useParams, useNavigate } from "react-router-dom"
 
 // Import MUI
-import { Stack, CircularProgress, Button, Box } from "@mui/material"
+import { Stack, CircularProgress, Button, Box, Typography } from "@mui/material"
 
 // Import context provider
 import { useAppliances } from "@/context/appliances/AppliancesContext"
@@ -25,7 +25,7 @@ const Detail = () => {
   const applianceId = params?.id
 
   // Get appliances
-  const { allAppliances } = useAppliances()
+  const { allAppliances, isLoading } = useAppliances()
 
   // Get appliance with id
   const appliance = find(allAppliances, ["_id.$oid", applianceId])
@@ -53,13 +53,25 @@ const Detail = () => {
         justifyContent="center"
         sx={{ marginLeft: "200px", marginRight: "200px" }}
       >
-        {appliance ? (
+        {isLoading ? (
+          <CircularProgress />
+        ) : appliance ? (
           <ApplianceDetails
             sx={{ alignSelf: "center" }}
             appliance={appliance}
           />
         ) : (
-          <CircularProgress />
+          <Box textAlign="center">
+            <Stack spacing={2}>
+              <Typography variant="h4" component="h2">
+                Appliance not found
+              </Typography>
+              <Typography variant="body1">
+                The requested appliance with ID <b>{applianceId}</b> was not
+                found.
+              </Typography>
+            </Stack>
+          </Box>
         )}
       </Box>
     </Stack>

@@ -28,13 +28,18 @@ import { useSnackbar } from "@/context/snackbar/SnackbarContext"
 import ApplianceDetails from "@/components/detail"
 
 // Utilities
-import { handleCopyTemplate, handleDownload } from "@/utils/cardActions"
+import {
+  handleCopyTemplate,
+  handleDownload,
+  handleCopyLink,
+} from "@/utils/cardActions"
 
 // Import icons
 import {
   Copy as CopyIcon,
   Download as DownloadIcon,
   Xmark as CloseIcon,
+  Link as LinkIcon,
 } from "iconoir-react"
 
 /**
@@ -122,6 +127,16 @@ const TableList = ({ appliances }) => {
                         }
                       >
                         <CopyIcon />
+                      </IconButton>
+                    </Tooltip>
+
+                    <Tooltip title={"Copy URL link"}>
+                      <IconButton
+                        className={listStyles.actionIcon}
+                        sx={{ padding: 0 }}
+                        onClick={() => handleCopyLink(appliance, showMessage)}
+                      >
+                        <LinkIcon />
                       </IconButton>
                     </Tooltip>
                   </Stack>
