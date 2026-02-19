@@ -255,7 +255,7 @@ const ApplianceCard = ({ appliance }) => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent ref={dialogRef} className={cardStyles.dialogContent}>
+        <DialogContent ref={dialogRef}>
           <ApplianceDetails
             appliance={appliance}
             handleDownload={handleDownload}

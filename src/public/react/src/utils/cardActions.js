@@ -11,7 +11,7 @@ const handleCopyTemplate = async (appliance, showMessage, dialogRef) => {
 
   // Get template in OpenNebula format
   const openNebulaTemplate = parseToOpenNebulaFormat(
-    JSON.parse(appliance.opennebula_template),
+    appliance.opennebula_template,
   )
   const text = String(openNebulaTemplate ?? "")
 

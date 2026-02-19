@@ -416,8 +416,24 @@ const theme = (mode) => {
         styleOverrides: {
           root: {
             borderRadius: `${border.radius.none} ${border.radius.none} ${border.radius["3xl"]} ${border.radius["3xl"]}`,
-            border: `${border.width.sm} solid ${baseTokens.border.primary}`,
             background: baseTokens.surface.primary,
+            padding: 0,
+          },
+        },
+      },
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            padding: `${scale[100]} ${scale[500]} ${scale[100]} ${scale[400]}`,
+            minHeight: 0,
+          },
+        },
+      },
+      MuiTabs: {
+        styleOverrides: {
+          root: {
+            minHeight: 0,
+            marginBottom: "-2px",
           },
         },
       },

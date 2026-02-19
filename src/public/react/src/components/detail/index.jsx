@@ -1,16 +1,31 @@
+/* ------------------------------------------------------------------------- *
+ * Copyright 2002-2025, OpenNebula Project, OpenNebula Systems               *
+ *                                                                           *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may   *
+ * not use this file except in compliance with the License. You may obtain   *
+ * a copy of the License at                                                  *
+ *                                                                           *
+ * http://www.apache.org/licenses/LICENSE-2.0                                *
+ *                                                                           *
+ * Unless required by applicable law or agreed to in writing, software       *
+ * distributed under the License is distributed on an "AS IS" BASIS,         *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  *
+ * See the License for the specific language governing permissions and       *
+ * limitations under the License.                                            *
+ * ------------------------------------------------------------------------- */
 // React imports
-import { useMemo } from "react"
+import { useState } from "react"
 
 // MUI components
-import { Stack, Typography, Box, Button } from "@mui/material"
+import { Stack, Box, Button, Tabs, Tab } from "@mui/material"
 
 // Card styles
 import { useTheme } from "@mui/material/styles"
-import { split } from "lodash"
 import styles from "@/components/detail/styles"
 
 // Marketplace components
-import Tags from "@/components/tags"
+import ApplianceOverview from "@/components/detail/overview"
+import ApplianceTemplate from "@/components/detail/template"
 
 // Marketplace contexts
 import { useSnackbar } from "@/context/snackbar/SnackbarContext"
@@ -23,13 +38,11 @@ import {
 } from "iconoir-react"
 
 // Utilities
-import Markdown from "react-markdown"
 import {
   handleCopyTemplate,
   handleDownload,
   handleCopyLink,
 } from "@/utils/cardActions"
-import markdownComponents from "@/utils/markdown"
 
 /**
  * Render the appliance details.
@@ -46,211 +59,66 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
   // Hook to display messages
   const { showMessage } = useSnackbar()
 
-  // Transform opennebula_version string into array
-  const opennebulaVersions = useMemo(
-    () => split(appliance?.opennebula_version || "", ",").filter(Boolean),
-    [appliance?.opennebula_version],
-  )
-
-  // Transform hypervisors string into array
-  const hypervisor = useMemo(
-    () => split(appliance?.hypervisor || "", ",").filter(Boolean),
-    [appliance?.hypervisor],
-  )
+  // Identify tab => Overview = 0, Template = 1
+  const [selectedTab, setSelectedTab] = useState(0)
 
   return (
     <Stack direction="column" sx={{ gap: "16px", width: "100%" }}>
-      <Stack direction="row" sx={{ gap: "16px" }}>
-        <Stack
-          direction="column"
-          sx={{ gap: "7px", flexGrow: 1 }}
-          className={detailsStyles.containerDetails1}
-        >
-          <Stack direction="row" sx={{ gap: "15px" }}>
-            <Box
-              component="img"
-              src={
-                appliance.logo
-                  ? `/logos/${appliance.logo}`
-                  : "/assets/logo-appliance.svg"
-              }
-              className={detailsStyles.logoAppliance}
-            />
-            <Stack direction="column" sx={{ gap: "4px" }}>
-              <Typography variant="h5" className={detailsStyles.applianceTitle}>
-                {appliance.name}
-              </Typography>
-              <Markdown components={markdownComponents(theme)}>
-                {appliance.description}
-              </Markdown>
-            </Stack>
-          </Stack>
-          <Stack direction="column" sx={{ gap: "4px" }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              className={detailsStyles.applianceAttributes}
-            >
-              <Typography className={detailsStyles.applianceAttributesTitle}>
-                Tags
-              </Typography>
-              <Tags tags={appliance?.tags} hideOverflow={false}></Tags>
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              className={detailsStyles.applianceAttributes}
-            >
-              <Typography className={detailsStyles.applianceAttributesTitle}>
-                Hypervisors
-              </Typography>
-              <Tags tags={hypervisor} hideOverflow={false}></Tags>
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              className={detailsStyles.applianceAttributes}
-            >
-              <Typography className={detailsStyles.applianceAttributesTitle}>
-                Publisher
-              </Typography>
-              <Typography className={detailsStyles.applianceAttributesText}>
-                {appliance?.publisher}
-              </Typography>
-            </Stack>
-            {appliance?.publisher_email && (
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                className={detailsStyles.applianceAttributes}
+      <Box sx={{ width: "100%" }}>
+        {/* Tabs */}
+        <Box className={detailsStyles.tabHeader}>
+          <Tabs
+            value={selectedTab}
+            onChange={(event, newTab) => setSelectedTab(newTab)}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Overview" className={detailsStyles.tabTitle} />
+            <Tab label="Template" className={detailsStyles.tabTitle} />
+          </Tabs>
+        </Box>
+
+        {/* Content */}
+        <Box className={detailsStyles.tabContent}>
+          {/* Content for tab Overview */}
+          {selectedTab == 0 && <ApplianceOverview appliance={appliance} />}
+
+          {/* Content for tab Template */}
+          {selectedTab == 1 && <ApplianceTemplate appliance={appliance} />}
+
+          {/* Buttons */}
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            className={detailsStyles.tabButtons}
+          >
+            {appliance?.files?.length === 1 && (
+              <Button
+                variant="contained"
+                endIcon={<DownloadIcon />}
+                onClick={() => handleDownload(appliance)}
               >
-                <Typography className={detailsStyles.applianceAttributesTitle}>
-                  Publisher Email
-                </Typography>
-                <Typography className={detailsStyles.applianceAttributesText}>
-                  {appliance?.publisher_email}
-                </Typography>
-              </Stack>
+                Download
+              </Button>
             )}
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              className={detailsStyles.applianceAttributes}
+            <Button
+              variant="contained"
+              endIcon={<CopyIcon />}
+              onClick={() =>
+                handleCopyTemplate(appliance, showMessage, dialogRef)
+              }
             >
-              <Typography className={detailsStyles.applianceAttributesTitle}>
-                Appliance Version
-              </Typography>
-              <Typography className={detailsStyles.applianceAttributesText}>
-                {appliance?.version}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              className={detailsStyles.applianceAttributes}
+              Copy Template
+            </Button>
+            <Button
+              variant="contained"
+              endIcon={<LinkIcon />}
+              onClick={() => handleCopyLink(appliance, showMessage, dialogRef)}
             >
-              <Typography className={detailsStyles.applianceAttributesTitle}>
-                Compatible Releases
-              </Typography>
-              <Tags tags={opennebulaVersions} hideOverflow={false}></Tags>
-            </Stack>
+              Copy URL Link
+            </Button>
           </Stack>
-        </Stack>
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          className={detailsStyles.containerDetails2}
-          sx={{ gap: "24px" }}
-        >
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            sx={{ gap: "11px" }}
-          >
-            <Typography className={detailsStyles.otherAttributeTitle}>
-              FORMAT
-            </Typography>
-            <Typography className={detailsStyles.otherAttributeText}>
-              {appliance?.format ? appliance.format : "-"}
-            </Typography>
-          </Stack>
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            sx={{ gap: "11px" }}
-          >
-            <Typography className={detailsStyles.otherAttributeTitle}>
-              OS
-            </Typography>
-            <Typography className={detailsStyles.otherAttributeText}>
-              {appliance?.["os-id"]}
-            </Typography>
-          </Stack>
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            sx={{ gap: "11px" }}
-          >
-            <Typography className={detailsStyles.otherAttributeTitle}>
-              OS RELEASE
-            </Typography>
-            <Typography className={detailsStyles.otherAttributeText}>
-              {appliance?.["os-release"]}
-            </Typography>
-          </Stack>
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            sx={{ gap: "11px" }}
-          >
-            <Typography className={detailsStyles.otherAttributeTitle}>
-              OS ARCH
-            </Typography>
-            <Typography className={detailsStyles.otherAttributeText}>
-              {appliance?.["os-arch"]}
-            </Typography>
-          </Stack>
-          {appliance?.["one-apps_version"] && (
-            <Stack
-              direction="column"
-              justifyContent="space-between"
-              sx={{ gap: "11px" }}
-            >
-              <Typography className={detailsStyles.otherAttributeTitle}>
-                OneApps Version
-              </Typography>
-              <Typography className={detailsStyles.otherAttributeText}>
-                {appliance?.["one-apps_version"]}
-              </Typography>
-            </Stack>
-          )}
-        </Stack>
-      </Stack>
-      <Stack direction="row" justifyContent="flex-end" sx={{ gap: "16px" }}>
-        {appliance?.files?.length === 1 && (
-          <Button
-            variant="contained"
-            endIcon={<DownloadIcon />}
-            onClick={() => handleDownload(appliance)}
-          >
-            Download
-          </Button>
-        )}
-        <Button
-          variant="contained"
-          endIcon={<CopyIcon />}
-          onClick={() => handleCopyTemplate(appliance, showMessage, dialogRef)}
-        >
-          Copy Template
-        </Button>
-        <Button
-          variant="contained"
-          endIcon={<LinkIcon />}
-          onClick={() => handleCopyLink(appliance, showMessage, dialogRef)}
-        >
-          Copy URL Link
-        </Button>
-      </Stack>
+        </Box>
+      </Box>
     </Stack>
   )
 }
