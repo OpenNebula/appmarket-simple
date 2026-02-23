@@ -188,7 +188,6 @@ const ApplianceCard = ({ appliance }) => {
                       ref={menuItemRef}
                       onMouseDown={(e) => e.preventDefault()}
                       onClick={() => {
-                        console.log("New op")
                         handleCopyLink(appliance, showMessage, menuItemRef)
                         handleCloseMenu()
                       }}

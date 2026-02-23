@@ -63,7 +63,44 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
   const [selectedTab, setSelectedTab] = useState(0)
 
   return (
-    <Stack direction="column" sx={{ gap: "16px", width: "100%" }}>
+    <Stack direction="column" sx={{ width: "100%" }}>
+      {/* Buttons */}
+      <Stack
+        direction="row"
+        justifyContent="flex-end"
+        className={detailsStyles.tabButtons}
+      >
+        {appliance?.files?.length === 1 && selectedTab == 0 && (
+          <Button
+            variant="outlined"
+            startIcon={<DownloadIcon />}
+            onClick={() => handleDownload(appliance)}
+          >
+            Download
+          </Button>
+        )}
+        {selectedTab == 0 && (
+          <Button
+            variant="contained"
+            startIcon={<LinkIcon />}
+            onClick={() => handleCopyLink(appliance, showMessage, dialogRef)}
+          >
+            Copy URL Link
+          </Button>
+        )}
+        {selectedTab == 1 && (
+          <Button
+            variant="contained"
+            startIcon={<CopyIcon />}
+            onClick={() =>
+              handleCopyTemplate(appliance, showMessage, dialogRef)
+            }
+          >
+            Copy Template
+          </Button>
+        )}
+      </Stack>
+
       <Box sx={{ width: "100%" }}>
         {/* Tabs */}
         <Box className={detailsStyles.tabHeader}>
@@ -84,39 +121,6 @@ const ApplianceDetails = ({ appliance, dialogRef }) => {
 
           {/* Content for tab Template */}
           {selectedTab == 1 && <ApplianceTemplate appliance={appliance} />}
-
-          {/* Buttons */}
-          <Stack
-            direction="row"
-            justifyContent="flex-end"
-            className={detailsStyles.tabButtons}
-          >
-            {appliance?.files?.length === 1 && (
-              <Button
-                variant="contained"
-                endIcon={<DownloadIcon />}
-                onClick={() => handleDownload(appliance)}
-              >
-                Download
-              </Button>
-            )}
-            <Button
-              variant="contained"
-              endIcon={<CopyIcon />}
-              onClick={() =>
-                handleCopyTemplate(appliance, showMessage, dialogRef)
-              }
-            >
-              Copy Template
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<LinkIcon />}
-              onClick={() => handleCopyLink(appliance, showMessage, dialogRef)}
-            >
-              Copy URL Link
-            </Button>
-          </Stack>
         </Box>
       </Box>
     </Stack>

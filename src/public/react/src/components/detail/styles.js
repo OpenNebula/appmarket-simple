@@ -57,8 +57,9 @@ const styles = (theme) => {
       padding: "18px",
     }),
     tabButtons: css({
-      paddingTop: "18px",
+      padding: "13px 13px 0px 13px",
       gap: "16px",
+      marginBottom: "-13px",
     }),
   }
 }

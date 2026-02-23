@@ -293,23 +293,21 @@ const theme = (mode) => {
             borderRadius: `${border.radius.xlg}`,
             border: `${border.width.sm} solid ${baseTokens.border.primary}`,
             backgroundColor: baseTokens.surface.primary,
-            "& .MuiTypography-root": {
-              color: baseTokens.text.body,
-              textAlign: "center",
-              fontSize: fontSize.body.sm.desktop,
-              fontStyle: "normal",
-              fontWeight: 500,
-              lineHeight: lineHeight.body.sm.desktop,
-              textTransform: "none",
-            },
+            color: baseTokens.text.body,
+            textAlign: "center",
+            fontSize: fontSize.body.sm.desktop,
+            fontStyle: "normal",
+            fontWeight: 500,
+            lineHeight: lineHeight.body.sm.desktop,
+            textTransform: "none",
             "& svg": {
               height: "16px",
               width: "16px",
-              color: baseTokens.icon.action,
+              color: baseTokens.icon.primary,
             },
           },
           contained: {
-            padding: `${scale[200]} ${scale[500]}`,
+            padding: `${scale[300]} ${scale[500]}`,
             borderRadius: border.radius.xlg,
             border: `${border.width.sm} solid ${baseTokens.border.action}`,
             backgroundColor: baseTokens.surface.action,
@@ -330,7 +328,7 @@ const theme = (mode) => {
             textTransform: "none",
           },
           filled: {
-            padding: `${scale[200]} ${scale[500]}`,
+            padding: `${scale[300]} ${scale[500]}`,
             borderRadius: border.radius.xlg,
             "& svg": {
               width: "16px",
@@ -434,6 +432,15 @@ const theme = (mode) => {
           root: {
             minHeight: 0,
             marginBottom: "-2px",
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          outlined: {
+            padding: `${scale[400]} ${scale[500]} ${scale[400]} ${scale[500]}`,
+            backgroundColor: baseTokens.surface.mute,
+            borderRadius: scale[200],
           },
         },
       },

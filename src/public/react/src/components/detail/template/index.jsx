@@ -40,14 +40,7 @@ const ApplianceTemplate = ({ appliance }) => {
   const templateStyles = styles(theme)
 
   return (
-    <Paper
-      variant="outlined"
-      sx={{
-        p: 3,
-        bgcolor: "#f8f9fa", // Light grey background like a code block
-        borderRadius: 2,
-      }}
-    >
+    <Paper variant="outlined">
       <Box component="pre" className={templateStyles.templateText}>
         {parseToOpenNebulaFormat(appliance.opennebula_template)}
       </Box>

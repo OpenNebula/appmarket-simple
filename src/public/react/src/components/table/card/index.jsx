@@ -13,7 +13,7 @@ const TableCard = ({ appliances }) => {
   return (
     <Grid container spacing={"24px"}>
       {appliances?.map((appliance, index) => (
-        <Grid key={`card-${index}`} size={{ xs: 12, md: 4 }}>
+        <Grid key={`card-${index}`} size={{ xs: 12, sm: 4, md: 4, xl: 3 }}>
           <ApplianceCard appliance={appliance} />
         </Grid>
       ))}
