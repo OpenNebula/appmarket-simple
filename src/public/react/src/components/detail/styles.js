@@ -16,7 +16,7 @@
 import { css } from "@emotion/css"
 
 // Import not colors variables
-import { fontSize, lineHeight, border } from "@/theme/responsive"
+import { fontSize, lineHeight } from "@/theme/responsive"
 
 import { light } from "@/theme/colors/themes/light"
 import { dark } from "@/theme/colors/themes/dark"
@@ -31,82 +31,35 @@ const styles = (theme) => {
   const baseTokens = theme.palette.mode === "light" ? light : dark
 
   return {
-    containerDetails1: css({
-      padding: "12px 16px 49px 12px",
-      borderRadius: border.radius["3xl"],
-      border: `1px solid ${baseTokens.border.primary}`,
+    tabHeader: css({
+      borderBottom: `2px solid ${baseTokens.border.primary}`,
     }),
-    containerDetails2: css({
-      padding: "16px 16px 16px 16px",
-      borderRadius: border.radius["3xl"],
-      border: `1px solid ${baseTokens.border.primary}`,
-      minWidth: "160px",
+    tabTitle: css({
+      "&&": {
+        textTransform: "none",
+        color: baseTokens.text.body,
+        fontFamily: "Inter",
+        fontSize: fontSize.body.sm.desktop,
+        fontStyle: "normal",
+        fontWeight: 500,
+        lineHeight: lineHeight.body.sm.desktop,
+      },
+      "&.Mui-selected": {
+        color: baseTokens.text.action,
+        fontFamily: "Inter",
+        fontSize: fontSize.body.sm.desktop,
+        fontStyle: "normal",
+        fontWeight: 600,
+        lineHeight: lineHeight.body.sm.desktop,
+      },
     }),
-    logoAppliance: css({
-      width: "100px",
-      height: "100px",
-      objectFit: "contain",
-      display: "block",
-      borderRadius: "8px",
-      border: `1px solid ${baseTokens.border.primary}`,
+    tabContent: css({
+      padding: "18px",
     }),
-    applianceTitle: css({
-      color: baseTokens.text.heading,
-      fontSize: fontSize.heading.h5.desktop,
-      fontStyle: "normal",
-      fontWeight: 600,
-      lineHeight: lineHeight.heading.h5.desktop,
-    }),
-    applianceDescription: css({
-      color: baseTokens.text.body,
-      fontSize: `${fontSize.body.sm.desktop} !important`,
-      fontStyle: "normal",
-      fontWeight: 400,
-      lineHeight: lineHeight.body.sm.desktop,
-    }),
-    applianceRef: css({
-      color: baseTokens.text.action,
-      fontSize: `${fontSize.body.sm.desktop} !important`,
-      fontStyle: "normal",
-      fontWeight: 400,
-      lineHeight: lineHeight.body.sm.desktop,
-      textDecorationLine: "underline",
-      textDecorationStyle: "solid",
-      textDecorationSkipInk: "auto",
-      textDecorationThickness: "auto",
-      textUnderlineOffset: "auto",
-      textUnderlinePosition: "from-font",
-    }),
-    applianceAttributes: css({
-      padding: "18px 0",
-    }),
-    applianceAttributesTitle: css({
-      color: `${baseTokens.text.headings} !important`,
-      fontSize: `${fontSize.body.md.desktop} !important`,
-      fontStyle: "normal !important",
-      fontWeight: "600 !important",
-      lineHeight: `${lineHeight.body.md.desktop} !important`,
-    }),
-    applianceAttributesText: css({
-      color: `${baseTokens.text.body} !important`,
-      fontSize: `${fontSize.body.md.desktop} !important`,
-      fontStyle: "normal !important",
-      fontWeight: "500 !important",
-      lineHeight: `${lineHeight.body.md.desktop} !important`,
-    }),
-    otherAttributeTitle: css({
-      color: `${baseTokens.text.body} !important`,
-      fontSize: `${fontSize.body.caption.desktop} !important`,
-      fontStyle: "normal !important",
-      fontWeight: "500 !important",
-      lineHeight: `${lineHeight.body.caption.desktop} !important`,
-    }),
-    otherAttributeText: css({
-      color: `${baseTokens.text.headings} !important`,
-      fontSize: `${fontSize.body.md.desktop} !important`,
-      fontStyle: "normal !important",
-      fontWeight: "500 !important",
-      lineHeight: `${lineHeight.body.md.desktop} !important`,
+    tabButtons: css({
+      padding: "13px 13px 0px 13px",
+      gap: "16px",
+      marginBottom: "-13px",
     }),
   }
 }

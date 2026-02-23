@@ -13,46 +13,39 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
+
+// React imports
+
+// MUI components
+import { Box, Paper } from "@mui/material"
+
+// Card styles
+import { useTheme } from "@mui/material/styles"
+import styles from "@/components/detail/template/styles"
+
+// Marketplace components
+
+// Utilities
+import { parseToOpenNebulaFormat } from "@/utils/parser"
+
 /**
- * Parse a JSON template to a OpenNebula template format.
- *
- * @param {object} template - JSON template
- * @returns {string} - OpenNebula template
+ * Render the appliance details.
+ * @param {object} props - Appliance details component props.
+ * @param {object} props.appliance - Appliance to render.
+ * @returns {JSX.Element} The rendered ApplianceDetails component.
  */
-const parseToOpenNebulaFormat = (template) => {
-  try {
-    // Get the json object
-    const data = JSON.parse(template)
+const ApplianceTemplate = ({ appliance }) => {
+  // Get styles for the component
+  const theme = useTheme()
+  const templateStyles = styles(theme)
 
-    // Two spaces used as tabulation
-    const indTab = "  "
-
-    // Iterate over all the objects in the JSON
-    return Object.entries(data)
-      .map(([key, value]) => {
-        // Case 1: Nested object
-        if (
-          typeof value === "object" &&
-          value !== null &&
-          !Array.isArray(value)
-        ) {
-          const innerLines = Object.entries(value)
-            .map(([innerKey, innerValue]) => {
-              return `${indTab}${innerKey}="${innerValue}"`
-            })
-            .join(",\n")
-
-          return `${key}=[\n${innerLines}\n ]`
-        }
-
-        // Case 2: Single object
-        return `${key}="${value}"`
-      })
-      .join("\n")
-  } catch (error) {
-    console.error("Error parsing OpenNebula JSON:", error)
-    return "Invalid template format"
-  }
+  return (
+    <Paper variant="outlined">
+      <Box component="pre" className={templateStyles.templateText}>
+        {parseToOpenNebulaFormat(appliance.opennebula_template)}
+      </Box>
+    </Paper>
+  )
 }
 
-export { parseToOpenNebulaFormat }
+export default ApplianceTemplate

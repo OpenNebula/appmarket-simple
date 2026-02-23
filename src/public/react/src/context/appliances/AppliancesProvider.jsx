@@ -18,7 +18,7 @@ import dayjs from "dayjs"
  * @param {ReactNode} props.children - The part of the React component tree that should have access to the appliances context.
  * @returns {JSX.Element} The provider component that wraps its children with appliances.
  */
-export const AppliancesProvider = ({ children, appliances }) => {
+export const AppliancesProvider = ({ children, appliances, isLoading }) => {
   // States for filters
   const [filters, setFilters] = useState({})
   const [sortKey, setSortKey] = useState(null)
@@ -125,6 +125,7 @@ export const AppliancesProvider = ({ children, appliances }) => {
     <AppliancesContext.Provider
       value={{
         appliances: filteredAppliances,
+        isLoading,
         setFilter,
         clearFilter,
         setSorting,

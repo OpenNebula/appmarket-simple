@@ -40,12 +40,15 @@ const fetchAppliances = async () => {
  */
 export const Providers = ({ children }) => {
   const [appliances, setAppliances] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   // Fetch appliances once on mount
   useEffect(() => {
     const loadData = async () => {
+      setIsLoading(true)
       const data = await fetchAppliances()
       setAppliances(data)
+      setIsLoading(false)
     }
     loadData()
   }, [])
@@ -53,7 +56,7 @@ export const Providers = ({ children }) => {
   return (
     <DrawerProvider>
       <SnackbarProvider>
-        <AppliancesProvider appliances={appliances}>
+        <AppliancesProvider appliances={appliances} isLoading={isLoading}>
           <FiltersProvider appliances={appliances}>{children}</FiltersProvider>
         </AppliancesProvider>
       </SnackbarProvider>

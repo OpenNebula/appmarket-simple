@@ -91,9 +91,6 @@ const styles = (theme) => {
       justifyContent: "flex-end",
       padding: `${scale[100]} !important`,
     }),
-    dialogContent: css({
-      padding: `18px !important`,
-    }),
     dialogIcon: css({
       padding: `${scale[150]} !important`,
       "& svg": {

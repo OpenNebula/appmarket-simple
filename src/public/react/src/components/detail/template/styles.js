@@ -13,46 +13,36 @@
  * See the License for the specific language governing permissions and       *
  * limitations under the License.                                            *
  * ------------------------------------------------------------------------- */
+import { css } from "@emotion/css"
+
+// Import not colors variables
+import { fontSize, lineHeight } from "@/theme/responsive"
+
+import { light } from "@/theme/colors/themes/light"
+import { dark } from "@/theme/colors/themes/dark"
+
 /**
- * Parse a JSON template to a OpenNebula template format.
+ * Define styles for the Card component.
  *
- * @param {object} template - JSON template
- * @returns {string} - OpenNebula template
+ * @param {object} theme - Current theme
+ * @returns {object} Styles for the component
  */
-const parseToOpenNebulaFormat = (template) => {
-  try {
-    // Get the json object
-    const data = JSON.parse(template)
+const styles = (theme) => {
+  const baseTokens = theme.palette.mode === "light" ? light : dark
 
-    // Two spaces used as tabulation
-    const indTab = "  "
-
-    // Iterate over all the objects in the JSON
-    return Object.entries(data)
-      .map(([key, value]) => {
-        // Case 1: Nested object
-        if (
-          typeof value === "object" &&
-          value !== null &&
-          !Array.isArray(value)
-        ) {
-          const innerLines = Object.entries(value)
-            .map(([innerKey, innerValue]) => {
-              return `${indTab}${innerKey}="${innerValue}"`
-            })
-            .join(",\n")
-
-          return `${key}=[\n${innerLines}\n ]`
-        }
-
-        // Case 2: Single object
-        return `${key}="${value}"`
-      })
-      .join("\n")
-  } catch (error) {
-    console.error("Error parsing OpenNebula JSON:", error)
-    return "Invalid template format"
+  return {
+    templateText: css({
+      color: baseTokens.text.body,
+      fontFamily: "Courier New",
+      fontSize: fontSize.body.caption.desktop,
+      fontStyle: "normal",
+      fontWeight: 700,
+      lineHeight: lineHeight.body.caption.desktop,
+      whiteSpace: "pre-wrap",
+      wordBreak: "break-all",
+      overflowWrap: "break-word",
+    }),
   }
 }
 
-export { parseToOpenNebulaFormat }
+export default styles
