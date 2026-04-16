@@ -1,3 +1,5 @@
 /src/data
 /src/public/react/node_modules
 /src/public/react/dist
+/src/vendor/*
+/src/.bundle
