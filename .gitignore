@@ -1,3 +1,7 @@
 /src/data
 /src/public/react/node_modules
 /src/public/react/dist
+
+# app2
+src/app2/app2/__pycache__/
+src/app2/tests/__pycache__/
