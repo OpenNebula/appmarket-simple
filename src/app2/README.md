@@ -10,6 +10,10 @@ manifests produced by [one-apps](https://github.com/OpenNebula/one-apps):
 - Upload images to the CloudFront-backed S3 bucket.
 - Patch fields across many appliance yamls.
 
+Handles both qcow2 disk images and `.iso` media (e.g. the `one-context`
+contextualization-packages CD-ROM). Matching keys on the image base name,
+architecture (qcow2 only; iso has none), and file extension.
+
 ## Install (development)
 
     pip install -e ./src/app2

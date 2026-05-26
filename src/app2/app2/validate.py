@@ -153,7 +153,7 @@ def _check_data(path: Path, data: dict) -> list[Issue]:
                     err("missing-field", f"{loc} missing checksum.{algo}")
 
         if is_os and url:
-            base, url_arch = _image_base_from_url(url)
+            base, url_arch, _ext = _image_base_from_url(url)
             name = str(img.get("name") or "").strip()
             if not name:
                 warn("image-name", f"{loc} missing name")

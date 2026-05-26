@@ -28,10 +28,10 @@ def _manifest(
     )
 
 
-def _ref(image_base="alma10", arch="x86_64", index=0, name="alma10") -> ImageRef:
+def _ref(image_base="alma10", arch="x86_64", index=0, name="alma10", ext=".qcow2") -> ImageRef:
     return ImageRef(
         yaml_path=Path("/tmp/x"), index=index, name=name,
-        url="", image_base=image_base, arch=arch,
+        url="", image_base=image_base, arch=arch, ext=ext,
     )
 
 
@@ -46,6 +46,11 @@ def test_new_image_filename_x86():
 def test_new_image_filename_aarch64():
     assert new_image_filename("alma10", "7.2.0-0-20260506", "aarch64") == \
         "alma10-7.2.0-0-20260506.aarch64.qcow2"
+
+
+def test_new_image_filename_iso():
+    assert new_image_filename("one-context", "7.2.1-0-20260526", None, ".iso") == \
+        "one-context-7.2.1-0-20260526.iso"
 
 
 def test_new_image_url_with_explicit_prefix():
@@ -162,3 +167,45 @@ images:
     apply(data, _ref(), _manifest(), _DIGEST, image_url_prefix=None)
     assert data["images"][0]["checksum"]["md5"] == "bbb"
     assert data["images"][0]["checksum"]["sha256"] == "aaa"
+
+
+def _iso_manifest(version="7.2.1-0-20260526", size=1384448) -> Manifest:
+    return Manifest(
+        name="OpenNebula Context", version=version, image="one-context.iso",
+        format="iso", creation_time=1779791509, os_id="", os_release="",
+        os_arch="", path=Path("/tmp/m"), image_path=Path("/tmp/i"),
+        size=size, file_size=size,
+    )
+
+
+def test_apply_iso_rewrites_url_keeps_format_and_type():
+    data = _yaml_load("""\
+version: 7.2.1-0-20260525
+creation_time: 1
+format: raw
+images:
+- name: one-context
+  url: https://d24fmfybwxpuhu.cloudfront.net/one-context-7.2.1-0-20260525.iso
+  type: CDROM
+  dev_prefix: hd
+  driver: raw
+  size: 1378304
+  checksum:
+    md5: old-md5
+    sha256: old-sha
+""")
+    digest = FileDigest(sha256="newsha", md5="newmd5", size=1384448)
+    ref = _ref(image_base="one-context", arch=None, name="one-context", ext=".iso")
+    apply(data, ref, _iso_manifest(), digest, image_url_prefix=None)
+
+    assert data["version"] == "7.2.1-0-20260526"
+    assert data["creation_time"] == 1779791509
+    assert data["format"] == "raw"  # appliance format is never touched
+    img = data["images"][0]
+    assert img["url"] == (
+        "https://d24fmfybwxpuhu.cloudfront.net/one-context-7.2.1-0-20260526.iso"
+    )
+    assert img["type"] == "CDROM"  # untouched
+    assert img["size"] == 1384448
+    assert img["checksum"]["md5"] == "newmd5"
+    assert img["checksum"]["sha256"] == "newsha"
