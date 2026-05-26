@@ -62,7 +62,6 @@ DEPENDENCIES
   sinatra
   sinatra-contrib
   systemu
-  thor
   webrick (~> 1.8)
 
 BUNDLED WITH
