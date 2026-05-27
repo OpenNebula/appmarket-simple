@@ -23,24 +23,27 @@ class OsIdMismatch(Exception):
     """Raised when manifest os-id disagrees with the yaml's os-id."""
 
 
-def new_image_filename(image_base: str, version: str, arch: str) -> str:
+def new_image_filename(
+    image_base: str, version: str, arch: str | None, ext: str = ".qcow2"
+) -> str:
     arch_suffix = ".aarch64" if arch == "aarch64" else ""
-    return f"{image_base}-{version}{arch_suffix}.qcow2"
+    return f"{image_base}-{version}{arch_suffix}{ext}"
 
 
 def new_image_url(
     existing_url: str,
     image_base: str,
     version: str,
-    arch: str,
+    arch: str | None,
     prefix: str | None,
+    ext: str = ".qcow2",
 ) -> str:
     """Compose the new image URL.
 
     If ``prefix`` is configured, use it. Otherwise reuse the existing URL's
     scheme/host/path-prefix and replace the basename.
     """
-    new_basename = new_image_filename(image_base, version, arch)
+    new_basename = new_image_filename(image_base, version, arch, ext)
 
     if prefix:
         if not prefix.endswith("/"):
@@ -78,6 +81,7 @@ def apply(
         version=m.version,
         arch=ref.arch,
         prefix=image_url_prefix,
+        ext=ref.ext,
     )
     if m.size:
         img["size"] = m.size

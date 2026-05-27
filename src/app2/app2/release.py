@@ -73,7 +73,8 @@ def release_one(
 
     typer.echo(f"\nmanifest:     {m.path}")
     typer.echo(f"  image:      {m.image}")
-    typer.echo(f"  os:         {m.os_id} {m.os_release} ({m.os_arch})")
+    if m.os_id or m.os_release or m.os_arch:
+        typer.echo(f"  os:         {m.os_id} {m.os_release} ({m.os_arch})")
     typer.echo(f"  version:    {m.version}")
 
     if config_mod.should_skip(m.image, cfg.skip_patterns):
@@ -118,7 +119,7 @@ def release_one(
     if cfg.s3_bucket:
         ref0 = refs[0]
         s3_filename = patch_mod.new_image_filename(
-            ref0.image_base, m.version, ref0.arch
+            ref0.image_base, m.version, ref0.arch, ref0.ext
         )
         s3_key = (cfg.s3_prefix or "") + s3_filename
         typer.echo(f"  s3:         s3://{cfg.s3_bucket}/{s3_key}")
