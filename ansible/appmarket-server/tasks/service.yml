@@ -27,6 +27,9 @@
         User=root
         Group=root
         WorkingDirectory={{ install_path }}/appmarket-simple/src/
+        {% if appliances_web_exclude is defined %}
+        Environment=APPLIANCES_WEB_EXCLUDE={{ appliances_web_exclude }}
+        {% endif %}
         ExecStart=/bin/bash -c 'exec bundler exec rackup -o 0.0.0.0'
 
         [Install]
