@@ -80,7 +80,7 @@ const TableFooter = ({
 
       <Stack direction="row" alignItems="center" sx={{ gap: "8px" }}>
         <Typography className={footerStyles.resultsText}>
-          Results per page
+          Max results per page
         </Typography>
         <Select
           value={rowsPerPage}
@@ -89,11 +89,15 @@ const TableFooter = ({
           IconComponent={CustomArrowIcon}
           className={footerStyles.sizePageText}
         >
-          {[5, 10, 25, 50].map((num) => (
-            <MenuItem key={num} value={num}>
-              {num}
-            </MenuItem>
-          ))}
+          {[5, 10, 25, 50].map((maxResults) => {
+            const pageSize = Math.max(4, Math.floor(maxResults / 4) * 4) // 4 columns
+
+            return (
+              <MenuItem key={maxResults} value={pageSize}>
+                {maxResults}
+              </MenuItem>
+            )
+          })}
         </Select>
       </Stack>
     </Stack>
