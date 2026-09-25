@@ -25,7 +25,7 @@ const Table = ({ appliances, view }) => {
 
   // Pagination state
   const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(50)
+  const [rowsPerPage, setRowsPerPage] = useState(48)
 
   // Paginate appliances
   const paginatedAppliances = appliances.slice(
